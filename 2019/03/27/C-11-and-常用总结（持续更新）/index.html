@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在看过了C++ Primer之后很长一段时间，对于C++的新特性的应用大为惊叹。毕竟语法经常不用总会遗忘，在学习玩新知识之后，这本书对于我来说，更像是一本字典。所以写一点小总结，后面会持续更新。  第一章 编程中如果单纯要递增，尽量使用++i  第二章 切勿混用带符号类型和无符号类型，如果表达式里都有，那么带符号类型取值为负时会出现异常结果，因为带符号数会自动转换成无符号数 初始化不是赋值，初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 11 and 常用总结（持续更新）">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/C-11-and-常用总结（持续更新）/index.html">
+<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:description" content="在看过了C++ Primer之后很长一段时间，对于C++的新特性的应用大为惊叹。毕竟语法经常不用总会遗忘，在学习玩新知识之后，这本书对于我来说，更像是一本字典。所以写一点小总结，后面会持续更新。  第一章 编程中如果单纯要递增，尽量使用++i  第二章 切勿混用带符号类型和无符号类型，如果表达式里都有，那么带符号类型取值为负时会出现异常结果，因为带符号数会自动转换成无符号数 初始化不是赋值，初始化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-27T04:01:24.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ 11 and 常用总结（持续更新）">
+<meta name="twitter:description" content="在看过了C++ Primer之后很长一段时间，对于C++的新特性的应用大为惊叹。毕竟语法经常不用总会遗忘，在学习玩新知识之后，这本书对于我来说，更像是一本字典。所以写一点小总结，后面会持续更新。  第一章 编程中如果单纯要递增，尽量使用++i  第二章 切勿混用带符号类型和无符号类型，如果表达式里都有，那么带符号类型取值为负时会出现异常结果，因为带符号数会自动转换成无符号数 初始化不是赋值，初始化">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/27/C-11-and-常用总结（持续更新）/">
+
+
+
+
+
+  <title>C++ 11 and 常用总结（持续更新） | Rensong Wang</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rensong Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Autosong</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/C-11-and-常用总结（持续更新）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王仁松">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/autosong.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rensong Wang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ 11 and 常用总结（持续更新）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T11:06:00+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-基础/" itemprop="url" rel="index">
+                    <span itemprop="name">C++ 基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在看过了C++ Primer之后很长一段时间，对于C++的新特性的应用大为惊叹。毕竟语法经常不用总会遗忘，在学习玩新知识之后，这本书对于我来说，更像是一本字典。所以写一点小总结，后面会持续更新。</p>
+<hr>
+<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><ul>
+<li>编程中如果单纯要递增，尽量使用++i</li>
+</ul>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><ul>
+<li>切勿混用带符号类型和无符号类型，如果表达式里都有，那么带符号类型取值为负时会出现异常结果，因为带符号数会自动转换成无符号数</li>
+<li>初始化不是赋值，初始化时创建变量是赋予一个初始值，而赋值时将对象当前值擦除，用一个新值代替</li>
+<li>变量能且只能被定义一次，但是可以被多次声明（建议，当你第一次使用变量的时候再定义它）</li>
+<li><strong>引用不是一个对象，相当于一个别名，这个别名不能又变成另外一个人的，所以定义的时候必须初始化，应用只能绑定在对象上</strong></li>
+<li>指针存放某个对象的地址，获取地址，用取地址符&amp;，对应的，解引用*，就是那个对象</li>
+<li><strong>面对一条复杂的指针或引用声明语句时，从右向左读</strong></li>
+<li><strong>const，常量，就是不能改变，所以引用要是常量引用，指针要是指向常量的指针，而常量指针呢就是这个指针本身就是一个常量，所以常量指针必须初始化，即只能指向一个对象</strong></li>
+<li>还有就是顶层const就是说本身就是常量，底层const说的是指向的对象是const</li>
+<li><strong>auto这个东西很好用，类型是通过右值推出来的</strong></li>
+</ul>
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><ul>
+<li><strong>范围for循环语句，挺方便的</strong></li>
+<li>先介绍的string，然后是vector，vector实际上就是一个容器。是对象的集合，所有对象的类型都相同，且不像数组一样要固定大小，能高效增长，往里面添加元素是punsh_back（），不能以下标形式添加元素，因为这样很容易访问未定义行为</li>
+<li>迭代器，很好用，直接举例吧<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto b = v.begin(), e = v.end();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>要注意的是end返回的迭代器并不实际指示某个元素，所以不能对其递增和解引用，因为它是尾后指针</p>
+<ul>
+<li><strong>但凡是使用的迭代器的循环体，都不要向迭代器所属的容器添加元素，因为会是迭代器失效，我在实际编程中经常犯这种错误</strong></li>
+<li>不能在范围for循环中向vector添加元素</li>
+<li>其实指针也是一种迭代器</li>
+<li>数组也可以用<strong>标准库函数</strong>begin和end，例子：int *b = begin（数组）或者是end（数组）</li>
+<li>建议：尽量使用vector和迭代器，避免使用内置数组和指针，尽量使用string</li>
+</ul>
+<h2 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h2><ul>
+<li>第四章讲的是运算符的一些东西，讲的比较基础，其中要注意的是优先级顺序对求值顺序的影响，其中拿不准的就用括号，然后就是注意<strong>在表达式中改变了某个运算对象的值，表达式其他地方就不要再用这个运算对象</strong></li>
+<li>布尔值不应该参与运算</li>
+<li>溢出：当计算的结果超出该类型所能表示的范围时就会产生溢出</li>
+<li><strong>取余：除了特殊情况，m%（-n）等于m%n</strong></li>
+<li>关系运算符比较运算对象的大小并返回布尔值</li>
+<li>赋值运算符满足有结合律</li>
+<li><strong>强调，无特殊需要，尽量使用前置版本的递增递减运算符</strong></li>
+<li>位运算符作用于整数类型的运算对象，并把运算对象看成是二进制位的集合。提供检查和设置二进制位的功能，强烈建议位运算符作用于无符号<br>类型</li>
+<li><strong>注意隐式类型转换</strong></li>
+<li><strong>尽量避免显示类型转换，有static_cast（不包含底层const都可以用）、const_cast（只用于改变const属性）、reinterpret_cast（为运算对象的位模式提供低层次的重新解释）、dynamic_cast</strong></li>
+</ul>
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><ul>
+<li>第五章主要讲的是语句，要注意语句作用域（if else容易出错，所以尽量加花括号）</li>
+<li>条件语句就是if 和switch，switch要注意每个case语句后面不要忘了break，不然会依次执行后面的所有的case语句，除非遇到break</li>
+<li>迭代语句就是while循环和for循环，还有一个do-while（后面不要忘加分号；）</li>
+<li>break语句就是终止离它最近的while、do while、for或switch语句</li>
+<li><strong>continue就是终止最近的循环中的当前迭代立即开始下一次的迭代</strong><font color="red">在实际编程中很容易不熟练而犯错</font></li>
+<li>最后就是try语句块和异常处理（多练即可）</li>
+</ul>
+<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><ul>
+<li>尽量使用常量引用</li>
+<li>标准库begin和end（不是迭代器）</li>
+<li>main 处理命令行选项（P197）</li>
+<li>含有可变形参的函数（P197），initializer_list对象中永远是常量对象，用的时候直接花括号</li>
+<li>不要返回局部对象的引用或指针</li>
+<li>使用位置返回类型：auto func（int i） -&gt; int （*）[10]；</li>
+<li>重载函数P206</li>
+<li>函数匹配，最佳匹配，最佳匹配都不行，二义性</li>
+<li>最后，函数指针：vector&lt;int(*)(int, int)&gt; vec;<strong>函数指针要多看且多实际运用，现阶段用的不多</strong></li>
+</ul>
+<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><ul>
+<li>首先类基本是的都知道，主要是一些以前没学过的东西</li>
+<li>其实成员函数通过一个名为this的额外的隐式参数来访问调用它的那个对象</li>
+<li>常量成员函数（就是在参数列表后面加上const），表示this是一个指向常量的的指针，也就是说常量成员函数不能改变调用它的对象的值<br>（有一个例外，就是可变数据成员）</li>
+<li>return *this就是返回调用该函数的对象</li>
+<li>= default ： 要求编译器生成默认构造函数</li>
+<li>class 和 struct的唯一区别是struct定义在第一个访问说明符之前的成员都是public，而class是private</li>
+<li>可变数据成员：mutable</li>
+<li>名字查找：P254</li>
+<li>P258建议：使用构造函数初始值</li>
+<li><strong>成员初始化的顺序是声明的顺序</strong></li>
+<li>隐式类类型转换P264：能通过（一个实参调用）的构造函数定义了一条从构造函数的参数类型向类类型隐式转换的规则，如果不想隐式转换，就在构造函数（只有一个实参）前面加上关键字explicit，且explicit构造函数只能用于直接初始化</li>
+<li>类的静态成员：类的一些成员直接与类本身相关，而不是与类的各个对象保持关联，就是说与类关联在一起，就像一个集体有一个集体属性，而不是而不是每个对象P271：静态成员的优势</li>
+</ul>
+<h2 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h2><ul>
+<li>第八章呢就是具体C++的IO库，也就是输入输出流，像我们一般写程序，都要加的iostream头文件，主要用的是cin，cout之类的，然后我们要使用文件操作的话，那么就是包括fstream头文件，还有就是string流sstream</li>
+<li>刷新输出缓冲区，有endl（输出内容和一个换行，然后刷新缓冲区）、flush（输出内容，然后刷新缓冲区）和ends（输出内容和一个空字符，然后刷新缓冲区）</li>
+<li><strong>值得注意的是，如果程序崩溃，输出缓冲区不会被刷新，所以要注意输出缓冲区的刷新</strong></li>
+<li>使用文件的话，一般就是创建一个文件流对象，并将这个对象和文件关联起来，通过文件流对象实现对文件的操作</li>
+<li>文件流有输入文件流（ifstream）和输出文件流（ofstream），输入呢，不是说表面上认为向这个文件进行输入，这里很容易混淆，在计算机- 输入输出具体的主管对象是具体的设备。所以这里的输入文件流指的是从文件中向具体设备进行输入，输出呢，就是向文件进行输出，也就是写文件，便于记忆，输入文件流就是读文件，输出文件流就是写文件</li>
+<li>在创建文件流的时候，如果提供了文件名，则open自动被调用</li>
+<li><strong>默认情况下，以out文件模式打开文件会丢弃已有数据，就是说文件的内容会被丢弃（所以用app）</strong></li>
+</ul>
+<h2 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h2><ul>
+<li>第九章讲的是顺序容器，在前面已经接触过容器了比如string和vector，特别好用，当然顺序容器还有很多，有双端队列deque</li>
+<li>deque：双端队列。支持快速访问。在头尾位置插入/删除速度很快</li>
+<li>list：双向链表。只支持双向顺序访问</li>
+<li>forword_list：单项链表。只支持单向顺序访问</li>
+<li>array：固定大小数组</li>
+<li>通常用vector是最好的选择，除非有其他的更好的理由</li>
+<li>对于容器的操作以及一些容器的特定操作和限制P295及后面</li>
+<li><strong>Insert函数将元素插入到迭代器所指定的位置之前，返回指向新元素的迭代器</strong></li>
+<li><strong>erase函数删除迭代器所指位置，返回指向下一个元素的迭代器</strong></li>
+<li><font color="red">容器操作可能使迭代器失效，所以保证重新定位好迭代器</font></li>
+<li><strong>vector对象是如何增长的：当不得不获取新的内存空间时，vector和string的实现通常会分配比新的空间需求更大的内存空间。这里注意不得不P319</strong></li>
+<li>修改string的操作：P323</li>
+<li>容器适配器：stack、queue和priority_queue P329 栈是在其他的顺序容器上建立，不难理解，因为栈本身就是一种操作受限制的顺<br>序表</li>
+</ul>
+<p><center><font size="12">未完待续</font></center><br><a id="more"></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/autosong.jpg" alt="王仁松">
+            
+              <p class="site-author-name" itemprop="name">王仁松</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章"><span class="nav-number">2.</span> <span class="nav-text">第二章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章"><span class="nav-number">3.</span> <span class="nav-text">第三章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章"><span class="nav-number">4.</span> <span class="nav-text">第四章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章"><span class="nav-number">5.</span> <span class="nav-text">第五章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章"><span class="nav-number">6.</span> <span class="nav-text">第六章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章"><span class="nav-number">7.</span> <span class="nav-text">第七章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八章"><span class="nav-number">8.</span> <span class="nav-text">第八章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章"><span class="nav-number">9.</span> <span class="nav-text">第九章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王仁松</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
