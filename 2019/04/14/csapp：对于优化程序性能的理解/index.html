@@ -88,7 +88,7 @@
 <meta property="og:description" content="r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/xyz.PNG">
-<meta property="og:updated_time" content="2019-04-14T15:03:29.550Z">
+<meta property="og:updated_time" content="2019-04-14T15:21:25.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高">
 <meta name="twitter:description" content="r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。">
@@ -370,7 +370,7 @@
 <h3 id="循环展开"><a href="#循环展开" class="headerlink" title="循环展开"></a>循环展开</h3><p>首先我们从浅到深，先讲讲循环展开，我们知道，一个程序的时间性能好坏主要看循环反复执行的代码的效率高不高，而循环展开就是想通过增加每次迭代计算的元素的数量，从而减少循环的迭代次数，达到优化程序性能的效果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = 0; i &lt; <span class="built_in">limit</span>; i += 2)</span><br><span class="line">&#123;</span><br><span class="line">	acc = (acc OP data[i]) OP data[i + 1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上述代码（2×1循环展开）每次循环处理数组的两个元素。也就是每次迭代，循环索引i加2，在一次迭代中，对数组元素i和i+1使用合并运算。</p>
 <h3 id="提高并行性"><a href="#提高并行性" class="headerlink" title="提高并行性"></a>提高并行性</h3><p>这个时候可能你会想到，既然可以循环展开，那么我可不可以利用指令级并行，将我要完成的目标分解成两个或更多的部分来同时进行？最后只需把结果合并就是了。<br>因此k×k循环展开就是<strong>将循环展开k次，以及并行累计k个值</strong>。于是我们的程序就有多条关键路径，每条路径需要执行的操作数量更少了，但是我们的所有关键路径都是用时进行的，也就是说，我们利用了并行，使得效率更高了。</p>
-<h3 id="重新结合变换"><a href="#重新结合变换" class="headerlink" title="重新结合变换"></a>重新结合变换</h3><p>回到开头，为什么r = r * (x * (y * z))和r = r * x * y * z的执行效率不一样呢。<br>通过我们对关键路径以及一条指令可分成多个操作的理解，不难想象，如果我们没有重新结合变换（r = r * (x * (y * z))），即是从左到右顺序操作，先是r*x，然后再是（r * x） * y，最后是（（r * x） * y） * z。有没有发现每次都是我前一个操作执行完了，我后一个操作才能执行，也就是说后一个操作必须等前一个操作计算完了才能执行，这样我的关键路径在每一次迭代的时候就必须包含3个操作（不是底层意义上的操作），现在我就想减少每一次迭代的关键路径上的操作数量，也就是说我后面的某些操作不需要前提条件就能执行，更通俗得讲，我不想等水烧开了我再去把面找出来。<br>于是，<br>r = r * (x * (y * z))：</p>
+<h3 id="重新结合变换"><a href="#重新结合变换" class="headerlink" title="重新结合变换"></a>重新结合变换</h3><p>回到开头，为什么r = r * (x * (y * z))和r = r * x * y * z的执行效率不一样呢。<br>通过我们对关键路径以及一条指令可分成多个操作的理解，不难想象，如果我们没有重新结合变换（r = r * (x * (y * z))），即是从左到右顺序操作，先是r*x，然后再是（r * x） * y，最后是（（r * x） * y） * z。有没有发现每次都是我前一个操作执行完了，我后一个操作才能执行，也就是说后一个操作必须等前一个操作计算完了才能执行，这样我的关键路径在每一次迭代的时候就必须包含3个操作（不是底层意义上的操作），现在我就想减少每一次迭代的关键路径上的操作数量，也就是说我后面的某些操作不需要前提条件就能执行，更通俗得讲，我不想等水烧开了我再去把面找出来。<br>于是，<br>r = r * ((x * y) * z)：</p>
 <p><img src="/images/xyz.PNG" align="left"><br><br><br><br><br><br><br><br><br><br><br><br>    </p>
 <h3 id="性能提高技术"><a href="#性能提高技术" class="headerlink" title="性能提高技术"></a>性能提高技术</h3><p>在这里总结一下优化程序性能的策略：</p>
 <ol>
