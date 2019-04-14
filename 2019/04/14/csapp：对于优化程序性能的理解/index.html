@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="深入理解计算机系统,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Rensong Wang">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。">
+<meta name="keywords" content="深入理解计算机系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高">
+<meta property="og:url" content="http://yoursite.com/2019/04/14/csapp：对于优化程序性能的理解/index.html">
 <meta property="og:site_name" content="Rensong Wang">
+<meta property="og:description" content="r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/xyz.PNG">
+<meta property="og:updated_time" content="2019-04-14T15:03:29.550Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rensong Wang">
+<meta name="twitter:title" content="为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高">
+<meta name="twitter:description" content="r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。">
+<meta name="twitter:image" content="http://yoursite.com/images/xyz.PNG">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/14/csapp：对于优化程序性能的理解/">
 
 
 
 
 
-  <title>Rensong Wang</title>
+  <title>为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高 | Rensong Wang</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,9 +250,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -276,9 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/csapp：对于优化程序性能的理解/" itemprop="url">为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高</a></h1>
+          <h1 class="post-title" itemprop="name headline">为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高</h1>
         
 
         <div class="post-meta">
@@ -350,163 +354,41 @@
       
 
       
-        
-          <p>r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。<br>这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/14/csapp：对于优化程序性能的理解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/csapp：程序的机器级表示/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/autosong.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/03/csapp：程序的机器级表示/" itemprop="url">CSAPP：程序的机器级表示</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T09:18:35+08:00">
-                2019-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSAPP/" itemprop="url" rel="index">
-                    <span itemprop="name">CSAPP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。</p>
+        <p>r = r * (x * (y * z))和r = r * x * y * z可能看上去本质上是一样的，但是当我们测量CPE的时候，前者要比后者的执行效率更高。<br>这是为什么呢。这就要说到怎么通过计算机底层的实现机制来进行程序性能的优化了。</p>
+<a id="more"></a>
+<h3 id="理解现代处理器"><a href="#理解现代处理器" class="headerlink" title="理解现代处理器"></a>理解现代处理器</h3><p>在此，我们不说现代微处理器的细节。我们要优化程序性能，只需了解处理器设计的两个主要部分：</p>
+<ol>
+<li>指令控制单元（ICU）</li>
+<li>执行单元（EU）<br>首先我们应该清楚现代处理器处理指令时<strong>指令级并行</strong>的，也就是说可以同时执行多条指令。<br>那具体怎么实现的呢？</li>
+</ol>
+<p>ICU是指取指，然后将其转换成一个或多个操作<br>EU则是具体去执行ICU传过来的操作</p>
+<p>也就是说，ICU就相当于是一个接收指令的长官，长官负责读指令，把它分解成一个或多个任务交给士兵去完成。<br>而EU就是一系列的执行不同操作的士兵的集合。</p>
+<p><strong>理解ICU和EU的协作很重要</strong>，往往ICU是在当前执行指令很早之前就取值，所以指令级并行对于拥有数量庞大的士兵的军队来说不是什么难事，因为指令都被分解成操作了，而操作是分别给不同的士兵来完成的，于是多条指令在底层是可以同时运行的。</p>
 <hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/03/csapp：程序的机器级表示/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>了解了底层的运作机制，我们就可以探讨如何进行程序的优化了</p>
+<h3 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h3><p>一个程序的执行过程必然有一条关键路径，即在循环的反复过程中所形成的数据相关链。</p>
+<h3 id="循环展开"><a href="#循环展开" class="headerlink" title="循环展开"></a>循环展开</h3><p>首先我们从浅到深，先讲讲循环展开，我们知道，一个程序的时间性能好坏主要看循环反复执行的代码的效率高不高，而循环展开就是想通过增加每次迭代计算的元素的数量，从而减少循环的迭代次数，达到优化程序性能的效果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = 0; i &lt; <span class="built_in">limit</span>; i += 2)</span><br><span class="line">&#123;</span><br><span class="line">	acc = (acc OP data[i]) OP data[i + 1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码（2×1循环展开）每次循环处理数组的两个元素。也就是每次迭代，循环索引i加2，在一次迭代中，对数组元素i和i+1使用合并运算。</p>
+<h3 id="提高并行性"><a href="#提高并行性" class="headerlink" title="提高并行性"></a>提高并行性</h3><p>这个时候可能你会想到，既然可以循环展开，那么我可不可以利用指令级并行，将我要完成的目标分解成两个或更多的部分来同时进行？最后只需把结果合并就是了。<br>因此k×k循环展开就是<strong>将循环展开k次，以及并行累计k个值</strong>。于是我们的程序就有多条关键路径，每条路径需要执行的操作数量更少了，但是我们的所有关键路径都是用时进行的，也就是说，我们利用了并行，使得效率更高了。</p>
+<h3 id="重新结合变换"><a href="#重新结合变换" class="headerlink" title="重新结合变换"></a>重新结合变换</h3><p>回到开头，为什么r = r * (x * (y * z))和r = r * x * y * z的执行效率不一样呢。<br>通过我们对关键路径以及一条指令可分成多个操作的理解，不难想象，如果我们没有重新结合变换（r = r * (x * (y * z))），即是从左到右顺序操作，先是r*x，然后再是（r * x） * y，最后是（（r * x） * y） * z。有没有发现每次都是我前一个操作执行完了，我后一个操作才能执行，也就是说后一个操作必须等前一个操作计算完了才能执行，这样我的关键路径在每一次迭代的时候就必须包含3个操作（不是底层意义上的操作），现在我就想减少每一次迭代的关键路径上的操作数量，也就是说我后面的某些操作不需要前提条件就能执行，更通俗得讲，我不想等水烧开了我再去把面找出来。<br>于是，<br>r = r * (x * (y * z))：</p>
+<p><img src="/images/xyz.PNG" align="left"><br><br><br><br><br><br><br><br><br><br><br><br>    </p>
+<h3 id="性能提高技术"><a href="#性能提高技术" class="headerlink" title="性能提高技术"></a>性能提高技术</h3><p>在这里总结一下优化程序性能的策略：</p>
+<ol>
+<li><strong>高级设计</strong>。为遇到的问题选择适当的算法和数据结构。要特别警觉，避免使用那些会<font color="red">渐进</font>产生糟糕性能的算法或编码技术。</li>
+<li><strong>基本编码原则</strong>。避免限制优化的因素</li>
+</ol>
+<ul>
+<li>消除连续的函数调用。在可能时，将计算移到循环外。考虑有选择地妥协程序的模块性以获得更大的效率。</li>
+<li>消除不必要的内存引用。引入临时变量来保存中间结果。只有在最后的值计算出来时，才将结果存放在数组或全局变量中。</li>
+</ul>
+<ol start="3">
+<li><strong>低级优化</strong>。</li>
+</ol>
+<ul>
+<li>展开循环，降低开销，并且使得进一步的优化成为可能。</li>
+<li>通过使用例如多个累积变量和重新结合等技术，找到方法提高指令级并行。<br>用功能性的风格写条件操作，使得编译采用<font color="red">条件数据传送</font>。</li>
+</ul>
+
       
     </div>
     
@@ -521,307 +403,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/csapp：信息的表示和处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/autosong.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/28/csapp：信息的表示和处理/" itemprop="url">CSAPP：信息的表示和处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T16:18:07+08:00">
-                2019-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSAPP/" itemprop="url" rel="index">
-                    <span itemprop="name">CSAPP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/深入理解计算机系统/" rel="tag"><i class="fa fa-tag"></i> 深入理解计算机系统</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>首先，看了第一章有个大概的认识，再对第二章做一个总结。<br>这本书确实很牛逼，能够让你对于计算机底层怎么实现的，有个具体的深入的认识和了解。<br>第一章就跟标题写的一模一样，先带你在计算机的世界里漫游，告诉你具体在哪几章涉及什么知识。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/csapp：信息的表示和处理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/csapp：程序的机器级表示/" rel="next" title="CSAPP：程序的机器级表示">
+                <i class="fa fa-chevron-left"></i> CSAPP：程序的机器级表示
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/C-11-and-常用总结（持续更新）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/autosong.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/27/C-11-and-常用总结（持续更新）/" itemprop="url">C++ Primer and 常用总结（持续更新）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T11:06:00+08:00">
-                2019-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-基础/" itemprop="url" rel="index">
-                    <span itemprop="name">C++ 基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>在看过了C++ Primer之后很长一段时间，对于C++的新特性的应用大为惊叹。毕竟语法经常不用总会遗忘，在学习玩新知识之后，这本书对于我来说，更像是一本字典。所以写一点小总结，后面会持续更新。</p>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/27/C-11-and-常用总结（持续更新）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -831,10 +442,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -842,6 +454,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -862,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -925,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解现代处理器"><span class="nav-number">1.</span> <span class="nav-text">理解现代处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键路径"><span class="nav-number">2.</span> <span class="nav-text">关键路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环展开"><span class="nav-number">3.</span> <span class="nav-text">循环展开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提高并行性"><span class="nav-number">4.</span> <span class="nav-text">提高并行性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新结合变换"><span class="nav-number">5.</span> <span class="nav-text">重新结合变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能提高技术"><span class="nav-number">6.</span> <span class="nav-text">性能提高技术</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1065,6 +706,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
