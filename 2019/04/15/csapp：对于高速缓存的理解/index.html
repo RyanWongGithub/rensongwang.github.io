@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta name="description" content="我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上课我就从我的小书包里取出我">
 <meta name="keywords" content="深入理解计算机系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP：程序的机器级表示">
-<meta property="og:url" content="http://yoursite.com/2019/04/03/csapp：程序的机器级表示/index.html">
+<meta property="og:title" content="为什么需要高速缓存">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/csapp：对于高速缓存的理解/index.html">
 <meta property="og:site_name" content="Rensong Wang">
-<meta property="og:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta property="og:description" content="我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上课我就从我的小书包里取出我">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-03T09:03:24.797Z">
+<meta property="og:image" content="http://yoursite.com/images/高速缓存地址.PNG">
+<meta property="og:updated_time" content="2019-04-15T14:58:10.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSAPP：程序的机器级表示">
-<meta name="twitter:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta name="twitter:title" content="为什么需要高速缓存">
+<meta name="twitter:description" content="我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上课我就从我的小书包里取出我">
+<meta name="twitter:image" content="http://yoursite.com/images/高速缓存地址.PNG">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/03/csapp：程序的机器级表示/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/15/csapp：对于高速缓存的理解/">
 
 
 
 
 
-  <title>CSAPP：程序的机器级表示 | Rensong Wang</title>
+  <title>为什么需要高速缓存 | Rensong Wang</title>
   
 
 
@@ -263,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/csapp：程序的机器级表示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/csapp：对于高速缓存的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
@@ -280,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSAPP：程序的机器级表示</h1>
+          <h1 class="post-title" itemprop="name headline">为什么需要高速缓存</h1>
         
 
         <div class="post-meta">
@@ -292,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T09:18:35+08:00">
-                2019-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T21:22:33+08:00">
+                2019-04-15
               </time>
             
 
@@ -352,71 +354,22 @@
       
 
       
-        <p>当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。</p>
-<hr>
+        <p>我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上课我就从我的小书包里取出我需要的数据进行操作就OK了。</p>
 <a id="more"></a>
-<p>首先，我们应该要清楚，计算机在底层实际上处理不了人类的高级语言，只能将我们的程序一步一步的变成二进制指令，也就是字节序列。</p>
-<h3 id="机器级代码"><a href="#机器级代码" class="headerlink" title="机器级代码"></a>机器级代码</h3><p>前面讲到过，计算机系统使用了多种不同形式的抽象，利用抽象模型来简化细节。对于机器级编程，两种抽象。</p>
+<h3 id="为什么需要高速缓存"><a href="#为什么需要高速缓存" class="headerlink" title="为什么需要高速缓存"></a>为什么需要高速缓存</h3><p>所以高速缓存SRAM介于寄存器与内存之间，就是因为处理器发展到现在，速度越来越快，而现代计算频繁地使用基于SRAM的高速缓存，就是为了弥补处理器与内存之间的差距，而这种方法行之有效就是因为接下来要讲的应用程序的一个称为<font color="red"><strong>局部性</strong></font> 的基本属性。</p>
+<h3 id="什么是局部性"><a href="#什么是局部性" class="headerlink" title="什么是局部性"></a>什么是局部性</h3><p>局部性是什么呢？<br>之前在优化程序性能讲过，在循环里面尽量用局部变量累计值，或者是将函数调用移出循环外，用一个临时量代替，原因是访问一个局部变量要比从内存中（加载，取值，存储）或是过程调用要快得多（<font color="red">消除了每次循环迭代中从内存中读出并将更新值写回的需要，将每次迭代的内存操作从两次读和一次写减少到只需一次读</font>）。<strong>时间局部性</strong>指的就是在这个过程中我反复要访问这个变量，那么这个变量就具有很好的时间局部性。<br><strong>空间局部性</strong>指的是访问一个变量后，后面要访问到这个变量附近的数据。<br>举个例子，对一个数组求和：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int sum = 0;</span><br><span class="line"><span class="keyword">for</span>(int i = 0; i &lt; n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	sum += sum + a[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，sum在每次迭代中都要访问到，有好的时间局部性。而a[i]是数组的某一个元素，访问一次后，再也不访问，因此时间局部性很差，但是之后会访问到后面的元素，数组是顺序存储，因此有好的空间局部性。</p>
+<h4 id="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"><a href="#那么高速缓存到底是怎样给上述例子提供强有力的支持呢" class="headerlink" title="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"></a><strong>那么高速缓存到底是怎样给上述例子提供强有力的支持呢</strong></h4><h3 id="高速缓存的底层实现"><a href="#高速缓存的底层实现" class="headerlink" title="高速缓存的底层实现"></a>高速缓存的底层实现</h3><p>假设内存有M=2^m大的地址空间（实际上并不需要是2的幂），地址如下表示：<br><img src="/images/高速缓存地址.PNG" align="left"><br><br><br><br><br><br><br>高速缓存在中间去s位作组号(S=2^s个组)，取h位作标记位（H=2^h），b位作块大小（B=2^b）。<br>这样做，虽然高速缓存并没有内存大，但是内存的每一个地址都能缓存到SRAM上，注意，一个地址对应这个地址上一个字节（字节序列角度），高速缓存可不会缓存你一个地址上的一个字节（太小了，一滴水救火？），如果组好确定，那你后面B=2^b个地址是不是都在我一个组？那我高速缓存一个组直接就存B个字节大小的块。打个比方，int a[4]数组，在内存里连续存储16个字节，假如我取b=2，那么我B=2^4=16个字节，那么整个数组就缓存到了高速缓存中，这个时候我如果访问a的第一个元素，如果不在缓存中（不命中），那么我就会从内存取对应的16个字节到高速缓存中，这个时候结合上面的例子去思考<strong>空间局部性</strong>，是不是有种豁然开朗的感觉。</p>
+<h3 id="直接映射高速缓存和组相联高速缓存"><a href="#直接映射高速缓存和组相联高速缓存" class="headerlink" title="直接映射高速缓存和组相联高速缓存"></a>直接映射高速缓存和组相联高速缓存</h3><p>在这里简单讲一下直接映射高速缓存和组相联高速缓存，直接映射高速缓存就是一个组里面只有一行。相联高速缓存呢，一个组有k行就是k路组相联高速缓存。全相联高速缓存就是只有一个组。</p>
+<p><font color="blue">那么现在，CPU要访问某个数据，对应的要先在高速缓存里找有没有，那么就根据分析物理地址找到组，行，匹配标记位，看有效位，最后根据块偏移找到块中对应数据</font>。</p>
+<h3 id="为什么用中间的位来做索引"><a href="#为什么用中间的位来做索引" class="headerlink" title="为什么用中间的位来做索引"></a>为什么用中间的位来做索引</h3><p>为了使高速缓存有一个好的使用效率</p>
+<h3 id="有关写的问题"><a href="#有关写的问题" class="headerlink" title="有关写的问题"></a>有关写的问题</h3><p>如果我们要写一个以及缓存了的字w，在高速缓存里更新了w的副本之后，怎么更新存储器层次结构的低一层呢？<br>有两种方法：<br>第一种是<strong>直写</strong>，就是立即将w的高速缓存块写回到低一层中。缺点就是每次写都会引起总线流量。<br>第二种是<strong>写回</strong>，就是说我在高速缓存中更新了副本之后我不马上写回到低一层中，如果我还有访问更新值呢？所以知道我这个w被挤出高速缓存，我再写回到低一层。</p>
+<h3 id="编写高速缓存友好的代码"><a href="#编写高速缓存友好的代码" class="headerlink" title="编写高速缓存友好的代码"></a>编写高速缓存友好的代码</h3><p>我们熟悉局部性之后，就不难理解怎么样才能让程序尽可能运行得快了。</p>
 <ol>
-<li><strong>指令集体系架构（ISA）</strong>来定义机器级程序的格式和行为。</li>
-<li>机器级程序使用的内存地址是虚拟地址，提供的内存模型看上去是一个非常大的字节数组。后面会讲到，存储器系统的实际实现是将多个硬件存储器和操作系统软件组合起来。操作系统负责管理虚拟地址空间，将虚拟地址翻译成实际处理器内存中的物理地址。</li>
+<li>让最常见得情况运行得快</li>
+<li>尽量减少每个循环内部得缓存不命中数量</li>
 </ol>
-<h3 id="关于格式的注解"><a href="#关于格式的注解" class="headerlink" title="关于格式的注解"></a>关于格式的注解</h3><p>所有以‘.’开头的都是指导汇编器和链接器工作的指令</p>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>Intel用术语“字（word）”表示16位数据类型。32位称为“双字”。64位：四字。</p>
-<ul>
-<li>P121的操作数格式表很重要。根据描述，我们要搞清楚的是，如果是单纯的寄存器%rax作为操作数的话，要操作的是里面的值。而<strong>内存引用比如（%rax）则是根据寄存器的值（这个值是一个地址）访问某个内存位置</strong>因为将内存看成一个很大的字节数组，我们用Mb[Addr]表示<font color="red">对存储在内存中从Addr开始的b个字节值的引用。</font></li>
-<li>传送指令的两个操作数不能都是内存地址</li>
-<li>P123 MOVZ:零扩展数据传送，MOVS：符号扩展</li>
-<li>C语言中所谓的“指针”其实就是地址。间接引用指针就是将指针放到一个寄存器中，然后再内存引用这个寄存器。</li>
-<li>局部变量通常是保存在寄存器中，因为访问寄存器比访问内存要快得多。</li>
-<li><strong>当执行强制类型转换既涉及到大小变化又涉及到符号变化时，操作应该先改变大小</strong></li>
-</ul>
-<h4 id="压入和弹出程序栈"><a href="#压入和弹出程序栈" class="headerlink" title="压入和弹出程序栈"></a>压入和弹出程序栈</h4><p>程序栈是很重要的，在x86-64中，程序栈存放在内存中某个区域。<font color="red"><strong>栈是向下增长</strong></font>，也就是说栈顶元素的地址是所有栈中元素地址中最低的。<font color="red">栈指针%rsp保存着栈顶元素的地址</font><br>具体：P127</p>
-<ul>
-<li>加载有效地址指令leaq实际上是movq的变形，从内存读数据到寄存器，但实际上根本就没有引用内存。第一个操作数看上去是一个内存引用，但该指令并不是从指定的位置读入数据，而是将有效地址写入到目的操作数。P129</li>
-<li>移位操作P131</li>
-<li>x86-64指令集对128位数的操作提供有限的支持P133</li>
-</ul>
-<h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><h4 id="跳转指令是如何编码的"><a href="#跳转指令是如何编码的" class="headerlink" title="跳转指令是如何编码的"></a>跳转指令是如何编码的</h4><font color="red">跳转指令有不同的编码，最常用的是PC相对的，还有一种就是给出绝对地址。实际上，大多用的都是PC相对的，跳转指令后面跟的并不是要跳转的目的地址，也就是说不是绝对的地址，而是将目标指令的地址与紧跟在跳转指令后面的那条指令的地址之间的差作为编码</font>
-
-<ul>
-<li>用条件控制来实现条件分支P143</li>
-<li>用条件传送来实现条件分支P145</li>
-<li>循环P149</li>
-</ul>
-<h4 id="switch语句是怎么实现的"><a href="#switch语句是怎么实现的" class="headerlink" title="switch语句是怎么实现的"></a>switch语句是怎么实现的</h4><p><strong>通过跳转表来实现，跳转表是一个数组，表项i是一个代码段的地址，这个代码段实现当开关索引值等于i是程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标</strong>。P161</p>
-<h3 id="运行时栈"><a href="#运行时栈" class="headerlink" title="运行时栈"></a>运行时栈</h3><p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。<br>假设过程P调用过程Q，Q执行后返回到P。这些动作包括：</p>
-<ol>
-<li>传递参数</li>
-<li>传递数据</li>
-<li>分配和释放内存</li>
-</ol>
-<p>C语言过程调用机制的一个关键特性在于使用了栈数据结构提供的后进先出的内存管理原则。P164<br>很重要的一点就是通过栈可以保存<strong>运行信息</strong>，也就是说如果我要中途调用另一个过程，我先把我要运行的下一条指令（也就是执行跳转指令后的一条指令）给push到栈中。在返回时，再pop。这是很关键的处理调用的一个体现。</p>
-<ul>
-<li>当然除了压入返回地址，还有局部变量，被保存的寄存器和参数构造区。</li>
-<li>前面讲到过，x86-64的栈向低地址增长，所以将栈指针减小到一个适当的量可以为没有指定初始值的数据在栈上分配空间，增加栈指针释放空间</li>
-<li>当x86-64过程中需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间。这个部分叫<font color="red">栈帧</font>。P165</li>
-</ul>
-<h4 id="数据传送"><a href="#数据传送" class="headerlink" title="数据传送"></a>数据传送</h4><p>调用一个过程，还可能包括把数据作为参数传递，从过程返回还有可能包括返回一个值。</p>
-<ul>
-<li>x86-64中，大部分过程间的数据传送是通过寄存器实现的（6个寄存器，6个参数），超出6个的部分就要通过栈来传递。假设P调用Q，有n个参数，n&gt;6，那么P的栈帧必须容纳7到n号参数，1~6放到寄存器，7~n放到栈上。<strong>被调用过程Q就可以通过寄存器访问参数，必要的话也可以通过栈访问</strong>。</li>
-</ul>
-<p>有些时候，局部数据必须放在内存中，常见情况：</p>
-<ul>
-<li>寄存器不足以存放所有的本地数据</li>
-<li>对一个局部变量使用地址运算符‘&amp;’，因此必须能够为它产生一个地址</li>
-<li>某些局部变量是数组或结构，必须要通过数组或结构引用才能被访问到</li>
-</ul>
-<p>变长数组P181<br>数据对齐P189</p>
-<font color="red"><strong>内存越界引用和缓冲区溢出是造成重大BUG的一大因素</strong></font>
-
-<p>对抗缓冲区溢出攻击的三种方法：</p>
-<ol>
-<li>栈随机化：使栈的位置在程序每次运行时都有变化</li>
-<li>栈破坏检测：在栈帧中任何局部缓冲区和栈状态之间设置一个哨兵</li>
-<li>限制可执行代码区域</li>
-</ol>
-<p>可变长栈帧P201</p>
+<p>后期我会拓展并更新，并相应配图。</p>
 
       
     </div>
@@ -447,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/28/csapp：信息的表示和处理/" rel="next" title="CSAPP：信息的表示和处理">
-                <i class="fa fa-chevron-left"></i> CSAPP：信息的表示和处理
+              <a href="/2019/04/14/csapp：对于优化程序性能的理解/" rel="next" title="为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高">
+                <i class="fa fa-chevron-left"></i> 为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高
               </a>
             
           </div>
@@ -456,10 +409,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/14/csapp：对于优化程序性能的理解/" rel="prev" title="为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高">
-                为什么r=r*(x*(y*z))比r=r*x*y*z的执行效率更高 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器级代码"><span class="nav-number">1.</span> <span class="nav-text">机器级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于格式的注解"><span class="nav-number">2.</span> <span class="nav-text">关于格式的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">3.</span> <span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压入和弹出程序栈"><span class="nav-number">3.1.</span> <span class="nav-text">压入和弹出程序栈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制"><span class="nav-number">4.</span> <span class="nav-text">控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转指令是如何编码的"><span class="nav-number">4.1.</span> <span class="nav-text">跳转指令是如何编码的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch语句是怎么实现的"><span class="nav-number">4.2.</span> <span class="nav-text">switch语句是怎么实现的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时栈"><span class="nav-number">5.</span> <span class="nav-text">运行时栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传送"><span class="nav-number">5.1.</span> <span class="nav-text">数据传送</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要高速缓存"><span class="nav-number">1.</span> <span class="nav-text">为什么需要高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是局部性"><span class="nav-number">2.</span> <span class="nav-text">什么是局部性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#那么高速缓存到底是怎样给上述例子提供强有力的支持呢"><span class="nav-number">2.1.</span> <span class="nav-text">那么高速缓存到底是怎样给上述例子提供强有力的支持呢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高速缓存的底层实现"><span class="nav-number">3.</span> <span class="nav-text">高速缓存的底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接映射高速缓存和组相联高速缓存"><span class="nav-number">4.</span> <span class="nav-text">直接映射高速缓存和组相联高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么用中间的位来做索引"><span class="nav-number">5.</span> <span class="nav-text">为什么用中间的位来做索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有关写的问题"><span class="nav-number">6.</span> <span class="nav-text">有关写的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写高速缓存友好的代码"><span class="nav-number">7.</span> <span class="nav-text">编写高速缓存友好的代码</span></a></li></ol></div>
             
 
           </div>
