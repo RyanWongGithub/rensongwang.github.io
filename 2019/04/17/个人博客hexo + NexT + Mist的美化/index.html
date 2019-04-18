@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="之前用的是Gemini，并做了一系列的美化，但始终让我感觉不是很让我喜欢。因为我对于这个个人博客主要是用来记录自己的学习过程，做一个积累，所以不用太华丽，却又想与众不同。Gemini风格感觉太过于大众化。在Gemini基础上美化了很多，最后发现华而不实。我现在又是喜欢极简，喜欢那种极为简单却十分有内涵有气质的（滑稽）。所以我看了其他博主的博客风格之后，彻底想对我的博客页面">
+<meta name="keywords" content="myblog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人博客hexo + NexT + Mist的美化">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/个人博客hexo + NexT + Mist的美化/index.html">
+<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:description" content="之前用的是Gemini，并做了一系列的美化，但始终让我感觉不是很让我喜欢。因为我对于这个个人博客主要是用来记录自己的学习过程，做一个积累，所以不用太华丽，却又想与众不同。Gemini风格感觉太过于大众化。在Gemini基础上美化了很多，最后发现华而不实。我现在又是喜欢极简，喜欢那种极为简单却十分有内涵有气质的（滑稽）。所以我看了其他博主的博客风格之后，彻底想对我的博客页面">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-18T16:00:52.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="个人博客hexo + NexT + Mist的美化">
+<meta name="twitter:description" content="之前用的是Gemini，并做了一系列的美化，但始终让我感觉不是很让我喜欢。因为我对于这个个人博客主要是用来记录自己的学习过程，做一个积累，所以不用太华丽，却又想与众不同。Gemini风格感觉太过于大众化。在Gemini基础上美化了很多，最后发现华而不实。我现在又是喜欢极简，喜欢那种极为简单却十分有内涵有气质的（滑稽）。所以我看了其他博主的博客风格之后，彻底想对我的博客页面">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/17/个人博客hexo + NexT + Mist的美化/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>个人博客hexo + NexT + Mist的美化 | Rensong Wang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rensong Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/个人博客hexo + NexT + Mist的美化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Life Song">
+      <meta itemprop="description" content="永无止境">
+      <meta itemprop="image" content="/images/autosong1.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rensong Wang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">个人博客hexo + NexT + Mist的美化
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-17 00:12:58" itemprop="dateCreated datePublished" datetime="2019-04-17T00:12:58+08:00">2019-04-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 00:00:52" itemprop="dateModified" datetime="2019-04-19T00:00:52+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/博客维护/" itemprop="url" rel="index"><span itemprop="name">博客维护</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note default">
+            <p>之前用的是Gemini，并做了一系列的美化，但始终让我感觉不是很让我喜欢。因为我对于这个个人博客主要是用来记录自己的学习过程，做一个积累，所以不用太华丽，却又想与众不同。Gemini风格感觉太过于大众化。在Gemini基础上美化了很多，最后发现华而不实。我现在又是喜欢极简，喜欢那种极为简单却十分有内涵有气质的（滑稽）。所以我看了其他博主的博客风格之后，彻底想对我的博客页面进行更新，于是换了Mist主题，并做了一些简单的美化，因为本人还是比较喜欢这次的美化，在这里将过程做一个简单的记录。<br>其中基本上大都是操作的主题文件和custom.styl，所以很方便也很简单，不需要做很多繁琐的操作。</p>
+          </div>
+<a id="more"></a>
+<h2 id="1-更换主题"><a href="#1-更换主题" class="headerlink" title="1. 更换主题"></a>1. 更换主题</h2><p>在主题文件中搜索Scheme Settings，换成Mist。</p>
+<h2 id="2-发现了F12的好用处"><a href="#2-发现了F12的好用处" class="headerlink" title="2. 发现了F12的好用处"></a>2. 发现了F12的好用处</h2><p>之前我都是按照别人的教程一步一步照猫画虎，后面看了一位博主的一篇关于美化next主题的文章之后，我也学着用F12去具体选择我自己的网站上的元素，然后直接在调试器上（F12）更改，它会在网页上实时更新你所做的改动。虽然我的方向并不是前端，但是还是觉得很强大。<br>在网页上直接改动，改成自己喜欢的，就复制粘贴到source/css_custom/custom.styl<br>在本地localhost上刷新一下就能看到效果。</p>
+<p>我在这里说一下，其实以前看别人照猫画虎的，很多都是对其他文件做了改动，其实根本没有必要。next主题提供了custom.styl就是可以让不同的人自定义自己的博客风格，这点真的很棒。所以我更倾向于在custom.styl做改动。因为比较统一，只要分清楚模块，我觉得这是一个很好的方式。因此后面，我会分别给出我在主题文件或其他文件上做出的改动，以及我的custom.styl，区分开来。</p>
+<h2 id="3-在主题文件或其他文件上做出的改动"><a href="#3-在主题文件或其他文件上做出的改动" class="headerlink" title="3. 在主题文件或其他文件上做出的改动"></a>3. 在主题文件或其他文件上做出的改动</h2><h4 id="修改文章底部的那个带-号的标签"><a href="#修改文章底部的那个带-号的标签" class="headerlink" title="修改文章底部的那个带#号的标签"></a>修改文章底部的那个带#号的标签</h4><p>修改模板/themes/next/layout/_macro/post.swig，搜索 rel=”tag”&gt;#，将 # 换成<i class="fa fa-tag"></i></p>
+<h4 id="侧栏隐藏"><a href="#侧栏隐藏" class="headerlink" title="侧栏隐藏"></a>侧栏隐藏</h4><p>打开 主题配置文件 找到sidebar字段设置：<br>display：hide</p>
+<h4 id="返回顶部按钮与阅读进度"><a href="#返回顶部按钮与阅读进度" class="headerlink" title="返回顶部按钮与阅读进度"></a>返回顶部按钮与阅读进度</h4><p>在 next/_config.yml 里找到 b2t 这个地方进行如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">back2top:</span><br><span class="line">  enable: true</span><br><span class="line">  # Back to top in sidebar.</span><br><span class="line">  sidebar: false</span><br><span class="line">  # Scroll percent label in b2t button.</span><br><span class="line">  scrollpercent: true</span><br></pre></td></tr></table></figure></p>
+<p>设置：<br>scrollpercent: true</p>
+<h4 id="在侧栏添加邮箱一类的"><a href="#在侧栏添加邮箱一类的" class="headerlink" title="在侧栏添加邮箱一类的"></a>在侧栏添加邮箱一类的</h4><p>在主题文件中搜索Social Links，想要哪个解注释即可</p>
+<h4 id="阅读次数"><a href="#阅读次数" class="headerlink" title="阅读次数"></a>阅读次数</h4><p>在主题文件中搜索busuanzi_count，设置：<br>enable: true</p>
+<h4 id="打赏功能"><a href="#打赏功能" class="headerlink" title="打赏功能"></a>打赏功能</h4><p>在主题文件中搜索reward_settings，设置：<br>enable: true<br>再把你的收款二维码放到images/，然后设置：<br><div class="note default">
+            <p>reward:<br>  wechatpay: /images/wechat-reward.png<br>  alipay: /images/alipay-reward.jpg</p>
+          </div></p>
+<h4 id="note"><a href="#note" class="headerlink" title="note"></a>note</h4><p>在主题文件中搜索note:<br><div class="note default">
+            <p>note:<br>  # Note tag style values:<br>  #  - simple    bs-callout old alert style. Default.<br>  #  - modern    bs-callout new (v2-v3) alert style.<br>  #  - flat      flat callout style with background, like on Mozilla or StackOverflow.<br>  #  - disabled  disable all CSS styles import of note tag.<br>  style: simple</p>
+          </div><br>将style设置成flat，下面还有icons，可以根据个人喜好设置显不显示图标，显示就true。</p>
+<h4 id="Label-标签"><a href="#Label-标签" class="headerlink" title="Label 标签"></a>Label 标签</h4><p>在主题配置文件中搜索# Label tag，设置<br>label: trues</p>
+<h4 id="文章的模板文件"><a href="#文章的模板文件" class="headerlink" title="文章的模板文件"></a>文章的模板文件</h4><p>文章的模板文件在scaffolds/post.md里改，每次new了之后会生成模板</p>
+<h4 id="设置代码高亮主题"><a href="#设置代码高亮主题" class="headerlink" title="设置代码高亮主题"></a>设置代码高亮主题</h4><p>在主题文件中搜索highlight_theme<br>改成你喜欢的主题就OK了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\<span class="comment"># Code Highlight theme</span></span><br><span class="line">\<span class="comment"># Available values: normal | night | night eighties | night blue | night bright</span></span><br><span class="line">\<span class="comment"># https://github.com/chriskempson/tomorrow-theme</span></span><br><span class="line">highlight_theme: night eighties</span><br></pre></td></tr></table></figure></p>
+<h4 id="订阅微信公众号"><a href="#订阅微信公众号" class="headerlink" title="订阅微信公众号"></a>订阅微信公众号</h4><p>在主题文件中搜索Wechat Subscriber，设置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wechat_subscriber:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="comment">#qcode: /path/to/your/wechatqcode e.g. /uploads/wechat-qcode.jpg</span></span><br><span class="line">  qcode: /images/wechat-qcode.jpg</span><br><span class="line">  <span class="comment">#description: e.g. subscribe to my blog by scanning my public wechat account</span></span><br><span class="line">  description: 学习交流</span><br></pre></td></tr></table></figure></p>
+<h4 id="更换个人网站图标"><a href="#更换个人网站图标" class="headerlink" title="更换个人网站图标"></a>更换个人网站图标</h4><p>自己去做一个自己喜欢的网站图标，替换images里面对应的网站图标即可<br>favicon-16x16-next.png<br>favicon-32x32-next.png</p>
+<h2 id="4-我的custom-styl"><a href="#4-我的custom-styl" class="headerlink" title="4. 我的custom.styl"></a>4. 我的custom.styl</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line">// Custom styles.</span><br><span class="line"></span><br><span class="line">// 侧栏头像显示框去掉以及上下位置</span><br><span class="line">.site-author-image &#123;</span><br><span class="line">	border: none;</span><br><span class="line">	margin-top: 25%;</span><br><span class="line">	border-radius: 8px;// 圆角</span><br><span class="line">&#125;</span><br><span class="line">// 文章标题动态效果</span><br><span class="line">.posts-expand .post-title-link::before &#123;</span><br><span class="line">	background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//首页头部样式</span><br><span class="line">.header &#123;</span><br><span class="line">	background: url(&quot;http://hddesktopwallpapers.in/wp-content/uploads/2018/06/rick-and-morty-wallpaper-680x425.jpg&quot;);</span><br><span class="line">    //background-color: red;</span><br><span class="line">    padding: 30px 0px;</span><br><span class="line">&#125;</span><br><span class="line">// 浮动</span><br><span class="line">.site-meta &#123;</span><br><span class="line">    float: none;</span><br><span class="line">&#125;</span><br><span class="line">.menu &#123;</span><br><span class="line">    float: none;</span><br><span class="line">&#125;</span><br><span class="line">// 取消标题上下滑动横线</span><br><span class="line">.logo-line-before,</span><br><span class="line">.logo-line-after &#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">// 菜单方块</span><br><span class="line">.menu .menu-item a &#123;</span><br><span class="line">    font-size: 25px;</span><br><span class="line">    color: rgb(255, 255, 255);</span><br><span class="line"></span><br><span class="line">    border-radius: 5px;//设置圆角</span><br><span class="line">&#125;</span><br><span class="line">.menu-item-active a, .menu .menu-item a:hover, .menu .menu-item span.exturl:hover &#123;</span><br><span class="line">    background: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);// 设置移至颜色为炫彩</span><br><span class="line">&#125;</span><br><span class="line">// title区域</span><br><span class="line">.site-meta &#123;</span><br><span class="line">    margin-left: 0px;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line">// 设置title字体内容</span><br><span class="line">.site-meta .site-title &#123;</span><br><span class="line">    font-size: 30px;</span><br><span class="line">    font-family: &apos;Comic Sans MS&apos;, sans-serif;</span><br><span class="line">    color: #fff;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//首页尾部样式</span><br><span class="line">.footer &#123;</span><br><span class="line">    background: none;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">&#125;</span><br><span class="line">.footer-inner &#123;</span><br><span class="line">    font-family: &apos;Comic Sans MS&apos;, sans-serif;</span><br><span class="line">    text-align: center;</span><br><span class="line">    color: #4c618f;</span><br><span class="line">&#125;</span><br><span class="line">//侧边栏信息样式修改</span><br><span class="line"></span><br><span class="line">.sidebar &#123;</span><br><span class="line">    box-shadow: inset 2px 2px 40px #bdb2b2;// 阴影</span><br><span class="line">    //background: url(&quot;http://hddesktopwallpapers.in/wp-content/uploads/2015/07/tron-wallpapers-download-680x425.png&quot;);</span><br><span class="line">    background: white;</span><br><span class="line">&#125;</span><br><span class="line">// 侧栏名字</span><br><span class="line">.site-author-name &#123;</span><br><span class="line">    margin: 30px 0 0;</span><br><span class="line">    color: #090909;</span><br><span class="line">    font-family: &apos;Comic Sans MS&apos;, sans-serif;</span><br><span class="line">&#125;</span><br><span class="line">.links-of-blogroll &#123;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    margin-bottom: 42px;</span><br><span class="line">&#125;</span><br><span class="line">.links-of-author &#123;</span><br><span class="line">    margin-top: 30px;</span><br><span class="line">    margin-bottom: 58px;</span><br><span class="line">&#125;</span><br><span class="line">.sidebar-inner &#123;</span><br><span class="line">    color: #649ab6;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.sidebar a &#123;</span><br><span class="line">    color: #649ab6;</span><br><span class="line">    border-bottom-color: #649ab6;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">&#125;</span><br><span class="line">.sidebar a:hover &#123;</span><br><span class="line">    color: #0c0b0b;</span><br><span class="line">&#125;</span><br><span class="line">.site-state-item &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    padding: 8px 28px;</span><br><span class="line">    border-left: 1px solid #649ab6;</span><br><span class="line">&#125;</span><br><span class="line">.sidebar-nav .sidebar-nav-active &#123;</span><br><span class="line">    color: #649ab6;</span><br><span class="line">    border-bottom-color: #649ab6;</span><br><span class="line">&#125;</span><br><span class="line">.sidebar-nav li:hover &#123;</span><br><span class="line">    color: #0c0b0b;</span><br><span class="line">&#125;</span><br><span class="line">//侧栏按钮样式</span><br><span class="line">.sidebar-toggle &#123;</span><br><span class="line">    background: #649ab6;</span><br><span class="line">&#125;</span><br><span class="line">.back-to-top &#123;</span><br><span class="line">    background: #649ab6;</span><br><span class="line">&#125;</span><br><span class="line">//文章目录样式</span><br><span class="line">.post-toc .nav .active&gt;a &#123;</span><br><span class="line">    color: #4f7e96;</span><br><span class="line">&#125;</span><br><span class="line">.post-toc ol a:hover &#123;</span><br><span class="line">    color: #7784ba;</span><br><span class="line">&#125;</span><br><span class="line">.sidebar-nav .sidebar-nav-active:hover &#123;</span><br><span class="line">    color: #37596c;</span><br><span class="line">&#125;</span><br><span class="line">a &#123;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//首页阅读全文样式</span><br><span class="line">.post-button .btn &#123;</span><br><span class="line">    color: #555 !important;</span><br><span class="line">    background-color: rgb(255, 255, 255);</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    font-size: 15px;</span><br><span class="line">    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);</span><br><span class="line">    border: none !important;</span><br><span class="line">    transition-property: unset;</span><br><span class="line">    padding: 0px 15px;</span><br><span class="line">&#125;</span><br><span class="line">.post-button .btn:hover &#123;</span><br><span class="line">    color: rgb(255, 255, 255) !important;</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    font-size: 15px;</span><br><span class="line">    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);</span><br><span class="line">    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);</span><br><span class="line">&#125;</span><br><span class="line">// 修改文章内链接文本样式</span><br><span class="line">.post-body p a&#123;</span><br><span class="line">  color: #0593d3;</span><br><span class="line">  border-bottom: none;</span><br><span class="line"></span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    color: #0477ab;</span><br><span class="line">    text-decoration: underline;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>css样式后期改动会更新。</p>
+<h2 id="本篇第一个打赏由Tank给出，感谢支持。"><a href="#本篇第一个打赏由Tank给出，感谢支持。" class="headerlink" title="本篇第一个打赏由Tank给出，感谢支持。"></a>本篇第一个打赏由Tank给出，感谢支持。</h2><hr>
+<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="Life Song wechat" style="width: 200px; max-width: 100%;">
+  <div>学习交流</div>
+</div>
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat-reward.png" alt="Life Song 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay-reward.jpg" alt="Life Song 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/myblog/" rel="tag"><i class="fa fa-tag"></i> myblog</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/csapp：对于高速缓存的理解/" rel="next" title="为什么需要高速缓存">
+                <i class="fa fa-chevron-left"></i> 为什么需要高速缓存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/18/利用分支管理博客资源/" rel="prev" title="利用分支管理博客资源">
+                利用分支管理博客资源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/autosong1.gif" alt="Life Song">
+            
+              <p class="site-author-name" itemprop="name">Life Song</p>
+              <div class="site-description motion-element" itemprop="description">永无止境</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/rensongwang" title="GitHub &rarr; https://github.com/rensongwang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1018440763@qq.com" title="E-Mail &rarr; mailto:1018440763@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-更换主题"><span class="nav-number">1.</span> <span class="nav-text">1. 更换主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-发现了F12的好用处"><span class="nav-number">2.</span> <span class="nav-text">2. 发现了F12的好用处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-在主题文件或其他文件上做出的改动"><span class="nav-number">3.</span> <span class="nav-text">3. 在主题文件或其他文件上做出的改动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改文章底部的那个带-号的标签"><span class="nav-number">3.0.1.</span> <span class="nav-text">修改文章底部的那个带#号的标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#侧栏隐藏"><span class="nav-number">3.0.2.</span> <span class="nav-text">侧栏隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回顶部按钮与阅读进度"><span class="nav-number">3.0.3.</span> <span class="nav-text">返回顶部按钮与阅读进度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在侧栏添加邮箱一类的"><span class="nav-number">3.0.4.</span> <span class="nav-text">在侧栏添加邮箱一类的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阅读次数"><span class="nav-number">3.0.5.</span> <span class="nav-text">阅读次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打赏功能"><span class="nav-number">3.0.6.</span> <span class="nav-text">打赏功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#note"><span class="nav-number">3.0.7.</span> <span class="nav-text">note</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Label-标签"><span class="nav-number">3.0.8.</span> <span class="nav-text">Label 标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章的模板文件"><span class="nav-number">3.0.9.</span> <span class="nav-text">文章的模板文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置代码高亮主题"><span class="nav-number">3.0.10.</span> <span class="nav-text">设置代码高亮主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#订阅微信公众号"><span class="nav-number">3.0.11.</span> <span class="nav-text">订阅微信公众号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更换个人网站图标"><span class="nav-number">3.0.12.</span> <span class="nav-text">更换个人网站图标</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#4-我的custom-styl"><span class="nav-number">4.</span> <span class="nav-text">4. 我的custom.styl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇第一个打赏由Tank给出，感谢支持。"><span class="nav-number">5.</span> <span class="nav-text">本篇第一个打赏由Tank给出，感谢支持。</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Life Song</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
