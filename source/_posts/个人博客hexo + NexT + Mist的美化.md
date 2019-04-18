@@ -27,6 +27,33 @@ photo:
 我在这里说一下，其实以前看别人照猫画虎的，很多都是对其他文件做了改动，其实根本没有必要。next主题提供了custom.styl就是可以让不同的人自定义自己的博客风格，这点真的很棒。所以我更倾向于在custom.styl做改动。因为比较统一，只要分清楚模块，我觉得这是一个很好的方式。因此后面，我会分别给出我在主题文件或其他文件上做出的改动，以及我的custom.styl，区分开来。
 
 ## 3. 在主题文件或其他文件上做出的改动
+#### 静态资源 cdn 加速
+在主题配置文件中，找到vendors，cdn 地址来自 bootcdn，设置如下：
+{% note default %}
+vendors:
+  \# Internal path prefix. Please do not edit it.
+  \_internal: vendors
+  \# Internal version: 2.1.3
+  jquery: //cdn.bootcss.com/jquery/2.1.3/jquery.min.js
+  \# Internal version: 2.1.5
+  \# Fancybox: http://fancyapps.com/fancybox/
+  fancybox: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js
+  fancybox_css: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css
+  \# Internal version: 1.0.6
+  fastclick: //cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js
+  \# Internal version: 1.9.7
+  lazyload: //cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js
+  \# Internal version: 1.2.1
+  velocity: //cdn.bootcss.com/velocity/1.3.1/velocity.min.js
+  \# Internal version: 1.2.1
+  velocity_ui: //cdn.bootcss.com/velocity/1.3.1/velocity.ui.min.js
+  \# Internal version: 0.7.9
+  ua_parser: //cdn.bootcss.com/UAParser.js/0.7.12/ua-parser.min.js//这里我没在我的主题文件里找到
+  \# Internal version: 4.4.0
+  \# http://fontawesome.io/
+  fontawesome: //cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css
+{% endnote %}
+
 #### 修改文章底部的那个带#号的标签
 修改模板/themes/next/layout/\_macro/post.swig，搜索 rel="tag">#，将 # 换成<i class="fa fa-tag"></i>
 
