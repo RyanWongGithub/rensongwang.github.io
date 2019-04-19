@@ -27,6 +27,16 @@ photo:
 我在这里说一下，其实以前看别人照猫画虎的，很多都是对其他文件做了改动，其实根本没有必要。next主题提供了custom.styl就是可以让不同的人自定义自己的博客风格，这点真的很棒。所以我更倾向于在custom.styl做改动。因为比较统一，只要分清楚模块，我觉得这是一个很好的方式。因此后面，我会分别给出我在主题文件或其他文件上做出的改动，以及我的custom.styl，区分开来。
 
 ## 3. 在主题文件或其他文件上做出的改动
+#### 取消侧栏文章目录对标题的自动编号
+在主题文件中搜索toc: 
+```
+toc:
+  enable: true
+  # Automatically add list number to toc.
+  number: false
+```
+将number设为false即可
+
 #### 静态资源 cdn 加速
 在主题配置文件中，找到vendors，cdn 地址来自 bootcdn，设置如下：
 {% note default %}
@@ -53,6 +63,73 @@ vendors:
   \# http://fontawesome.io/
   fontawesome: //cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css
 {% endnote %}
+这是参考别人的主题文件配置，本人通过测试调试，发现自带的示例也是可以用的，如下：
+```
+vendors:
+  # 在这里我测试一下，有副本，不行就注释回去OK，上面的是原来的，改到fontawesome
+  # Internal path prefix. Please do not edit it.
+  #_internal: lib
+  _internal: vendors
+  # Internal version: 2.1.3
+  # Example:
+  # jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js
+  # jquery: //cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
+  jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js
+  #jquery: //cdn.bootcss.com/jquery/2.1.3/jquery.min.js
+  # 放大镜效果
+
+  # Internal version: 2.1.5 & 3.5.7
+  # See: https://fancyapps.com/fancybox
+  # Example:
+  # fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js
+  # fancybox: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js
+  # fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css
+  # fancybox_css: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css
+  fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js
+  fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css
+  #fancybox: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js
+  #fancybox_css: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css
+  # 图片预览
+
+  # Internal version: 1.0.6
+  # See: https://github.com/ftlabs/fastclick
+  # Example:
+  # fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js
+  # fastclick: //cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js
+  fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js
+  #fastclick: //cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js
+  # 快速点击？
+
+  # Internal version: 1.9.7
+  # See: https://github.com/tuupola/jquery_lazyload
+  # Example:
+  # lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js
+  # lazyload: //cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js
+  lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js
+  #lazyload: //cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js
+  # 懒加载
+
+  # Internal version: 1.2.1
+  # See: http://velocityjs.org
+  # Example:
+  # velocity: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js
+  # velocity: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js
+  # velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js
+  # velocity_ui: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js
+  velocity: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js
+  velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js
+  #velocity: //cdn.bootcss.com/velocity/1.3.1/velocity.min.js
+  #velocity_ui: //cdn.bootcss.com/velocity/1.3.1/velocity.ui.min.js
+
+  # Internal version: 4.6.2
+  # See: https://fontawesome.com
+  # Example:
+  # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
+  # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css
+  #fontawesome:
+  fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
+  # 图标
+```
 
 #### 修改文章底部的那个带#号的标签
 修改模板/themes/next/layout/\_macro/post.swig，搜索 rel="tag">#，将 # 换成<i class="fa fa-tag"></i>
