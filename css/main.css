@@ -1809,7 +1809,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #83ff83;
+  background: #bfd7c3;
 }
 .feed-link,
 .chat {
@@ -2760,7 +2760,7 @@ hr {
 }
 .header {
   background: url("http://hddesktopwallpapers.in/wp-content/uploads/2018/06/rick-and-morty-wallpaper-680x425.jpg");
-  padding: 30px 0px;
+  padding: 20px 0px;
 }
 .site-meta {
   float: none;
