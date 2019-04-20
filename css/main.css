@@ -1809,7 +1809,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #bfd7c3;
+  background: #1869dd;
 }
 .feed-link,
 .chat {
@@ -2749,6 +2749,9 @@ hr {
     width: auto;
     text-align: center;
   }
+}
+.site-description {
+  font-family: 'Comic Sans MS', sans-serif;
 }
 .site-author-image {
   border: none;
