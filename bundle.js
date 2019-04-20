@@ -1,6 +1,10 @@
+/* global NexT, CONFIG */
+
 NexT.utils = NexT.$u = {
 
-  
+  /**
+   * Wrap images with fancybox support.
+   */
   wrapImageWithFancyBox: function() {
     $('.content img')
       .not(':hidden')
@@ -49,7 +53,9 @@ NexT.utils = NexT.$u = {
     });
   },
 
-  
+  /**
+   * Tabs tag listener (without twitter bootstrap).
+   */
   registerTabsTag: function() {
     var tNav = '.tabs ul.nav-tabs ';
 
@@ -123,7 +129,10 @@ NexT.utils = NexT.$u = {
     });
   },
 
-  
+  /**
+   * Transform embedded video to support responsive layout.
+   * @see http://toddmotto.com/fluid-and-responsive-youtube-and-vimeo-videos-with-fluidvids-js/
+   */
   embeddedVideoTransformer: function() {
     var $iframes = $('iframe');
 
@@ -220,7 +229,12 @@ NexT.utils = NexT.$u = {
     return !this.isTablet() && !this.isMobile();
   },
 
-  
+  /**
+   * Escape meta symbols in jQuery selectors.
+   *
+   * @param selector
+   * @returns {string|void|XML|*}
+   */
   escapeSelector: function(selector) {
     return selector.replace(/[!"$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
   },
@@ -287,7 +301,10 @@ $(document).ready(function() {
     $('table').wrap('<div class="table-container"></div>');
   }
 
-  
+  /**
+   * Init Sidebar & TOC inner dimensions on all pages and for all schemes.
+   * Need for Sidebar/TOC inner scrolling if content taller then viewport.
+   */
   function updateSidebarHeight(height) {
     height = height || 'auto';
     $('.site-overview, .post-toc').css('max-height', height);
@@ -320,7 +337,11 @@ $(document).ready(function() {
   }
   initSidebarDimension();
   wrapTable();
-});;$(document).ready(function() {
+});
+;
+/* global NexT, CONFIG */
+
+$(document).ready(function() {
   NexT.motion = {};
 
   var sidebarToggleLines = {
@@ -543,7 +564,11 @@ $(document).ready(function() {
         o: {duration: 200}
       });
 
-      
+      /**
+       * Check if $elements exist.
+       * @param {jQuery|Array} $elements
+       * @returns {boolean}
+       */
       function hasElement($elements) {
         $elements = Array.isArray($elements) ? $elements : [$elements];
         return $elements.every(function($element) {
@@ -600,9 +625,9 @@ $(document).ready(function() {
         sequence[sequence.length - 1].o.complete = function() {
           integrator.next();
         };
-        
+        /* eslint-disable */
         $.Velocity.RunSequence(sequence);
-        
+        /* eslint-enable */
       } else {
         integrator.next();
       }
@@ -685,7 +710,9 @@ $(document).ready(function() {
     }
   };
 
-});;$(document).ready(function() {
+});
+;
+$(document).ready(function() {
   function updateFooterPosition() {
     var containerHeight = $('#footer').attr('position') ? $('.container').height() + $('#footer').outerHeight(true) : $('.container').height();
     if (containerHeight < window.innerHeight) $('#footer').css({ 'position': 'fixed', 'bottom': 0, 'left': 0, 'right': 0 }).attr('position', 'fixed');
@@ -693,7 +720,27 @@ $(document).ready(function() {
   }
   updateFooterPosition();
   $(window).on('resize scroll', updateFooterPosition);
-});;(function($) {
+});
+;
+/* ========================================================================
+* Bootstrap: scrollspy.js v3.3.2
+* http://getbootstrap.com/javascript/#scrollspy
+* ========================================================================
+* Copyright 2011-2015 Twitter, Inc.
+* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+* ======================================================================== */
+
+/**
+ * Customized by iissnan & Ivan.Nginx
+ *
+ * - Add a `clear.bs.scrollspy` event.
+ * - Esacpe targets selector.
+ * - Refactored with eslint-config-theme-next style.
+ */
+
+/* global NexT */
+
+(function($) {
   'use strict';
 
   // SCROLLSPY CLASS DEFINITION
@@ -853,7 +900,11 @@ $(document).ready(function() {
     });
   });
 
-}(jQuery));;$(document).ready(function() {
+}(jQuery));
+;
+/* global NexT, CONFIG */
+
+$(document).ready(function() {
 
   function initScrollSpy() {
     var tocSelector = '.post-toc';
@@ -954,11 +1005,18 @@ $(document).ready(function() {
       }
       : NexT.utils.displaySidebar();
   }
-});;$(document).ready(function() {
+});
+;
+/* global NexT, CONFIG */
+
+$(document).ready(function() {
 
   $(document).trigger('bootstrap:before');
 
-  
+  /**
+   * Register JS handlers by condition option.
+   * Need to add config option in Front-End at 'layout/_partials/head.swig' file.
+   */
   CONFIG.fastclick && NexT.utils.isMobile() && window.FastClick.attach(document.body);
   CONFIG.lazyload && NexT.utils.lazyLoadPostsImages();
 
@@ -979,7 +1037,10 @@ $(document).ready(function() {
     });
   });
 
-  
+  /**
+   * Register JS handlers by condition option.
+   * Need to add config option in Front-End at 'layout/_partials/head.swig' file.
+   */
   CONFIG.fancybox && NexT.utils.wrapImageWithFancyBox();
   CONFIG.tabs && NexT.utils.registerTabsTag();
 
@@ -998,7 +1059,10 @@ $(document).ready(function() {
   CONFIG.motion.enable && NexT.motion.integrator.bootstrap();
 
   $(document).trigger('bootstrap:after');
-});;var InstantClick=function(d,e){function w(a){var b=a.indexOf("#");return 0>b?a:a.substr(0,b)}function z(a){for(;a&&"A"!=a.nodeName;)a=a.parentNode;return a}function A(a){var b=e.protocol+"//"+e.host;if(!(b=a.target||a.hasAttribute("download")||0!=a.href.indexOf(b+"/")||-1<a.href.indexOf("#")&&w(a.href)==k)){if(J){a:{do{if(!a.hasAttribute)break;if(a.hasAttribute("data-no-instant"))break;if(a.hasAttribute("data-instant")){a=!0;break a}}while(a=a.parentNode);a=!1}a=!a}else a:{do{if(!a.hasAttribute)break;
+});
+;
+/* InstantClick 3.1.0 | (C) 2014 Alexandre Dieulot | http://instantclick.io/license */
+var InstantClick=function(d,e){function w(a){var b=a.indexOf("#");return 0>b?a:a.substr(0,b)}function z(a){for(;a&&"A"!=a.nodeName;)a=a.parentNode;return a}function A(a){var b=e.protocol+"//"+e.host;if(!(b=a.target||a.hasAttribute("download")||0!=a.href.indexOf(b+"/")||-1<a.href.indexOf("#")&&w(a.href)==k)){if(J){a:{do{if(!a.hasAttribute)break;if(a.hasAttribute("data-no-instant"))break;if(a.hasAttribute("data-instant")){a=!0;break a}}while(a=a.parentNode);a=!1}a=!a}else a:{do{if(!a.hasAttribute)break;
 if(a.hasAttribute("data-instant"))break;if(a.hasAttribute("data-no-instant")){a=!0;break a}}while(a=a.parentNode);a=!1}b=a}return b?!1:!0}function t(a,b,c,g){for(var d=!1,e=0;e<B[a].length;e++)if("receive"==a){var f=B[a][e](b,c,g);f&&("body"in f&&(c=f.body),"title"in f&&(g=f.title),d=f)}else B[a][e](b,c,g);return d}function K(a,b,c,g){d.documentElement.replaceChild(b,d.body);if(c){history.pushState(null,null,c);b=c.indexOf("#");b=-1<b&&d.getElementById(c.substr(b+1));g=0;if(b)for(;b.offsetParent;)g+=
 b.offsetTop,b=b.offsetParent;scrollTo(0,g);k=w(c)}else scrollTo(0,g);d.title=S&&d.title==a?a+String.fromCharCode(160):a;L();C.done();t("change",!1);a=d.createEvent("HTMLEvents");a.initEvent("instantclick:newpage",!0,!0);dispatchEvent(a)}function M(a){G>+new Date-500||(a=z(a.target))&&A(a)&&x(a.href)}function N(a){G>+new Date-500||(a=z(a.target))&&A(a)&&(a.addEventListener("mouseout",T),H?(O=a.href,l=setTimeout(x,H)):x(a.href))}function U(a){G=+new Date;(a=z(a.target))&&A(a)&&(D?a.removeEventListener("mousedown",
 M):a.removeEventListener("mouseover",N),x(a.href))}function V(a){var b=z(a.target);!b||!A(b)||1<a.which||a.metaKey||a.ctrlKey||(a.preventDefault(),P(b.href))}function T(){l?(clearTimeout(l),l=!1):v&&!m&&(p.abort(),m=v=!1)}function W(){if(!(4>p.readyState)&&0!=p.status){q.ready=+new Date-q.start;if(p.getResponseHeader("Content-Type").match(/\/(x|ht|xht)ml/)){var a=d.implementation.createHTMLDocument("");a.documentElement.innerHTML=p.responseText.replace(/<noscript[\s\S]+<\/noscript>/gi,"");y=a.title;
