@@ -51,7 +51,7 @@ for(i = 0; i < limit; i += 2)
 于是，
 r = r \* ((x \* y) \* z)：
 
-<img src="/images/xyz.PNG" align="left">
+<img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/xyz.PNG" align="left">
 <br><br><br><br><br><br><br><br><br><br><br>	
 
 

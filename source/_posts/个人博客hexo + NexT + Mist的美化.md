@@ -27,6 +27,16 @@ photo:
 我在这里说一下，其实以前看别人照猫画虎的，很多都是对其他文件做了改动，其实根本没有必要。next主题提供了custom.styl就是可以让不同的人自定义自己的博客风格，这点真的很棒。所以我更倾向于在custom.styl做改动。因为比较统一，只要分清楚模块，我觉得这是一个很好的方式。因此后面，我会分别给出我在主题文件或其他文件上做出的改动，以及我的custom.styl，区分开来。
 
 ## 3. 在主题文件或其他文件上做出的改动
+#### 实现在手机上也可以显示侧栏按钮（b2t返回顶部上面那个）
+在主题文件中搜索sidebar:
+```
+# Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
+  offset: 12
+  # Enable sidebar on narrow view (only for Muse | Mist).在窄视图上启用侧边栏
+  onmobile: true
+```
+将onmobile设为true就OK。
+
 #### 取消侧栏文章目录对标题的自动编号
 在主题文件中搜索toc: 
 ```

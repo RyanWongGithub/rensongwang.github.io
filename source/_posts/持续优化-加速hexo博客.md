@@ -27,15 +27,19 @@ photo:
 官网文档：<a href="http://instantclick.io/">instantclick.io</a>
 需要：<a href="http://instantclick.io/v3.1.0/instantclick.min.js">instantclick.min.js</a>，点击之后直接在浏览器右键，另存为，我这里是存到themes\next-reloaded\source\js\下
 然后在themes/next/layout/\_layout.swig添加代码（直接在最下面）：
-```bash
+```
 + <script type="text/javascript" src= "/js/instantclick.min.js" data-no-instant></script>
 + <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>
 ```
+注意： 两个加号不用加上，只是为了说明位置而已。
+这里简要说明一下InstantClick的用处，当你把鼠标移动到一个按钮上的时候（移动到一个链接），InstantClick就会提前马上申请一个这个链接对应的新页面的请求，当你还在犹豫点不点的时候，其实已经请求OK了。
+这个功能对于我的个人博客来说，还是有速度提升的，尤其是你是第二次点击的时候（滑稽）。
+多多少少还是有用。
 搞定之后加载网页的时候，顶部会有加载条，不喜欢可以去掉：
 直接在custom.styl里添加：
-```bash
+```
 #instantclick {
   display: none;
 }
@@ -170,7 +174,8 @@ vendors:
   fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
   # 图标
 ```
-
+### 无法理解的问题
+1. 弄了上面所有的优化之后，我在本地进行博客的维护，也就是浏览localhost：4000，每次点击一个新的页面之后，是一片空白。所以每次都要刷新两次才能刷出来。苦恼，不知道为什么。
 --- 
 
 <div align="center">
