@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Rensong Wang">
 <meta property="og:description" content="我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/高速缓存地址.PNG">
-<meta property="og:updated_time" content="2019-04-18T15:59:29.957Z">
+<meta property="og:image" content="http://pqb58tarm.bkt.clouddn.com/%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%9C%B0%E5%9D%80.PNG">
+<meta property="og:updated_time" content="2019-04-21T11:08:49.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么需要高速缓存">
 <meta name="twitter:description" content="我们知道，如果要执行一个程序，首先得将一个可执行文件加载到内存当中。那么问题来了，假如我程序中是要对一个数组进行操作，而我数组的数据又是放在内存上的，那么CPU对每一个元素进行操作的时候，都要先把数据加载到寄存器上，对寄存器进行操作，然后再存储到内存。而CPU到内存的这段时间就好比每次上课的时候回家拿书，我能不能把我需要的书（最近访问的数据）都先缓存到我的小书包里，每次上">
-<meta name="twitter:image" content="http://yoursite.com/images/高速缓存地址.PNG">
+<meta name="twitter:image" content="http://pqb58tarm.bkt.clouddn.com/%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%9C%B0%E5%9D%80.PNG">
 
 
 
@@ -1936,7 +1936,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f7ffff;
+  background: #63ffff;
 }
 .feed-link,
 .chat {
@@ -3219,8 +3219,8 @@ a {
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
-      <meta itemprop="description" content="The World Without End And that's just the beginning">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="The World Without End<br> And that's just the beginning">
+      <meta itemprop="image" content="http://pqb58tarm.bkt.clouddn.com/autosong1.PNG">
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -3275,7 +3275,7 @@ a {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 23:59:29" itemprop="dateModified" datetime="2019-04-18T23:59:29+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-21 19:08:49" itemprop="dateModified" datetime="2019-04-21T19:08:49+08:00">2019-04-21</time>
               
             
           </span>
@@ -3341,7 +3341,7 @@ a {
 <h3 id="为什么需要高速缓存"><a href="#为什么需要高速缓存" class="headerlink" title="为什么需要高速缓存"></a>为什么需要高速缓存</h3><p>所以高速缓存SRAM介于寄存器与内存之间，就是因为处理器发展到现在，速度越来越快，而现代计算频繁地使用基于SRAM的高速缓存，就是为了弥补处理器与内存之间的差距，而这种方法行之有效就是因为接下来要讲的应用程序的一个称为<font color="red"><strong>局部性</strong></font> 的基本属性。</p>
 <h3 id="什么是局部性"><a href="#什么是局部性" class="headerlink" title="什么是局部性"></a>什么是局部性</h3><p>局部性是什么呢？<br>之前在优化程序性能讲过，在循环里面尽量用局部变量累计值，或者是将函数调用移出循环外，用一个临时量代替，原因是访问一个局部变量要比从内存中（加载，取值，存储）或是过程调用要快得多（<font color="red">消除了每次循环迭代中从内存中读出并将更新值写回的需要，将每次迭代的内存操作从两次读和一次写减少到只需一次读</font>）。<strong>时间局部性</strong>指的就是在这个过程中我反复要访问这个变量，那么这个变量就具有很好的时间局部性。<br><strong>空间局部性</strong>指的是访问一个变量后，后面要访问到这个变量附近的数据。<br>举个例子，对一个数组求和：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int sum = 0;</span><br><span class="line"><span class="keyword">for</span>(int i = 0; i &lt; n; ++i)</span><br><span class="line">{</span><br><span class="line">	sum += sum + a[i];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
 <p>我们可以看到，sum在每次迭代中都要访问到，有好的时间局部性。而a[i]是数组的某一个元素，访问一次后，再也不访问，因此时间局部性很差，但是之后会访问到后面的元素，数组是顺序存储，因此有好的空间局部性。</p>
-<h4 id="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"><a href="#那么高速缓存到底是怎样给上述例子提供强有力的支持呢" class="headerlink" title="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"></a><strong>那么高速缓存到底是怎样给上述例子提供强有力的支持呢</strong></h4><h3 id="高速缓存的底层实现"><a href="#高速缓存的底层实现" class="headerlink" title="高速缓存的底层实现"></a>高速缓存的底层实现</h3><p>假设内存有M=2^m大的地址空间（实际上并不需要是2的幂），地址如下表示：<br><img src="/images/高速缓存地址.PNG" align="left"><br><br><br><br><br><br><br>高速缓存在中间去s位作组号(S=2^s个组)，取h位作标记位（H=2^h），b位作块大小（B=2^b）。<br>这样做，虽然高速缓存并没有内存大，但是内存的每一个地址都能缓存到SRAM上，注意，一个地址对应这个地址上一个字节（字节序列角度），高速缓存可不会缓存你一个地址上的一个字节（太小了，一滴水救火？），如果组好确定，那你后面B=2^b个地址是不是都在我一个组？那我高速缓存一个组直接就存B个字节大小的块。打个比方，int a[4]数组，在内存里连续存储16个字节，假如我取b=2，那么我B=2^4=16个字节，那么整个数组就缓存到了高速缓存中，这个时候我如果访问a的第一个元素，如果不在缓存中（不命中），那么我就会从内存取对应的16个字节到高速缓存中，这个时候结合上面的例子去思考<strong>空间局部性</strong>，是不是有种豁然开朗的感觉。</p>
+<h4 id="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"><a href="#那么高速缓存到底是怎样给上述例子提供强有力的支持呢" class="headerlink" title="那么高速缓存到底是怎样给上述例子提供强有力的支持呢"></a><strong>那么高速缓存到底是怎样给上述例子提供强有力的支持呢</strong></h4><h3 id="高速缓存的底层实现"><a href="#高速缓存的底层实现" class="headerlink" title="高速缓存的底层实现"></a>高速缓存的底层实现</h3><p>假设内存有M=2^m大的地址空间（实际上并不需要是2的幂），地址如下表示：<br><img src="http://pqb58tarm.bkt.clouddn.com/%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%9C%B0%E5%9D%80.PNG" align="left"><br><br><br><br><br><br><br>高速缓存在中间去s位作组号(S=2^s个组)，取h位作标记位（H=2^h），b位作块大小（B=2^b）。<br>这样做，虽然高速缓存并没有内存大，但是内存的每一个地址都能缓存到SRAM上，注意，一个地址对应这个地址上一个字节（字节序列角度），高速缓存可不会缓存你一个地址上的一个字节（太小了，一滴水救火？），如果组好确定，那你后面B=2^b个地址是不是都在我一个组？那我高速缓存一个组直接就存B个字节大小的块。打个比方，int a[4]数组，在内存里连续存储16个字节，假如我取b=2，那么我B=2^4=16个字节，那么整个数组就缓存到了高速缓存中，这个时候我如果访问a的第一个元素，如果不在缓存中（不命中），那么我就会从内存取对应的16个字节到高速缓存中，这个时候结合上面的例子去思考<strong>空间局部性</strong>，是不是有种豁然开朗的感觉。</p>
 <h3 id="直接映射高速缓存和组相联高速缓存"><a href="#直接映射高速缓存和组相联高速缓存" class="headerlink" title="直接映射高速缓存和组相联高速缓存"></a>直接映射高速缓存和组相联高速缓存</h3><p>在这里简单讲一下直接映射高速缓存和组相联高速缓存，直接映射高速缓存就是一个组里面只有一行。相联高速缓存呢，一个组有k行就是k路组相联高速缓存。全相联高速缓存就是只有一个组。</p>
 <p><font color="blue">那么现在，CPU要访问某个数据，对应的要先在高速缓存里找有没有，那么就根据分析物理地址找到组，行，匹配标记位，看有效位，最后根据块偏移找到块中对应数据</font>。</p>
 <h3 id="为什么用中间的位来做索引"><a href="#为什么用中间的位来做索引" class="headerlink" title="为什么用中间的位来做索引"></a>为什么用中间的位来做索引</h3><p>为了使高速缓存有一个好的使用效率</p>
@@ -3365,7 +3365,7 @@ a {
 
     
       <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
+  <img id="wechat_subscriber_qcode" src="http://pqb58tarm.bkt.clouddn.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
   <div>学习交流</div>
 </div>
 
@@ -3389,7 +3389,7 @@ a {
         
       
       <div style="display: inline-block">
-        <img src="/images/wechat-reward.png" alt="王仁松 微信支付">
+        <img src="http://pqb58tarm.bkt.clouddn.com/wechat-reward.png" alt="王仁松 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -3398,7 +3398,7 @@ a {
         
       
       <div style="display: inline-block">
-        <img src="/images/alipay-reward.jpg" alt="王仁松 支付宝">
+        <img src="http://pqb58tarm.bkt.clouddn.com/alipay-reward.jpg" alt="王仁松 支付宝">
         <p>支付宝</p>
       </div>
     
@@ -3498,8 +3498,10 @@ a {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="http://pqb58tarm.bkt.clouddn.com/autosong1.PNG" alt="王仁松">
+            
               <p class="site-author-name" itemprop="name">王仁松</p>
-              <div class="site-description motion-element" itemprop="description">The World Without End And that's just the beginning</div>
+              <div class="site-description motion-element" itemprop="description">The World Without End<br> And that's just the beginning</div>
           </div>
 
           
