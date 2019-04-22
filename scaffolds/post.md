@@ -2,7 +2,9 @@
 title: {{ title }}
 date: {{ date }}
 tags:
+- 
 categories:
+- 
 photo: 
 ---
 
@@ -11,6 +13,18 @@ photo:
 {% endnote %}
 
 <!-- more -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
