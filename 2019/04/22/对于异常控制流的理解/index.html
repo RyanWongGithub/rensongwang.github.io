@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Rensong Wang">
 <meta property="og:description" content="从处理器加电开始到断电，处理器假设一个值的序列：a0,a1,a2,···,an-1每个ak是某个指令Ik的地址，每次从ak到ak+1的过渡叫做控制转移。这样的控制转移序列叫做处理器的控制流。控制流是平滑的，是指Ik和Ik+1在内存中是相邻的，平滑流的突变是指不相邻。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T09:44:13.498Z">
+<meta property="og:updated_time" content="2019-04-22T12:53:55.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对于异常控制流的理解">
 <meta name="twitter:description" content="从处理器加电开始到断电，处理器假设一个值的序列：a0,a1,a2,···,an-1每个ak是某个指令Ik的地址，每次从ak到ak+1的过渡叫做控制转移。这样的控制转移序列叫做处理器的控制流。控制流是平滑的，是指Ik和Ik+1在内存中是相邻的，平滑流的突变是指不相邻。">
@@ -1934,7 +1934,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff6aff;
+  background: #ffc375;
 }
 .feed-link,
 .chat {
@@ -3256,7 +3256,7 @@ a {
                 
               
 
-              <time title="创建时间：2019-04-22 14:54:10 / 修改时间：17:44:13" itemprop="dateCreated datePublished" datetime="2019-04-22T14:54:10+08:00">2019-04-22</time>
+              <time title="创建时间：2019-04-22 14:54:10 / 修改时间：20:53:55" itemprop="dateCreated datePublished" datetime="2019-04-22T14:54:10+08:00">2019-04-22</time>
             
 
             
@@ -3349,7 +3349,43 @@ a {
 <li><font color="red"><strong>如果控制从用户程序转到内核，所有这些项目都被压入内核栈中，而不是用户栈中</strong></font></li>
 <li>异常处理程序运行在<strong>内核模式下</strong>，它们对所有的系统资源都有完全的访问权限</li>
 </ul>
-<h2 id="5-异常的类别"><a href="#5-异常的类别" class="headerlink" title="5. 异常的类别"></a>5. 异常的类别</h2><p>异常有四类：<strong>中断（interrupt）</strong>、<strong>陷阱（trap）</strong>、<strong>故障（fault）</strong>和<strong>终止（abort）</strong><br>类别 | 原因 | 异步/同步 | 返回行为<br>:-: | - | :-: | -<br>中断 | 来自I/O设备的信号 | 异步 | 总是返回到下一条指令 |<br>陷阱 | 有意的异常 | 同步 | 总是返回到下一条指令 |<br>故障 | 潜在可恢复的错误 | 同步 | 可能返回到当前指令 |<br>终止 | 不可恢复的错误 | 同步 | 不会返回 |</p>
+<h2 id="5-异常的类别"><a href="#5-异常的类别" class="headerlink" title="5. 异常的类别"></a>5. 异常的类别</h2><p>异常有四类：<strong>中断（interrupt）</strong>、<strong>陷阱（trap）</strong>、<strong>故障（fault）</strong>和<strong>终止（abort）</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类别</th>
+<th style="text-align:left">原因</th>
+<th style="text-align:center">异步/同步</th>
+<th style="text-align:left">返回行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">中断</td>
+<td style="text-align:left">来自I/O设备的信号</td>
+<td style="text-align:center">异步</td>
+<td style="text-align:left">总是返回到下一条指令</td>
+</tr>
+<tr>
+<td style="text-align:center">陷阱</td>
+<td style="text-align:left">有意的异常</td>
+<td style="text-align:center">同步</td>
+<td style="text-align:left">总是返回到下一条指令</td>
+</tr>
+<tr>
+<td style="text-align:center">故障</td>
+<td style="text-align:left">潜在可恢复的错误</td>
+<td style="text-align:center">同步</td>
+<td style="text-align:left">可能返回到当前指令</td>
+</tr>
+<tr>
+<td style="text-align:center">终止</td>
+<td style="text-align:left">不可恢复的错误</td>
+<td style="text-align:center">同步</td>
+<td style="text-align:left">不会返回</td>
+</tr>
+</tbody>
+</table>
 <p>中断：中断为什么是异步的呢，怎么说呢，我一个程序在执行，执行得好好的，结果一个I/O设备信号来了，处理器就把我的控制夺走了，这就是中断，是异步的，因为不是我的错啊。我程序好好的，这个中断不是在我这个程序中造成的，所以叫<strong>异步</strong>。</p>
 <p>陷阱：陷阱是有意的异常，是执行一条指令的结果。陷阱最重要的用途是：<strong>系统调用</strong>（在用户程序和内核之间提供一个像过程一样的接口）。<br>用户经常向内核请求服务，比如：</p>
 <ul>
@@ -3405,15 +3441,40 @@ a {
 <li>B运行了一会，这个时候磁盘的数据到内存了，就发出一个中断信号。内核就判定B已经运行够了，执行一个B到A的上下文切换。</li>
 <li>将控制返回给A紧随在系统调用read后面那条指令，继续执行。</li>
 </ol>
-<h2 id="12-讲点fork和execve"><a href="#12-讲点fork和execve" class="headerlink" title="12.讲点fork和execve"></a>12.讲点fork和execve</h2><p>fork要注意的就是：</p>
+<h2 id="12-讲点fork和execve"><a href="#12-讲点fork和execve" class="headerlink" title="12.讲点fork和execve"></a>12.讲点fork和execve</h2><p>详细于：原书P513-P525<br>fork要注意的就是：</p>
 <ol>
 <li><font color="red"><strong>调用一次，返回两次</strong></font>。意思是什么呢。是在父进程中调用一次fork，在父进程中返回子进程的PID，这个时候子进程相当于是父进程的副本啊，但是注意只调用一次，所以子进程到对应fork函数的时候，不会再次调用，只会返回一个为0的PID，表示这是子进程！</li>
-<li><strong>并发执行</strong>。内核可能是任意方式交替执行它们的逻辑流。你根本不知道这个时间段中子进程先运行，还是父进程运行。<br>所以啊！<font color="yellow">不管有多少个fork，画个<strong>进程图</strong>解决一切输出问题的可能性！！！</font> 。</li>
+<li><strong>并发执行</strong>。内核可能是任意方式交替执行它们的逻辑流。你根本不知道这个时间段中子进程先运行，还是父进程运行。<br>所以啊！<font color="red">不管有多少个fork，画个<strong>进程图</strong>解决一切输出问题的可能性！！！</font> 。</li>
 <li>相同但是独立的地址空间</li>
 <li>共享文件。如果父进程的输出指向屏幕，子进程继承了父进程所有的打开文件。如果调用fork函数的时候，stdout文件是打开的，并指向屏幕。那么子进程继承的时候，它的输出也是指向屏幕的。</li>
 </ol>
 <p>execve：加载并运行程序。<br>注意：execve一旦成功执行了，就不会返回了，因为新程序会覆盖当前进程的地址空间，并没有创建一个新的进程。新的程序仍然有一个相同的PID，并且继承了调用execve函数时已打开的所有文件描述符。</p>
-<h2 id="13-信号"><a href="#13-信号" class="headerlink" title="13. 信号"></a>13. 信号</h2><hr>
+<h2 id="13-信号"><a href="#13-信号" class="headerlink" title="13. 信号"></a>13. 信号</h2><p>通过前面，我们知道，操作系统可以利用异常来支持进程上下文切换的异常控制流形式。<br>Linux信号是一种更高层的软件形式的异常，它允许进程和内核中断其他进程。<br>为什么需要信号呢。因为底层的硬件异常是由内核异常处理程序处理的，正常情况下，对用户进程是不可见的。信号提供了一种机制，通知用户进程发生了这些异常。<br>比如：如果一个进程试图除以0，那么内核就发送一个SIGFPE信号（号码8）给它。其余例子见 书P527</p>
+<h3 id="信号术语"><a href="#信号术语" class="headerlink" title="信号术语"></a>信号术语</h3><ul>
+<li>发送信号。内核通过更新目的进程上下文中的某个状态，发送一个信号给目的进程。发送信号有两种原因：</li>
+</ul>
+<ol>
+<li>内核检测到一个系统事件，比如除零</li>
+<li>一个进程调用了kill函数，显示要求内核发送一个信号给目的进程</li>
+</ol>
+<ul>
+<li>接收信号。当目的进程被内核强迫以某种方式对信号的发送做出反应时，就是接收了信号。<br>进程可以忽略这个信号，终止或执行一个称为<strong>信号处理程序</strong>的用户层函数捕获这个信号。</li>
+</ul>
+<p><font color="red">注意下面这段文字：</font><br></p><div class="note default">
+            <p>一个发出而没有被接收的信号叫做待处理信号。<strong>任何时候，一种类型至多只会有一个待处理信号</strong>。如果一个进程有一个类型为k的待处理信号，那么任何接下来发送到这个进程的类型为k的信号都不会排队等待；它们只是被简单地丢弃。<br>一个进程可以有选择性地<strong>阻塞</strong>接收某个信号，它仍然可以被发送，但是产生地待处理信号不会被接收，直到取消对这种信号地阻塞。<br><strong>一个待处理信号最多只能被接收一次</strong>。</p>
+          </div><p></p>
+<h3 id="发送信号的方式"><a href="#发送信号的方式" class="headerlink" title="发送信号的方式"></a>发送信号的方式</h3><ol>
+<li>用/bin/kill程序发送信号。一个为负的PID会导致信号被发送到进程组PID中的每个进程。</li>
+<li>从键盘发送信号（CTRL + C）</li>
+<li>用kill函数发送信号</li>
+<li>用alarm发送信号</li>
+</ol>
+<h3 id="接收信号"><a href="#接收信号" class="headerlink" title="接收信号"></a>接收信号</h3><p>当内核把进程p从内核模式切换到用户模式时，会检查进程p的未被阻塞的待处理信号的集合。如果这个集合为空，内核将控制传递到p的逻辑控制流的下一条指令。如果非空，内核选择集合中的某个信号k，并强制p接收k。收到信号的会触发进程采取某种行为。</p>
+<h3 id="信号处理程序"><a href="#信号处理程序" class="headerlink" title="信号处理程序"></a>信号处理程序</h3><p>详细于P535 8.5.5</p>
+<p>正确的信号处理：<br><strong>信号的一个与直觉不符的方面是未处理的信号是不排队的</strong>。<br>上面说过，每种类型最多只有一个待处理信号。如果两个类型为k的信号发送给一个目的进程，而因为目的进程当前正在执行信号k的处理信号程序，所以k信号被阻塞，那么第二个信号就简单被丢弃了，不会排队！<br><strong>所以，不要用信号来对其他进程中发生的事件计数！</strong></p>
+<h2 id="14-非本地跳转"><a href="#14-非本地跳转" class="headerlink" title="14. 非本地跳转"></a>14. 非本地跳转</h2><p>详细于：P546</p>
+<p>后期会更新完善</p>
+<hr>
 <div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
     </div>
@@ -3678,7 +3739,7 @@ a {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-异常控制流是什么呢"><span class="nav-text">1. 异常控制流是什么呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-异常"><span class="nav-text">2. 异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-异常处理"><span class="nav-text">3. 异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-异常与过程调用的不同之处"><span class="nav-text">4. 异常与过程调用的不同之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-异常的类别"><span class="nav-text">5. 异常的类别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-进程"><span class="nav-text">6. 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-逻辑控制流"><span class="nav-text">7. 逻辑控制流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-并发"><span class="nav-text">8. 并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-私有地址空间"><span class="nav-text">9. 私有地址空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-用户模式和内核模式"><span class="nav-text">10. 用户模式和内核模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-上下文切换"><span class="nav-text">11. 上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有上下文切换呢"><span class="nav-text">为什么要有上下文切换呢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-讲点fork和execve"><span class="nav-text">12.讲点fork和execve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-信号"><span class="nav-text">13. 信号</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-异常控制流是什么呢"><span class="nav-text">1. 异常控制流是什么呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-异常"><span class="nav-text">2. 异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-异常处理"><span class="nav-text">3. 异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-异常与过程调用的不同之处"><span class="nav-text">4. 异常与过程调用的不同之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-异常的类别"><span class="nav-text">5. 异常的类别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-进程"><span class="nav-text">6. 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-逻辑控制流"><span class="nav-text">7. 逻辑控制流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-并发"><span class="nav-text">8. 并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-私有地址空间"><span class="nav-text">9. 私有地址空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-用户模式和内核模式"><span class="nav-text">10. 用户模式和内核模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-上下文切换"><span class="nav-text">11. 上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有上下文切换呢"><span class="nav-text">为什么要有上下文切换呢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-讲点fork和execve"><span class="nav-text">12.讲点fork和execve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-信号"><span class="nav-text">13. 信号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信号术语"><span class="nav-text">信号术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送信号的方式"><span class="nav-text">发送信号的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收信号"><span class="nav-text">接收信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号处理程序"><span class="nav-text">信号处理程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-非本地跳转"><span class="nav-text">14. 非本地跳转</span></a></li></ol></div>
             
 
           </div>
@@ -3901,4 +3962,4 @@ a {
   
 
 
-<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">InstantClick.init();</script></body></html>
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">InstantClick.init();</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
