@@ -1,7 +1,132 @@
-/* normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+<!DOCTYPE html><html class="theme-next mist use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案，有些甚至是让我感觉是把虚拟内存的一部分拿出来说，这就是虚拟内存。我个人并不觉得可笑，例如：加载可执行文件进内存的时候，并不全部加载进内存">
+<meta name="keywords" content="CSAPP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟内存到底是啥，有多强大">
+<meta property="og:url" content="http://yoursite.com/2019/05/07/虚拟内存到底是啥，有多强大/index.html">
+<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:description" content="在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案，有些甚至是让我感觉是把虚拟内存的一部分拿出来说，这就是虚拟内存。我个人并不觉得可笑，例如：加载可执行文件进内存的时候，并不全部加载进内存">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-07T11:26:38.762Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟内存到底是啥，有多强大">
+<meta name="twitter:description" content="在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案，有些甚至是让我感觉是把虚拟内存的一部分拿出来说，这就是虚拟内存。我个人并不觉得可笑，例如：加载可执行文件进内存的时候，并不全部加载进内存">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/05/07/虚拟内存到底是啥，有多强大/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>虚拟内存到底是啥，有多强大 | Rensong Wang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>html {
+  line-height: 1.15; 
+  -webkit-text-size-adjust: 100%; 
 }
 body {
   margin: 0;
@@ -14,21 +139,21 @@ h1 {
   margin: 0.67em 0;
 }
 hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
+  box-sizing: content-box; 
+  height: 0; 
+  overflow: visible; 
 }
 pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace; 
+  font-size: 1em; 
 }
 a {
   background-color: transparent;
 }
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  border-bottom: none; 
+  text-decoration: underline; 
+  text-decoration: underline dotted; 
 }
 b,
 strong {
@@ -37,8 +162,8 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace; 
+  font-size: 1em; 
 }
 small {
   font-size: 80%;
@@ -64,19 +189,19 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+  font-family: inherit; 
+  font-size: 100%; 
+  line-height: 1.15; 
+  margin: 0; 
 }
 button,
 input {
-/* 1 */
+
   overflow: visible;
 }
 button,
 select {
-/* 1 */
+
   text-transform: none;
 }
 button,
@@ -102,12 +227,12 @@ fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
 legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+  box-sizing: border-box; 
+  color: inherit; 
+  display: table; 
+  max-width: 100%; 
+  padding: 0; 
+  white-space: normal; 
 }
 progress {
   vertical-align: baseline;
@@ -117,23 +242,23 @@ textarea {
 }
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
+  box-sizing: border-box; 
+  padding: 0; 
 }
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 [type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+  -webkit-appearance: textfield; 
+  outline-offset: -2px; 
 }
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+  -webkit-appearance: button; 
+  font: inherit; 
 }
 details {
   display: block;
@@ -1809,7 +1934,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c9ffff;
+  background: #6f62a7;
 }
 .feed-link,
 .chat {
@@ -2886,4 +3011,827 @@ a {
 .post-body p a:hover {
   color: #0477ab;
   text-decoration: underline;
-}
+}</style><noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rensong Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/虚拟内存到底是啥，有多强大/">
+
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王仁松">
+      <meta itemprop="description" content="The World Without End<br> And that's just the beginning">
+      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+    </span>
+
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rensong Wang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">虚拟内存到底是啥，有多强大
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-07 13:59:54 / 修改时间：19:26:38" itemprop="dateCreated datePublished" datetime="2019-05-07T13:59:54+08:00">2019-05-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/深入理解计算机系统/" itemprop="url" rel="index"><span itemprop="name">深入理解计算机系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note default">
+            <p>在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案，有些甚至是让我感觉是把虚拟内存的一部分拿出来说，这就是虚拟内存。<br>我个人并不觉得可笑，例如：加载可执行文件进内存的时候，并不全部加载进内存，要用的加载进去，暂时不用的剩下的放在磁盘上，当需要时加载进内存，以便可以运行更多的进程。于是说这就是虚拟内存。<br>这说得没有错，确实是，可以说是一个虚拟内存的应用吧，但是你能说它就是虚拟内存吗，不懂的人一看，哇，原来这就是虚拟内存啊：把磁盘当成内存来使，虚拟一个内存出来就是虚拟内存啦。好厉害。<br>这样的解释真的很<strong>误人子弟</strong>。<br>有时候我不觉得可笑，但是捎带一点感慨，毕竟我也不能说我说的就是对的，每个人理解不一样。<br>在这里我个人角度来说明一下什么是虚拟内存，有什么用，并记录我的学习过程。</p>
+          </div>
+<a id="more"></a>
+<h2 id="先不要虚拟内存"><a href="#先不要虚拟内存" class="headerlink" title="先不要虚拟内存"></a>先不要虚拟内存</h2><p>在我们想搞明白虚拟内存是啥之间，首先我们要想一下，没有虚拟内存是个啥样子。<br>我们应该知道，要运行一个程序，必须先得加载进内存，那么就应该知道：<br>物理内存：从0开始到M的字节序列。<br>没有虚拟内存，那就要物理寻址。</p>
+<p>那这个程序加载内存的哪个地方呢？<br>操作系统干这事，不用管它把程序放在内存哪个地方，我们只需要知道在内存哪个地方就OK，放好了之后，那每个进程都有对应的物理地址。<br>那问题来了：</p>
+<ol>
+<li><p>用物理寻址好不好管理呢？<br>比如说你进程A是0到巴拉巴拉，其他进程又是不一样的物理地址，人一多了，创建的时候，我还要专门给每个进程这里设计好，那里设计好，所有细节都要安排好。<br>安排麻烦不说，你每个进程对应的哪块地方的地址还不一样···<br>我现在就想要一个模板，创建进程的时候，所有的都按照模板来，代码放哪，数据放哪，都是一样的地址，我好管理。但是物理地址就一个啊，地方就一个啊，怎么办？</p>
+</li>
+<li><p>进程在物理内存中感觉不到安全感<br>既然是物理寻址，通过物理地址就能访问修改对应的数据，有一个进程A待在内存里好好的，突然A的一部分被修改了，因为A和其他进程共享一整块物理内存啊，我在你隔壁，没事我就骚扰你，<br>因为我看得到你呀，我能通过物理地址去访问修改属于你的东西。<br>这样的话，A不仅觉得物理内存不是他一个人在使用，而且没有安全感，随时都可能被骚扰。</p>
+</li>
+</ol>
+<h2 id="虚拟内存来解决问题"><a href="#虚拟内存来解决问题" class="headerlink" title="虚拟内存来解决问题"></a>虚拟内存来解决问题</h2><p>上面两个问题说明了如果单纯用物理寻址（物理内存来管理），根本解决不了（当然还有很多的问题，这里说两个主要的）。</p>
+<p>现在我想解决问题，怎么办呢，我想所有的进程都是一样的一个地址空间，而且要让他感觉只有他一个人在用一整块物理内存。<br>那么，我就告诉每个进程：你的地址空间是0到N字节序列，这就是物理内存，只有你一个人在用哦。<br>是不是觉得有点骗人的感觉，没错，操作系统就是骗了每个进程。<br>但是解决了很多问题：</p>
+<ol>
+<li>每个进程的虚拟地址空间都是一样的，就相当于每一个进程用的都是虚拟的一整块内存。每个进程存的格式就可以规定下来。也就是说模板的问题解决了</li>
+<li>由于我给你的是虚拟内存，你要访问物理内存还要从虚拟内存映射到物理内存，那么你的虚拟内存没有分配的地方你访问不了，你只能访问你的虚拟内存已经映射的物理内存，这块物理内存是你的，没得你没法访问，也就没办法修改，这就保证了每一个进程的地址空间都是独立的，不会被其他的进程所更改。</li>
+</ol>
+<hr>
+<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
+  <div>学习交流</div>
+</div>
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i> CSAPP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/信息安全概论漫游/" rel="next" title="对于消息认证以及数字签名的理解">
+                <i class="fa fa-chevron-left"></i> 对于消息认证以及数字签名的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+            
+              <p class="site-author-name" itemprop="name">王仁松</p>
+              <div class="site-description motion-element" itemprop="description">The World Without End<br> And that's just the beginning</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/rensongwang" title="GitHub → https://github.com/rensongwang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1018440763@qq.com" title="E-Mail → mailto:1018440763@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先不要虚拟内存"><span class="nav-text">先不要虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存来解决问题"><span class="nav-text">虚拟内存来解决问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王仁松</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+  
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">InstantClick.init();</script></body></html>

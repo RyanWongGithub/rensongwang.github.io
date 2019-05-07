@@ -1,7 +1,132 @@
-/* normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+<!DOCTYPE html><html class="theme-next mist use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
+<meta name="keywords" content="InformationSafe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对于消息认证以及数字签名的理解">
+<meta property="og:url" content="http://yoursite.com/2019/04/24/信息安全概论漫游/index.html">
+<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-30T11:42:19.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对于消息认证以及数字签名的理解">
+<meta name="twitter:description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/24/信息安全概论漫游/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>对于消息认证以及数字签名的理解 | Rensong Wang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>html {
+  line-height: 1.15; 
+  -webkit-text-size-adjust: 100%; 
 }
 body {
   margin: 0;
@@ -14,21 +139,21 @@ h1 {
   margin: 0.67em 0;
 }
 hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
+  box-sizing: content-box; 
+  height: 0; 
+  overflow: visible; 
 }
 pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace; 
+  font-size: 1em; 
 }
 a {
   background-color: transparent;
 }
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  border-bottom: none; 
+  text-decoration: underline; 
+  text-decoration: underline dotted; 
 }
 b,
 strong {
@@ -37,8 +162,8 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace; 
+  font-size: 1em; 
 }
 small {
   font-size: 80%;
@@ -64,19 +189,19 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+  font-family: inherit; 
+  font-size: 100%; 
+  line-height: 1.15; 
+  margin: 0; 
 }
 button,
 input {
-/* 1 */
+
   overflow: visible;
 }
 button,
 select {
-/* 1 */
+
   text-transform: none;
 }
 button,
@@ -102,12 +227,12 @@ fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
 legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+  box-sizing: border-box; 
+  color: inherit; 
+  display: table; 
+  max-width: 100%; 
+  padding: 0; 
+  white-space: normal; 
 }
 progress {
   vertical-align: baseline;
@@ -117,23 +242,23 @@ textarea {
 }
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
+  box-sizing: border-box; 
+  padding: 0; 
 }
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 [type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+  -webkit-appearance: textfield; 
+  outline-offset: -2px; 
 }
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+  -webkit-appearance: button; 
+  font: inherit; 
 }
 details {
   display: block;
@@ -1809,7 +1934,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c9ffff;
+  background: #6f62a7;
 }
 .feed-link,
 .chat {
@@ -2886,4 +3011,888 @@ a {
 .post-body p a:hover {
   color: #0477ab;
   text-decoration: underline;
-}
+}</style><noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rensong Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/信息安全概论漫游/">
+
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王仁松">
+      <meta itemprop="description" content="The World Without End<br> And that's just the beginning">
+      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+    </span>
+
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rensong Wang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对于消息认证以及数字签名的理解
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-24 20:39:56" itemprop="dateCreated datePublished" datetime="2019-04-24T20:39:56+08:00">2019-04-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-30 19:42:19" itemprop="dateModified" datetime="2019-04-30T19:42:19+08:00">2019-04-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/信息安全/" itemprop="url" rel="index"><span itemprop="name">信息安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note default">
+            <p>其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。<br>在这里对于信息安全概论做一个小小的总结。</p>
+          </div>
+<a id="more"></a>
+<h2 id="1-信息安全的目标"><a href="#1-信息安全的目标" class="headerlink" title="1. 信息安全的目标"></a>1. 信息安全的目标</h2><ol>
+<li>保密性</li>
+<li>完整性</li>
+<li>不可否认性</li>
+<li>可用性</li>
+</ol>
+<h2 id="2-实现目标的技术和算法"><a href="#2-实现目标的技术和算法" class="headerlink" title="2. 实现目标的技术和算法"></a>2. 实现目标的技术和算法</h2><p>密码理论：<br>是信息安全的基础，信息安全的保密性、<br>完整性和抗否认性都依赖于密码算法。包括数据加密<br>算法、数字签名算法、消息摘要算法及相应的密钥管<br>理协议等<br>这些算法提供两方面的服务：一方面，直<br>接对信息进行运算，保护信息的安全特征，即通过加<br>密变换保护信息的机密性，通过消息摘要变换检测信<br>息的完整性，通过数字签名保护信息的抗否认性；另<br>一方面，提供对身份认证和安全协议等理论的支持。</p>
+<p>安全理论：<br>身份认证（Authentication）<br>授权和访问控制（Authorization and Access Control）<br>审计追踪（Auditing and Tracing）<br>安全协议（Security Protocol）</p>
+<p>安全技术：<br>防火墙技术（Firewall）<br>漏洞扫描技术（Venearbility Scanning）<br>入侵检测技术（Intrusion Detection）<br>防病毒技术（Anti-Virus）</p>
+<h2 id="3-信息安全的发展"><a href="#3-信息安全的发展" class="headerlink" title="3. 信息安全的发展"></a>3. 信息安全的发展</h2><p>经典信息安全：<br>基本思想（技巧）：代换和置换</p>
+<p>现代信息安全<br>现代密码理论—A.Kerckhoffs—Shannon<br>第一阶段：1948年之前—-密码技术是一种艺术<br>第二阶段：1949年—1975年—Communicaiton<br>Theory of Security System<br>第三阶段：1976年—至今—New Direction in<br>Cryptography</p>
+<p>1977年密码学发生了两件大事：DES和公钥密码体制</p>
+<h2 id="4-密码算法分类"><a href="#4-密码算法分类" class="headerlink" title="4. 密码算法分类"></a>4. 密码算法分类</h2><p>按发展进程分：古典密码、对称密钥密码、公开密钥密码<br>按加密模式分对称加密算法又可分为：序列密码和分组密码</p>
+<p>➢ 经典密码算法—代替<br>简单代替、多表代替、多字母代替等<br>➢ 经典密码算法—换位<br>➢ 对称加密算法—DES、AES<br>➢ 公钥加密算法—RSA、背包密码、Rabin、椭圆曲线等</p>
+<p>对称加密呢，主要说说分组加密的原理，也就是把要加密的明文编码表示的信息进行分组，每个分组在密钥的控制下变换成等长的输出数字序列。每个明文分组应对应唯一一个密文分组。</p>
+<p>DES加密算法：利用混乱和扩散，使得加密后的密文难以在计算上进行破解，同时又支持可逆运算，也就是说，我可以同一个密钥进行加密和解密。</p>
+<p>公钥加密，不得不说，公钥的出现真的是使得密码学又进了一步，支持了数字签名，同时也使得密钥分配有了更多的可能性。<br>原理是什么呢。<br>通俗得讲，就是用两个不同得密钥来分别进行加密和解密，在对称密码体制中，双方必须先协商好通信密钥，而这样得过程并不是十分保险，而且对于保存密钥的问题也越来越明显，怎么说呢，如果A要和很多诸如B、C、D等等进行秘密通信，岂不是A要分别保存和这些人的共享密钥，人数多了你想想要保存多少密钥？毕竟人脑不是计算机。<br>可是公钥密码体制的出现解决了很多问题，因为A现在就只需要保存A自己的私钥，为什么呢，因为大家的公钥都公开了呀，你要和A我秘密通信，你就用我的公钥进行加密，完了发送给我，我收到了之后用我的私钥一解就OK了。</p>
+<p>可是诸如RSA这样的公钥加密算法计算速度太慢了，效率还是没有对称密码体制高，以我个人的看法，我想这就是传统密码体制还在使用的原因吧，而且传统密码体制也有它存在的原因。<br>简要说一下RSA的过程：<br>RSA算法密钥生成过程：</p>
+<ol>
+<li>选择两个大素数p和q，需要使用素性检测方法；</li>
+<li>计算乘积n=pq和ϕ(n)=(p-1)(q-1)；</li>
+<li>选择大于1小于ϕ(n)的随机整数e，使得gcd(e,ϕ(n))=1；</li>
+<li>计算d使得de≡1modϕ(n)；</li>
+<li>确定公开密钥为{e,n}，私有密钥为{p,q,d}。<br>RSA算法的加密运算为C=M^e mod n，解密运算为M=C^d mod n。</li>
+</ol>
+<h2 id="消息认证和数字签名"><a href="#消息认证和数字签名" class="headerlink" title="消息认证和数字签名"></a>消息认证和数字签名</h2><font color="red"><strong>我想保密性已经解决了，但是完整性和不可否认性还是没有解决。<br>我先讲一下消息认证再说说我对于完整性的理解。<br>消息认证就是为了保证消息的完整性，通常就是通过散列函数的单向性来实现，在消息认证中，要保证X的散列H(X）没有另一个Y，Y的散列H(Y)等于H(X)，而且也不能通过H(X)推出X，那么如果说我现在是把我的X加上我的H(X)一起发给你，要是中途被他人恶意篡改，你收到后，分解，对X的部分进行散列，得到的H(X)肯定也就会和我发过来的H(X)不一样，这样，也就保证了我发送给你的消息没有被篡改过。<br>接下来你可能会想到，那么这肯定就是你吖的发过来的，没人能改呀。对，消息认证保证了完整性，但是消息认证和数字签名是两个东西，保证了消息的完整性，并不能保证不可否认性，要是A发给B的消息中途被C截获了，C干脆就不要X，H(X)了，他自己弄一个C，H(C)发给B，B这时候验证一下肯定是对的，那么B就认为C是A？</strong></font>
+
+<p>所以数字签名还是要用前面讲的公钥来解决，怎么签名呢，估计你已经想到了，我的私钥不是就我自己知道吗，我用我的私钥加密一下，发给你，你用我的公钥一解开，就能得到消息。而这样的签名，别人伪造不了，因为就只有我自己才有私钥。数字签名问题得到完美解决。</p>
+<font color="red"><strong>那为什么数字签名还要和消息认证一起使用呢，在这里说一下我的两点理解：</strong><br>1. 数字签名保证不可否认性，但是不能保证完整性啊，怎么说呢，我保证了这个签名是我的，别人伪造不了，但是别人可以在中途截获了之后对我发送的消息进行破坏，那么接收端的你还是能用公钥解开，但是即使解开之后是一堆乱码你也不能保证是不是被人篡改了，万一我就是发乱码给你呢？<br>2. 通常来说，说RSA算法的效率较慢，如果我要签名的信息很长，那么岂不是我每次签名都要费很长的时间，那么这时候消息认证的散列就起了作用，想MD5等这样的消息认证算法，能够将任意长度的消息输入，输出固定长度的H，那么每次我签名就只用签名固定长度，提高了效率。</font>
+
+<h2 id="密钥分配过程中，中间人的攻击"><a href="#密钥分配过程中，中间人的攻击" class="headerlink" title="密钥分配过程中，中间人的攻击"></a>密钥分配过程中，中间人的攻击</h2><p>Merkle密钥分配体制的流程为：</p>
+<ol>
+<li>用户A生成公私钥对{KUa,KRa},并向用户B发送A的身份和KUa；</li>
+<li>用户B生成随机密钥KS，并使用KUa加密KS后发送给A；</li>
+<li>用户A使用KRa解密后获得KS；</li>
+<li>用户A和B双方丢弃公私钥对{KUa,KRa} 。<br>Merkle密钥分配体制在通信前后均不存在密钥，其可以抵御窃听，但不能抵御中间人攻击。<br>Merkle密钥分配的中间人攻击流程为：</li>
+<li>用户A生成公私钥对{KUa,KRa}，并向用户B发送A的身份和KUa；</li>
+<li>攻击者E截获该消息，生成公私钥对{KUe,KRe}，冒充A，向B发送A的身份和KUe；</li>
+<li>用户B生成随机密钥KS，并使用KUe加密KS后发送给A；</li>
+<li>攻击者E截获该消息，使用KRe解密后获得KS，并使用KUa加密KS后发送给A；</li>
+<li>用户A使用KRa解密后获得KS；</li>
+<li>用户A和B双方丢弃公私钥对{KUa,KRa}。<br>至此，攻击者E已获得会话密钥KS，之后仅需窃听即可获得双方通信消息，而A和B并不知<br>道他们已经遭受了攻击。</li>
+</ol>
+<p>Diffie-Hellman密钥交换协议为：</p>
+<ol>
+<li>用户A和B双方选定素数q和q的一个小于q的原根α；</li>
+<li>用户A随机选择小于q的自然数XA，计算YA≡α^XA mod q后将其发送给B；</li>
+<li>用户B随机选择小于q的自然数XB，计算YB≡α^XB mod q后将其发送给A；</li>
+<li>用户A计算K≡YB^XA≡α^XBXA mod q；</li>
+<li>用户B计算K≡YA^XB≡α^XAXB mod q。<br>至此双方获得了共享密钥，但这种协议不能抵御中间人攻击。<br>Diffie-Hellman密钥交换协议的中间人攻击流程为：</li>
+<li>用户A和B双方选定素数q和q的一个小于q的原根α；</li>
+<li>用户A随机选择小于q的自然数XA，计算YA≡α^XA mod q后将其发送给B；</li>
+<li>攻击者E截获该消息，随机选择小于q的自然数X1，计算Y1≡α^X1 mod q后将其发送给B；</li>
+<li>用户B随机选择小于q的自然数XB，计算YB≡α^XB mod q后将其发送给A；</li>
+<li>攻击者E截获该消息，随机选择小于q的自然数X2，计算Y2≡α^X2 mod q后将其发送给B；</li>
+<li>用户A计算K2≡Y2^XA≡α^XAX2 mod q；</li>
+<li>用户B计算K1≡Y1^XB≡α^XBX1 mod q；</li>
+<li>攻击者E计算K2≡YA^X2≡α^XAX2 mod q，K1≡YB^X1≡α^XBX1 mod q。<br>至此，攻击者E已获得共享密钥，之后用发送方密钥解密所截获消息后用接收方密钥加密即<br>可在A和B不知道他们已经遭受了攻击的情况下获取消息。在增加数字签名的情况下，共享密钥<br>可得到验证，中间人攻击也将不能奏效。</li>
+</ol>
+<hr>
+<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
+  <div>学习交流</div>
+</div>
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/InformationSafe/" rel="tag"><i class="fa fa-tag"></i> InformationSafe</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/对于异常控制流的理解/" rel="next" title="对于异常控制流的理解">
+                <i class="fa fa-chevron-left"></i> 对于异常控制流的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/07/虚拟内存到底是啥，有多强大/" rel="prev" title="虚拟内存到底是啥，有多强大">
+                虚拟内存到底是啥，有多强大 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+            
+              <p class="site-author-name" itemprop="name">王仁松</p>
+              <div class="site-description motion-element" itemprop="description">The World Without End<br> And that's just the beginning</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/rensongwang" title="GitHub → https://github.com/rensongwang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1018440763@qq.com" title="E-Mail → mailto:1018440763@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-信息安全的目标"><span class="nav-text">1. 信息安全的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实现目标的技术和算法"><span class="nav-text">2. 实现目标的技术和算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-信息安全的发展"><span class="nav-text">3. 信息安全的发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-密码算法分类"><span class="nav-text">4. 密码算法分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息认证和数字签名"><span class="nav-text">消息认证和数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥分配过程中，中间人的攻击"><span class="nav-text">密钥分配过程中，中间人的攻击</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王仁松</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+  
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">InstantClick.init();</script></body></html>
