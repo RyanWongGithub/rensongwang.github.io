@@ -81,18 +81,14 @@
 
 
 
-  <meta name="description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
-<meta name="keywords" content="InformationSafe">
-<meta property="og:type" content="article">
-<meta property="og:title" content="对于消息认证以及数字签名的理解">
-<meta property="og:url" content="http://yoursite.com/2019/04/24/信息安全概论漫游/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="小知识点总结">
+<meta property="og:url" content="http://yoursite.com/2019/05/08/小知识点总结/index.html">
 <meta property="og:site_name" content="Rensong Wang">
-<meta property="og:description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T11:42:19.093Z">
+<meta property="og:updated_time" content="2019-05-08T02:38:12.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="对于消息认证以及数字签名的理解">
-<meta name="twitter:description" content="其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。在这里对于信息安全概论做一个小小的总结。">
+<meta name="twitter:title" content="小知识点总结">
 
 
 
@@ -100,7 +96,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/24/信息安全概论漫游/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/08/小知识点总结/">
 
 
 
@@ -110,7 +106,7 @@
   };
 </script>
 
-  <title>对于消息认证以及数字签名的理解 | Rensong Wang</title>
+  <title>小知识点总结 | Rensong Wang</title>
   
 
 
@@ -3213,7 +3209,7 @@ a {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/信息安全概论漫游/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/小知识点总结/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
@@ -3230,7 +3226,7 @@ a {
 
         
         
-          <h1 class="post-title" itemprop="name headline">对于消息认证以及数字签名的理解
+          <h1 class="post-title" itemprop="name headline">小知识点总结
 
               
             
@@ -3256,46 +3252,16 @@ a {
                 
               
 
-              <time title="创建时间：2019-04-24 20:39:56" itemprop="dateCreated datePublished" datetime="2019-04-24T20:39:56+08:00">2019-04-24</time>
+              <time title="创建时间：2019-05-08 10:37:10 / 修改时间：10:38:12" itemprop="dateCreated datePublished" datetime="2019-05-08T10:37:10+08:00">2019-05-08</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-30 19:42:19" itemprop="dateModified" datetime="2019-04-30T19:42:19+08:00">2019-04-30</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/信息安全/" itemprop="url" rel="index"><span itemprop="name">信息安全</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -3333,68 +3299,65 @@ a {
 
       
         <div class="note default">
-            <p>其实涉及到信息安全，让我想起了讲二战时期图灵的那部电影，具体名字我忘了，不过主要讲的是，通过破解敌方机密，获取情报。关于加密解密的内容倒是挺有意思的。<br>在这里对于信息安全概论做一个小小的总结。</p>
+            
           </div>
 <a id="more"></a>
-<h2 id="1-信息安全的目标"><a href="#1-信息安全的目标" class="headerlink" title="1. 信息安全的目标"></a>1. 信息安全的目标</h2><ol>
-<li>保密性</li>
-<li>完整性</li>
-<li>不可否认性</li>
-<li>可用性</li>
-</ol>
-<h2 id="2-实现目标的技术和算法"><a href="#2-实现目标的技术和算法" class="headerlink" title="2. 实现目标的技术和算法"></a>2. 实现目标的技术和算法</h2><p>密码理论：<br>是信息安全的基础，信息安全的保密性、<br>完整性和抗否认性都依赖于密码算法。包括数据加密<br>算法、数字签名算法、消息摘要算法及相应的密钥管<br>理协议等<br>这些算法提供两方面的服务：一方面，直<br>接对信息进行运算，保护信息的安全特征，即通过加<br>密变换保护信息的机密性，通过消息摘要变换检测信<br>息的完整性，通过数字签名保护信息的抗否认性；另<br>一方面，提供对身份认证和安全协议等理论的支持。</p>
-<p>安全理论：<br>身份认证（Authentication）<br>授权和访问控制（Authorization and Access Control）<br>审计追踪（Auditing and Tracing）<br>安全协议（Security Protocol）</p>
-<p>安全技术：<br>防火墙技术（Firewall）<br>漏洞扫描技术（Venearbility Scanning）<br>入侵检测技术（Intrusion Detection）<br>防病毒技术（Anti-Virus）</p>
-<h2 id="3-信息安全的发展"><a href="#3-信息安全的发展" class="headerlink" title="3. 信息安全的发展"></a>3. 信息安全的发展</h2><p>经典信息安全：<br>基本思想（技巧）：代换和置换</p>
-<p>现代信息安全<br>现代密码理论—A.Kerckhoffs—Shannon<br>第一阶段：1948年之前—-密码技术是一种艺术<br>第二阶段：1949年—1975年—Communicaiton<br>Theory of Security System<br>第三阶段：1976年—至今—New Direction in<br>Cryptography</p>
-<p>1977年密码学发生了两件大事：DES和公钥密码体制</p>
-<h2 id="4-密码算法分类"><a href="#4-密码算法分类" class="headerlink" title="4. 密码算法分类"></a>4. 密码算法分类</h2><p>按发展进程分：古典密码、对称密钥密码、公开密钥密码<br>按加密模式分对称加密算法又可分为：序列密码和分组密码</p>
-<p>➢ 经典密码算法—代替<br>简单代替、多表代替、多字母代替等<br>➢ 经典密码算法—换位<br>➢ 对称加密算法—DES、AES<br>➢ 公钥加密算法—RSA、背包密码、Rabin、椭圆曲线等</p>
-<p>对称加密呢，主要说说分组加密的原理，也就是把要加密的明文编码表示的信息进行分组，每个分组在密钥的控制下变换成等长的输出数字序列。每个明文分组应对应唯一一个密文分组。</p>
-<p>DES加密算法：利用混乱和扩散，使得加密后的密文难以在计算上进行破解，同时又支持可逆运算，也就是说，我可以同一个密钥进行加密和解密。</p>
-<p>公钥加密，不得不说，公钥的出现真的是使得密码学又进了一步，支持了数字签名，同时也使得密钥分配有了更多的可能性。<br>原理是什么呢。<br>通俗得讲，就是用两个不同得密钥来分别进行加密和解密，在对称密码体制中，双方必须先协商好通信密钥，而这样得过程并不是十分保险，而且对于保存密钥的问题也越来越明显，怎么说呢，如果A要和很多诸如B、C、D等等进行秘密通信，岂不是A要分别保存和这些人的共享密钥，人数多了你想想要保存多少密钥？毕竟人脑不是计算机。<br>可是公钥密码体制的出现解决了很多问题，因为A现在就只需要保存A自己的私钥，为什么呢，因为大家的公钥都公开了呀，你要和A我秘密通信，你就用我的公钥进行加密，完了发送给我，我收到了之后用我的私钥一解就OK了。</p>
-<p>可是诸如RSA这样的公钥加密算法计算速度太慢了，效率还是没有对称密码体制高，以我个人的看法，我想这就是传统密码体制还在使用的原因吧，而且传统密码体制也有它存在的原因。<br>简要说一下RSA的过程：<br>RSA算法密钥生成过程：</p>
+<p>发明平衡二叉查找树这类数据结构的初衷是，解决普通二叉查找树在频繁的插入、删除等动态更新的情况下，出现时间复杂度退化的问题<br>红黑树只是做到了近似平衡，并不是严格的平衡，所以在维护平衡的成本上，要比AVL树要低<br>红黑树的高度近似log2n，所以它是近似平衡，<br>插入、删除、查找操作的时间复杂度都是O(logn)</p>
+<p>跳表：链表+多级索引。实现了“链表的二分查找”</p>
+<p>MySQL数据库索引是如何实现的？<br>我们先来看散列表。散列表的查询性能很好，时间复杂度是O(1)。但是，散列表不能支持按照区间快速查找数据。所以，散列表不能满足我们的需求。<br>我们再来看平衡二叉查找树。尽管平衡二叉查找树查询的性能也很高，时间复杂度是O(logn)。而且，对树进行中序遍历，我们还可以得到一个从小到大有序的数<br>据序列，但这仍然不足以支持按照区间快速查找数据。<br>我们再来看跳表。跳表是在链表之上加上多层索引构成的。它支持快速地插入、查找、删除数据，对应的时间复杂度是O(logn)。并且，跳表也支持按照区间快速<br>地查找数据。我们只需要定位到区间起点值对应在链表中的结点，然后从这个结点开始，顺序遍历链表，直到区间终点对应的结点为止，这期间遍历得到的数据<br>就是满足区间值的数据</p>
+<p>但是数据库索引是通过一种叫B+树的数据结构实现的。跳表是在链表基础上实现，而B+树是在二叉查找树的基础上实现的。<br>为了让二叉查找树支持按照区间来查找数据，我们可以对它进行这样的改造：树中的节点并不存储数据本身，而是只是作为索引。除此之外，我们把每个叶子节<br>点串在一条链表上，链表中的数据是从小到大有序的。<br>但是索引不可能存储在内存中，因为数据多了，内存根本不够，所以用时间换空间的思想，存储在磁盘上<br>但是磁盘特别慢，所以为了减少查找索引的次数，我们必须减少树的高度<br>那么就不能用二叉树了，所以我们用m叉树，m越大，高度越小<br>B+树的更新操作会比较慢，也很好理解，就像平衡二叉查找树一样，或者就像跳表一样，它添加/删除了数据，还要维护索引。</p>
+<p>多道批处理解决了CPU资源充分利用的问题<br>但是人机不能交互。也就是说我把程序放进去，不能干涉。</p>
+<p>所以分时系统：提高计算机系统的交互性<br>我有时间片了，你的时间片完了，你就得停止等待你的下一个时间片</p>
+<p>实时系统：就是要立即响应。在非实时操作系统中，用户要么对操作系统得调度功能没有任何控制，要么就只能简单控制。<br>但是在实时系统中，允许用户细粒度地控制任务优先级。</p>
+<p>动态页式存储管理：<br>页面淘汰算法：</p>
 <ol>
-<li>选择两个大素数p和q，需要使用素性检测方法；</li>
-<li>计算乘积n=pq和ϕ(n)=(p-1)(q-1)；</li>
-<li>选择大于1小于ϕ(n)的随机整数e，使得gcd(e,ϕ(n))=1；</li>
-<li>计算d使得de≡1modϕ(n)；</li>
-<li>确定公开密钥为{e,n}，私有密钥为{p,q,d}。<br>RSA算法的加密运算为C=M^e mod n，解密运算为M=C^d mod n。</li>
+<li>最佳淘汰算法OPT： 一种理想的淘汰算法，选择将来不再使用或最远的将来才可能被使用的页面进行淘汰。这个是理想的，也就是直接看后面会不会被访问，要看后面，当一个先知来淘汰，</li>
+<li>先进先出FIFO： 认为最先调入的页不再被访问的可能性大，所以最先进来的就淘汰掉</li>
+<li>最近最少使用淘汰LRU：最近最久没被访问的页，就是选最近最不经常访问的</li>
 </ol>
-<h2 id="消息认证和数字签名"><a href="#消息认证和数字签名" class="headerlink" title="消息认证和数字签名"></a>消息认证和数字签名</h2><font color="red"><strong>我想保密性已经解决了，但是完整性和不可否认性还是没有解决。<br>我先讲一下消息认证再说说我对于完整性的理解。<br>消息认证就是为了保证消息的完整性，通常就是通过散列函数的单向性来实现，在消息认证中，要保证X的散列H(X）没有另一个Y，Y的散列H(Y)等于H(X)，而且也不能通过H(X)推出X，那么如果说我现在是把我的X加上我的H(X)一起发给你，要是中途被他人恶意篡改，你收到后，分解，对X的部分进行散列，得到的H(X)肯定也就会和我发过来的H(X)不一样，这样，也就保证了我发送给你的消息没有被篡改过。<br>接下来你可能会想到，那么这肯定就是你吖的发过来的，没人能改呀。对，消息认证保证了完整性，但是消息认证和数字签名是两个东西，保证了消息的完整性，并不能保证不可否认性，要是A发给B的消息中途被C截获了，C干脆就不要X，H(X)了，他自己弄一个C，H(C)发给B，B这时候验证一下肯定是对的，那么B就认为C是A？</strong></font>
-
-<p>所以数字签名还是要用前面讲的公钥来解决，怎么签名呢，估计你已经想到了，我的私钥不是就我自己知道吗，我用我的私钥加密一下，发给你，你用我的公钥一解开，就能得到消息。而这样的签名，别人伪造不了，因为就只有我自己才有私钥。数字签名问题得到完美解决。</p>
-<font color="red"><strong>那为什么数字签名还要和消息认证一起使用呢，在这里说一下我的两点理解：</strong><br>1. 数字签名保证不可否认性，但是不能保证完整性啊，怎么说呢，我保证了这个签名是我的，别人伪造不了，但是别人可以在中途截获了之后对我发送的消息进行破坏，那么接收端的你还是能用公钥解开，但是即使解开之后是一堆乱码你也不能保证是不是被人篡改了，万一我就是发乱码给你呢？<br>2. 通常来说，说RSA算法的效率较慢，如果我要签名的信息很长，那么岂不是我每次签名都要费很长的时间，那么这时候消息认证的散列就起了作用，想MD5等这样的消息认证算法，能够将任意长度的消息输入，输出固定长度的H，那么每次我签名就只用签名固定长度，提高了效率。</font>
-
-<h2 id="密钥分配过程中，中间人的攻击"><a href="#密钥分配过程中，中间人的攻击" class="headerlink" title="密钥分配过程中，中间人的攻击"></a>密钥分配过程中，中间人的攻击</h2><p>Merkle密钥分配体制的流程为：</p>
+<p>内存 分区式存储管理<br>如果是固定分区大小，那么在程序装入之前，就已经将用户空间分好了一个又一个的固定大小的分区。这样就容易形成内碎片（分区内未被使用的无效的存储空间）</p>
+<p>所以为了充分利用，有了可变分区大小。容易形成外碎片（分区之间未被使用的无效的存储空间）</p>
+<p>分区分配算法：</p>
 <ol>
-<li>用户A生成公私钥对{KUa,KRa},并向用户B发送A的身份和KUa；</li>
-<li>用户B生成随机密钥KS，并使用KUa加密KS后发送给A；</li>
-<li>用户A使用KRa解密后获得KS；</li>
-<li>用户A和B双方丢弃公私钥对{KUa,KRa} 。<br>Merkle密钥分配体制在通信前后均不存在密钥，其可以抵御窃听，但不能抵御中间人攻击。<br>Merkle密钥分配的中间人攻击流程为：</li>
-<li>用户A生成公私钥对{KUa,KRa}，并向用户B发送A的身份和KUa；</li>
-<li>攻击者E截获该消息，生成公私钥对{KUe,KRe}，冒充A，向B发送A的身份和KUe；</li>
-<li>用户B生成随机密钥KS，并使用KUe加密KS后发送给A；</li>
-<li>攻击者E截获该消息，使用KRe解密后获得KS，并使用KUa加密KS后发送给A；</li>
-<li>用户A使用KRa解密后获得KS；</li>
-<li>用户A和B双方丢弃公私钥对{KUa,KRa}。<br>至此，攻击者E已获得会话密钥KS，之后仅需窃听即可获得双方通信消息，而A和B并不知<br>道他们已经遭受了攻击。</li>
+<li>首次适应算法：该算法要求空闲分区以地址递增的次序链接。在分配内存的时候，从链首开始顺序找，直到找到一个大小满足要求的空闲分区<pre><code>每次查找都是从低地址部分开始
+</code></pre></li>
+<li>循环首次适应算法：不再是每次都从链首开始查找，而是从上次找的空闲分区的下一个空闲分区开始，直到满足，如果最后一个空闲分区（链尾）<pre><code>则返回到第一个空闲分区······
+</code></pre></li>
+<li>最坏适应算法：要求空闲分区链从大到小的顺序形成一个空闲分区链。分配内存的时候，从链首开始</li>
+<li>最佳适应算法：最佳就是每次为进程分配内存的时候，总是把能满足的同时又是最小的空闲分区分配给内存。所以要求空闲分区以从小到大的顺序形成一个空闲分区链</li>
+<li>快速适应算法：为每一类具有相同容量的空闲分区设立一个空闲分区表，每个链表的表头指针放在索引表中<pre><code>分配内存时，从索引表找到最适合的空闲分区链，从链中取下第一个空闲分区分配
+</code></pre></li>
+<li>哈希算法：以空闲区大小为关键字的哈希表</li>
 </ol>
-<p>Diffie-Hellman密钥交换协议为：</p>
+<p>进程的三种状态：</p>
 <ol>
-<li>用户A和B双方选定素数q和q的一个小于q的原根α；</li>
-<li>用户A随机选择小于q的自然数XA，计算YA≡α^XA mod q后将其发送给B；</li>
-<li>用户B随机选择小于q的自然数XB，计算YB≡α^XB mod q后将其发送给A；</li>
-<li>用户A计算K≡YB^XA≡α^XBXA mod q；</li>
-<li>用户B计算K≡YA^XB≡α^XAXB mod q。<br>至此双方获得了共享密钥，但这种协议不能抵御中间人攻击。<br>Diffie-Hellman密钥交换协议的中间人攻击流程为：</li>
-<li>用户A和B双方选定素数q和q的一个小于q的原根α；</li>
-<li>用户A随机选择小于q的自然数XA，计算YA≡α^XA mod q后将其发送给B；</li>
-<li>攻击者E截获该消息，随机选择小于q的自然数X1，计算Y1≡α^X1 mod q后将其发送给B；</li>
-<li>用户B随机选择小于q的自然数XB，计算YB≡α^XB mod q后将其发送给A；</li>
-<li>攻击者E截获该消息，随机选择小于q的自然数X2，计算Y2≡α^X2 mod q后将其发送给B；</li>
-<li>用户A计算K2≡Y2^XA≡α^XAX2 mod q；</li>
-<li>用户B计算K1≡Y1^XB≡α^XBX1 mod q；</li>
-<li>攻击者E计算K2≡YA^X2≡α^XAX2 mod q，K1≡YB^X1≡α^XBX1 mod q。<br>至此，攻击者E已获得共享密钥，之后用发送方密钥解密所截获消息后用接收方密钥加密即<br>可在A和B不知道他们已经遭受了攻击的情况下获取消息。在增加数字签名的情况下，共享密钥<br>可得到验证，中间人攻击也将不能奏效。</li>
+<li>运行</li>
+<li>就绪</li>
+<li>等待</li>
 </ol>
+<p>就绪是指进程已经具备了运行的所有条件，就差处理机了<br>等待是指1. 进程如果在运行状态时需要等待某一事件发生（完成）或者是某一资源被其他进程占用，那么就从运行状态转变为等待状态<br>等待过程中，如果事件完成，或是得到了某个资源，那么就从等待状态转变为就绪状态，因为这时候系统中可能还有多个进程处于就绪状态，你不能插队吧<br>所以不可能从等待状态直接变为运行状态！</p>
+<p>同步与互斥：<br>互斥：一组并发进程中的两个或多个程序段，因共享某一公共资源而使得这组并发进程不能同时进入临界区，就叫互斥。<br>也就是说我在用的时候，你不能用。另外注意。临界区是指进程访问临界资源的那段代码，也就是说临界区——》程序段</p>
+<p>同步：在异步环境下的一组并发进程，在某些程序段上需相互合作、互相等待、使得各进程在某些程序段上必须按照一定的顺序执行的制约关系就是同步<br>也就是说，咱们共同维护一个缓冲区，我往里面放数据，你从里面取，我必须得是有空的才能放，你必须是有数据才能取<br>前趋关系：咱们共同完成一件大事，你得等我先把我的那部分干完你才能开始干活。</p>
+<p>作业调度和进程调度：<br>由于时间原因，第一部分先不做</p>
+<p>死锁的原因：</p>
+<ol>
+<li>系统资源不足（根本原因）</li>
+<li>进程推进顺序不合适</li>
+</ol>
+<p>死锁的必要条件：</p>
+<ol>
+<li>互斥条件</li>
+<li>不可剥夺条件</li>
+<li>部分分配条件：</li>
+<li>环路条件（循环等待条件）</li>
+</ol>
+<p>数据库特性也好：原子性，一致性，隔离性，持久性</p>
+<p>一个派生类继承了所有的基类方法，但下列情况除外：<br>基类的构造函数、析构函数和拷贝构造函数。<br>基类的重载运算符。<br>基类的友元函数。</p>
+<p>C++中，动态内存管理是通过一对运算符来实现：new和delete<br>智能指针呢（share_ptr，允许多个指针指向对象和unique_ptr，独占对象），是为了更好的管理动态对象，与常用指针的区别就在于，它负责自动地释放所指向的对象。<br>智能指针怎么动态申请内存呢，当然是配合一个标准库函数：make_shared<br>例子：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">share_ptr&lt;int&gt; p1 = make_shared&lt;int&gt;(42)   申请了一个动态int对象，值为42</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>当且仅当对通过指针或引用调用虚函数时，才会在运行时解析该调用。<br>虚函数在底层是怎么实现的？<br>当一个类或其派生子类中有虚函数时，编译器就会为这个类生成一个虚函数表（类所有的对象共享），保存该类的所有的虚函数地址，另外每一个类对象<br>还有一个虚表指针（每个对象都有），指向该类的虚表，通过指针或引用调用虚函数时，就会根据具体的指向的对象的虚标指针找到该类对象的虚表，然后调用对应的虚函数</p>
+<p>Git：<br>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset –hard commit_id。<br>穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。<br>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。<br>每提交一个新版本，实际上Git就会把它们自动串成一条时间线。<br>工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD</p>
+<p>分支管理<br>前面说到版本库，除了暂存区很重要之外，还有分支，就像前面说的，每提交一个新版本，实际上Git就会把它们自动串成一条时间线。master就指向对应的提交点，HEAD指向master<br>如果这时候master分支上是多个人共同合作，那么问题就来了，这个时候你还没有完成你的工作，提交了不完整的版本库，别人就工作不了，等完成了再提交，团队工作效率低</p>
+<p>这个时候，就可以再创建一个分支，我再拉一条时间线出来，然后让HEAD指向当前分支，你在你自己的分支上工作，对工作区的修改和提交都是针对你自己的分支了<br>当你在你自己的分支上完成工作后，再把分支合并到master上就OK了</p>
 <hr>
 <div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
@@ -3456,12 +3419,6 @@ a {
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/InformationSafe/" rel="tag"><i class="fa fa-tag"></i> InformationSafe</a>
-          
-        </div>
-      
 
       
       
@@ -3471,8 +3428,8 @@ a {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/对于异常控制流的理解/" rel="next" title="对于异常控制流的理解">
-                <i class="fa fa-chevron-left"></i> 对于异常控制流的理解
+              <a href="/2019/05/07/虚拟内存到底是啥，有多强大/" rel="next" title="虚拟内存到底是啥，有多强大">
+                <i class="fa fa-chevron-left"></i> 虚拟内存到底是啥，有多强大
               </a>
             
           </div>
@@ -3480,10 +3437,6 @@ a {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/07/虚拟内存到底是啥，有多强大/" rel="prev" title="虚拟内存到底是啥，有多强大">
-                虚拟内存到底是啥，有多强大 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -3527,17 +3480,8 @@ a {
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -3661,23 +3605,6 @@ a {
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-信息安全的目标"><span class="nav-text">1. 信息安全的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实现目标的技术和算法"><span class="nav-text">2. 实现目标的技术和算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-信息安全的发展"><span class="nav-text">3. 信息安全的发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-密码算法分类"><span class="nav-text">4. 密码算法分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息认证和数字签名"><span class="nav-text">消息认证和数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥分配过程中，中间人的攻击"><span class="nav-text">密钥分配过程中，中间人的攻击</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
