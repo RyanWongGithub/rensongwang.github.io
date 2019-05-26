@@ -7,6 +7,13 @@
 
 
 
+  
+  
+    
+    
+  
+  
+
 
 
 
@@ -86,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSAPP：信息的表示和处理">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/csapp：信息的表示和处理/index.html">
-<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:site_name" content="Rensong's blog">
 <meta property="og:description" content="首先，看了第一章有个大概的认识，再对第二章做一个总结。这本书确实很牛逼，能够让你对于计算机底层怎么实现的，有个具体的深入的认识和了解。第一章就跟标题写的一模一样，先带你在计算机的世界里漫游，告诉你具体在哪几章涉及什么知识。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-22T13:35:05.103Z">
@@ -110,7 +117,7 @@
   };
 </script>
 
-  <title>CSAPP：信息的表示和处理 | Rensong Wang</title>
+  <title>CSAPP：信息的表示和处理 | Rensong's blog</title>
   
 
 
@@ -1798,6 +1805,16 @@ pre .javascript .function {
 #qr p {
   text-align: center;
 }
+.post-copyright {
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid #ff1700;
+  background-color: #f9f9f9;
+  list-style: none;
+}
+.post-copyright i.fa {
+  font-size: 15px;
+}
 .rtl.post-body p,
 .rtl.post-body a,
 .rtl.post-body h1,
@@ -1934,7 +1951,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff3c1b;
+  background: #ffdf06;
 }
 .feed-link,
 .chat {
@@ -2121,10 +2138,13 @@ pre .javascript .function {
 .footer-inner {
   text-align: center;
 }
+#animate {
+  animation: iconAnimate 1.33s ease-in-out infinite;
+}
 .with-love {
   display: inline-block;
   margin: 0 5px;
-  color: #808080;
+  color: #0099FF;
 }
 .powered-by,
 .theme-info {
@@ -2291,6 +2311,38 @@ pre .javascript .function {
   top: 50%;
   transform: translate(-50%, -50%);
   color: #ccc;
+}
+.copy-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  user-select: none;
+  outline: 0;
+}
+.highlight-wrap .copy-btn {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding: 2px 6px;
+  position: absolute;
+  right: 4px;
+  top: 8px;
+}
+.highlight-wrap:hover .copy-btn,
+.highlight-wrap .copy-btn:focus {
+  opacity: 1;
+}
+.highlight-wrap {
+  position: relative;
 }
 .page-archive .archive-page-counter {
   position: relative;
@@ -3036,7 +3088,7 @@ a {
   </style>
 </noscript>
 
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -3056,7 +3108,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Rensong Wang</span>
+        <span class="site-title">Rensong's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3222,7 +3274,7 @@ a {
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
+      <meta itemprop="name" content="Rensong's blog">
     </span>
 
     
@@ -3424,6 +3476,30 @@ a {
     
 
     
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王仁松</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/03/28/csapp：信息的表示和处理/" title="CSAPP：信息的表示和处理">http://yoursite.com/2019/03/28/csapp：信息的表示和处理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -3624,6 +3700,16 @@ a {
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
 
           
           
@@ -3670,7 +3756,7 @@ a {
       <div class="footer-inner">
         <div class="copyright">© <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">王仁松</span>
 
@@ -3680,15 +3766,9 @@ a {
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
 
 
 
@@ -3750,11 +3830,7 @@ a {
 
   
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+
 
 
 
@@ -3862,10 +3938,45 @@ a {
 
   
 
+
+
   
 
   
 
 
 
-<script type="text/javascript" src="/bundle.js"></script></body></html>
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  };$('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })</script></body></html>

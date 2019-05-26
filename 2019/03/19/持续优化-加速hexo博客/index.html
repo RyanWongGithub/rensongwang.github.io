@@ -7,6 +7,13 @@
 
 
 
+  
+  
+    
+    
+  
+  
+
 
 
 
@@ -86,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="持续优化-加速hexo博客">
 <meta property="og:url" content="http://yoursite.com/2019/03/19/持续优化-加速hexo博客/index.html">
-<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:site_name" content="Rensong's blog">
 <meta property="og:description" content="在将我的个人博客经过一系列美化与维护之后，总感觉有一点美中不足。因为是hexo + next + GitHub Pages，导致国内访问速度特别慢，这对于有一点小小强迫症的我是有点无法接受的，因此想办法对hexo博客的加载速度做了优化。感慨：相对于之前我博客的访问速度，我只能说，优化了过后简直快如闪电。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-05-10T13:21:50.765Z">
@@ -110,7 +117,7 @@
   };
 </script>
 
-  <title>持续优化-加速hexo博客 | Rensong Wang</title>
+  <title>持续优化-加速hexo博客 | Rensong's blog</title>
   
 
 
@@ -1798,6 +1805,16 @@ pre .javascript .function {
 #qr p {
   text-align: center;
 }
+.post-copyright {
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid #ff1700;
+  background-color: #f9f9f9;
+  list-style: none;
+}
+.post-copyright i.fa {
+  font-size: 15px;
+}
 .rtl.post-body p,
 .rtl.post-body a,
 .rtl.post-body h1,
@@ -1934,7 +1951,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff3c1b;
+  background: #ffdf06;
 }
 .feed-link,
 .chat {
@@ -2121,10 +2138,13 @@ pre .javascript .function {
 .footer-inner {
   text-align: center;
 }
+#animate {
+  animation: iconAnimate 1.33s ease-in-out infinite;
+}
 .with-love {
   display: inline-block;
   margin: 0 5px;
-  color: #808080;
+  color: #0099FF;
 }
 .powered-by,
 .theme-info {
@@ -2291,6 +2311,38 @@ pre .javascript .function {
   top: 50%;
   transform: translate(-50%, -50%);
   color: #ccc;
+}
+.copy-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  user-select: none;
+  outline: 0;
+}
+.highlight-wrap .copy-btn {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding: 2px 6px;
+  position: absolute;
+  right: 4px;
+  top: 8px;
+}
+.highlight-wrap:hover .copy-btn,
+.highlight-wrap .copy-btn:focus {
+  opacity: 1;
+}
+.highlight-wrap {
+  position: relative;
 }
 .page-archive .archive-page-counter {
   position: relative;
@@ -3036,7 +3088,7 @@ a {
   </style>
 </noscript>
 
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -3056,7 +3108,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Rensong Wang</span>
+        <span class="site-title">Rensong's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3222,7 +3274,7 @@ a {
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
+      <meta itemprop="name" content="Rensong's blog">
     </span>
 
     
@@ -3343,15 +3395,15 @@ a {
 <li>hexo-service-worker</li>
 <li>hexo-filter-optimize</li>
 </ul>
-<h3 id="InstantClick"><a href="#InstantClick" class="headerlink" title="InstantClick"></a>InstantClick</h3><p>官网文档：<a href="http://instantclick.io/" target="_blank" rel="noopener">instantclick.io</a><br>需要：<a href="http://instantclick.io/v3.1.0/instantclick.min.js" target="_blank" rel="noopener">instantclick.min.js</a>，点击之后直接在浏览器右键，另存为，我这里是存到themes\next-reloaded\source\js\下<br>然后在themes/next/layout/_layout.swig添加代码（直接在最下面）：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ &lt;script type="text/javascript" src= "/js/instantclick.min.js" data-no-instant&gt;&lt;/script&gt;</span><br><span class="line">+ &lt;script data-no-instant&gt;InstantClick.init();&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></tbody></table></figure><p></p>
-<p>注意： 两个加号不用加上，只是为了说明位置而已。<br>这里简要说明一下InstantClick的用处，当你把鼠标移动到一个按钮上的时候（移动到一个链接），InstantClick就会提前马上申请一个这个链接对应的新页面的请求，当你还在犹豫点不点的时候，其实已经请求OK了。<br>这个功能对于我的个人博客来说，还是有速度提升的，尤其是你是第二次点击的时候（滑稽）。<br>多多少少还是有用。<br>搞定之后加载网页的时候，顶部会有加载条，不喜欢可以去掉：<br>直接在custom.styl里添加：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#instantclick {</span><br><span class="line">  display: none;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="InstantClick"><a href="#InstantClick" class="headerlink" title="InstantClick"></a>InstantClick</h3><p>官网文档：<a href="http://instantclick.io/" target="_blank" rel="noopener">instantclick.io</a><br>需要：<a href="http://instantclick.io/v3.1.0/instantclick.min.js" target="_blank" rel="noopener">instantclick.min.js</a>，点击之后直接在浏览器右键，另存为，我这里是存到themes\next-reloaded\source\js\下<br>然后在themes/next/layout/_layout.swig添加代码（直接在最下面）：<br></p><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>= <span class="string">"/js/instantclick.min.js"</span> <span class="attr">data-no-instant</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">+ <span class="tag">&lt;<span class="name">script</span> <span class="attr">data-no-instant</span>&gt;</span><span class="undefined">InstantClick.init();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>注意： 两个加号不用加上，只是为了说明位置而已。<br>这里简要说明一下InstantClick的用处，当你把鼠标移动到一个按钮上的时候（移动到一个链接），InstantClick就会提前马上申请一个这个链接对应的新页面的请求，当你还在犹豫点不点的时候，其实已经请求OK了。<br>这个功能对于我的个人博客来说，还是有速度提升的，尤其是你是第二次点击的时候（滑稽）。<br>多多少少还是有用。<br>搞定之后加载网页的时候，顶部会有加载条，不喜欢可以去掉：<br>直接在custom.styl里添加：<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#instantclick</span> {</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h3 id="hexo的插件"><a href="#hexo的插件" class="headerlink" title="hexo的插件"></a>hexo的插件</h3><p>插件：</p>
 <ul>
 <li>hexo-service-worker</li>
 <li>hexo-filter-optimize</li>
 </ul>
-<p>先在博客根目录安装插件(我的是cnpm)：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-service-worker hexo-filter-optimize --save</span><br></pre></td></tr></tbody></table></figure><p></p>
-<p>然后在站点配置文件中添加：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># offline config passed to sw-precache.//安装了service_worker和filter_optimize的配置</span><br><span class="line">service_worker:</span><br><span class="line">  maximumFileSizeToCacheInBytes: 5242880</span><br><span class="line">  staticFileGlobs:</span><br><span class="line">  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}</span><br><span class="line">  stripPrefix: public</span><br><span class="line">  verbose: true</span><br><span class="line"></span><br><span class="line">filter_optimize:</span><br><span class="line">  enable: true</span><br><span class="line">  # remove static resource query string</span><br><span class="line">  #   - like `?v=1.0.0`</span><br><span class="line">  remove_query_string: true</span><br><span class="line">  # remove the surrounding comments in each of the bundled files</span><br><span class="line">  remove_comments: true</span><br><span class="line">  css:</span><br><span class="line">    enable: true</span><br><span class="line">    # bundle loaded css file into the one</span><br><span class="line">    bundle: true</span><br><span class="line">    # use a script block to load css elements dynamically</span><br><span class="line">    delivery: true</span><br><span class="line">    # make specific css content inline into the html page</span><br><span class="line">    #   - only support the full path</span><br><span class="line">    #   - default is ['css/main.css']</span><br><span class="line">    inlines:</span><br><span class="line">    excludes:</span><br><span class="line">  js:</span><br><span class="line">    # bundle loaded js file into the one</span><br><span class="line">    bundle: true</span><br><span class="line">    excludes:</span><br><span class="line">  # set the priority of this plugin,</span><br><span class="line">  # lower means it will be executed first, default is 10</span><br><span class="line">  priority: 12</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>先在博客根目录安装插件(我的是cnpm)：<br></p><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm <span class="keyword">install</span> hexo-service-worker hexo-filter-<span class="keyword">optimize</span> <span class="comment">--save</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>然后在站点配置文件中添加：<br></p><figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># offline config passed to sw-precache.//安装了service_worker和filter_optimize的配置</span></span><br><span class="line"><span class="attr">service_worker:</span></span><br><span class="line"><span class="attr">  maximumFileSizeToCacheInBytes:</span> <span class="number">5242880</span></span><br><span class="line"><span class="attr">  staticFileGlobs:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}</span></span><br><span class="line"><span class="attr">  stripPrefix:</span> <span class="string">public</span></span><br><span class="line"><span class="attr">  verbose:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">filter_optimize:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># remove static resource query string</span></span><br><span class="line">  <span class="comment">#   - like `?v=1.0.0`</span></span><br><span class="line"><span class="attr">  remove_query_string:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># remove the surrounding comments in each of the bundled files</span></span><br><span class="line"><span class="attr">  remove_comments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  css:</span></span><br><span class="line"><span class="attr">    enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># bundle loaded css file into the one</span></span><br><span class="line"><span class="attr">    bundle:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># use a script block to load css elements dynamically</span></span><br><span class="line"><span class="attr">    delivery:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># make specific css content inline into the html page</span></span><br><span class="line">    <span class="comment">#   - only support the full path</span></span><br><span class="line">    <span class="comment">#   - default is ['css/main.css']</span></span><br><span class="line"><span class="attr">    inlines:</span></span><br><span class="line"><span class="attr">    excludes:</span></span><br><span class="line"><span class="attr">  js:</span></span><br><span class="line">    <span class="comment"># bundle loaded js file into the one</span></span><br><span class="line"><span class="attr">    bundle:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    excludes:</span></span><br><span class="line">  <span class="comment"># set the priority of this plugin,</span></span><br><span class="line">  <span class="comment"># lower means it will be executed first, default is 10</span></span><br><span class="line"><span class="attr">  priority:</span> <span class="number">12</span></span><br></pre></td></tr></tbody></table></figure><p></p>
 <p>完成之后在重新部署到远端查看效果便是。</p>
 <h2 id="3-遇到的问题"><a href="#3-遇到的问题" class="headerlink" title="3. 遇到的问题"></a>3. 遇到的问题</h2><p>我之前是在主题文件中配置了静态资源加速的，所以后面重新部署没有问题，可是我觉得速度还是不快，可能是错觉，也可能是我参考的是别人的vendors字段设置（本人也不是很懂cdn加速），所以我想自己调试一下，看怎么样才是最有效的。</p>
 <ul>
@@ -3362,7 +3414,7 @@ a {
 <li>所以我就试着在_internal:后面是vendors的基础上把fontawesome包括在内的前面字段的全部的cdn地址都设置成示例的。<br><strong>结果成功</strong>。<br>试了一下，博客的访问速度还是挺快的，哈哈。</li>
 </ul>
 <p>本人的安装过程是：先安装的hexo的两个插件，然后弄的nstantClick。具体为什么会出现上述问题我也不是很清楚，但是博客的访问速度确实有了很明显的增强，用了三个不同的浏览器，清楚了缓存，试了几次，速度很不错。<br>具体可以用F12查看具体的速度。</p>
-<p>附上我的vendors字段：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">vendors:</span><br><span class="line">  # 在这里我测试一下，有副本，不行就注释回去OK，上面的是原来的，改到fontawesome</span><br><span class="line">  # Internal path prefix. Please do not edit it.</span><br><span class="line">  #_internal: lib</span><br><span class="line">  _internal: vendors</span><br><span class="line">  # Internal version: 2.1.3</span><br><span class="line">  # Example:</span><br><span class="line">  # jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js</span><br><span class="line">  # jquery: //cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js</span><br><span class="line">  jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js</span><br><span class="line">  #jquery: //cdn.bootcss.com/jquery/2.1.3/jquery.min.js</span><br><span class="line">  # 放大镜效果</span><br><span class="line">  </span><br><span class="line">  # Internal version: 2.1.5 &amp; 3.5.7</span><br><span class="line">  # See: https://fancyapps.com/fancybox</span><br><span class="line">  # Example:</span><br><span class="line">  # fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span><br><span class="line">  # fancybox: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js</span><br><span class="line">  # fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span><br><span class="line">  # fancybox_css: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css</span><br><span class="line">  fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span><br><span class="line">  fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span><br><span class="line">  #fancybox: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js</span><br><span class="line">  #fancybox_css: //cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css</span><br><span class="line">  # 图片预览</span><br><span class="line"></span><br><span class="line">  # Internal version: 1.0.6</span><br><span class="line">  # See: https://github.com/ftlabs/fastclick</span><br><span class="line">  # Example:</span><br><span class="line">  # fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js</span><br><span class="line">  # fastclick: //cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js</span><br><span class="line">  fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js</span><br><span class="line">  #fastclick: //cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js</span><br><span class="line">  # 快速点击？</span><br><span class="line"></span><br><span class="line">  # Internal version: 1.9.7</span><br><span class="line">  # See: https://github.com/tuupola/jquery_lazyload</span><br><span class="line">  # Example:</span><br><span class="line">  # lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js</span><br><span class="line">  # lazyload: //cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js</span><br><span class="line">  lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js</span><br><span class="line">  #lazyload: //cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js</span><br><span class="line">  # 懒加载</span><br><span class="line"></span><br><span class="line">  # Internal version: 1.2.1</span><br><span class="line">  # See: http://velocityjs.org</span><br><span class="line">  # Example:</span><br><span class="line">  # velocity: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js</span><br><span class="line">  # velocity: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js</span><br><span class="line">  # velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js</span><br><span class="line">  # velocity_ui: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js</span><br><span class="line">  velocity: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js</span><br><span class="line">  velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js</span><br><span class="line">  #velocity: //cdn.bootcss.com/velocity/1.3.1/velocity.min.js</span><br><span class="line">  #velocity_ui: //cdn.bootcss.com/velocity/1.3.1/velocity.ui.min.js</span><br><span class="line"></span><br><span class="line">  # Internal version: 4.6.2</span><br><span class="line">  # See: https://fontawesome.com</span><br><span class="line">  # Example:</span><br><span class="line">  # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span><br><span class="line">  # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css</span><br><span class="line">  #fontawesome:</span><br><span class="line">  fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span><br><span class="line">  # 图标</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>附上我的vendors字段：<br></p><figure class="highlight dts"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">vendors:</span></span><br><span class="line">  <span class="meta"># 在这里我测试一下，有副本，不行就注释回去OK，上面的是原来的，改到fontawesome</span></span><br><span class="line">  <span class="meta"># Internal path prefix. Please do not edit it.</span></span><br><span class="line">  <span class="meta">#_internal: lib</span></span><br><span class="line"><span class="symbol">  _internal:</span> vendors</span><br><span class="line">  <span class="meta"># Internal version: 2.1.3</span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># jquery: <span class="comment">//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js</span></span></span><br><span class="line">  <span class="meta"># jquery: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js</span></span></span><br><span class="line"><span class="symbol">  jquery:</span> <span class="comment">//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js</span></span><br><span class="line">  <span class="meta">#jquery: <span class="comment">//cdn.bootcss.com/jquery/2.1.3/jquery.min.js</span></span></span><br><span class="line">  <span class="meta"># 放大镜效果</span></span><br><span class="line">  </span><br><span class="line">  <span class="meta"># Internal version: 2.1.5 &amp; 3.5.7</span></span><br><span class="line">  <span class="meta"># See: https:<span class="comment">//fancyapps.com/fancybox</span></span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># fancybox: <span class="comment">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span></span><br><span class="line">  <span class="meta"># fancybox: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js</span></span></span><br><span class="line">  <span class="meta"># fancybox_css: <span class="comment">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span></span><br><span class="line">  <span class="meta"># fancybox_css: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css</span></span></span><br><span class="line"><span class="symbol">  fancybox:</span> <span class="comment">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span><br><span class="line"><span class="symbol">  fancybox_css:</span> <span class="comment">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span><br><span class="line">  <span class="meta">#fancybox: <span class="comment">//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js</span></span></span><br><span class="line">  <span class="meta">#fancybox_css: <span class="comment">//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css</span></span></span><br><span class="line">  <span class="meta"># 图片预览</span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># Internal version: 1.0.6</span></span><br><span class="line">  <span class="meta"># See: https:<span class="comment">//github.com/ftlabs/fastclick</span></span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># fastclick: <span class="comment">//cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js</span></span></span><br><span class="line">  <span class="meta"># fastclick: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js</span></span></span><br><span class="line"><span class="symbol">  fastclick:</span> <span class="comment">//cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js</span></span><br><span class="line">  <span class="meta">#fastclick: <span class="comment">//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js</span></span></span><br><span class="line">  <span class="meta"># 快速点击？</span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># Internal version: 1.9.7</span></span><br><span class="line">  <span class="meta"># See: https:<span class="comment">//github.com/tuupola/jquery_lazyload</span></span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># lazyload: <span class="comment">//cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js</span></span></span><br><span class="line">  <span class="meta"># lazyload: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js</span></span></span><br><span class="line"><span class="symbol">  lazyload:</span> <span class="comment">//cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js</span></span><br><span class="line">  <span class="meta">#lazyload: <span class="comment">//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js</span></span></span><br><span class="line">  <span class="meta"># 懒加载</span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># Internal version: 1.2.1</span></span><br><span class="line">  <span class="meta"># See: http:<span class="comment">//velocityjs.org</span></span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># velocity: <span class="comment">//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js</span></span></span><br><span class="line">  <span class="meta"># velocity: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js</span></span></span><br><span class="line">  <span class="meta"># velocity_ui: <span class="comment">//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js</span></span></span><br><span class="line">  <span class="meta"># velocity_ui: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js</span></span></span><br><span class="line"><span class="symbol">  velocity:</span> <span class="comment">//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js</span></span><br><span class="line"><span class="symbol">  velocity_ui:</span> <span class="comment">//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js</span></span><br><span class="line">  <span class="meta">#velocity: <span class="comment">//cdn.bootcss.com/velocity/1.3.1/velocity.min.js</span></span></span><br><span class="line">  <span class="meta">#velocity_ui: <span class="comment">//cdn.bootcss.com/velocity/1.3.1/velocity.ui.min.js</span></span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># Internal version: 4.6.2</span></span><br><span class="line">  <span class="meta"># See: https:<span class="comment">//fontawesome.com</span></span></span><br><span class="line">  <span class="meta"># Example:</span></span><br><span class="line">  <span class="meta"># fontawesome: <span class="comment">//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span></span></span><br><span class="line">  <span class="meta"># fontawesome: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css</span></span></span><br><span class="line">  <span class="meta">#fontawesome:</span></span><br><span class="line"><span class="symbol">  fontawesome:</span> <span class="comment">//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span></span><br><span class="line">  <span class="meta"># 图标</span></span><br></pre></td></tr></tbody></table></figure><p></p>
 <h3 id="无法理解的问题"><a href="#无法理解的问题" class="headerlink" title="无法理解的问题"></a>无法理解的问题</h3><ol>
 <li>弄了上面所有的优化之后，我在本地进行博客的维护，也就是浏览localhost：4000，每次点击一个新的页面之后，是一片空白。所以每次都要刷新两次才能刷出来。苦恼，不知道为什么。</li>
 </ol>
@@ -3423,6 +3475,30 @@ a {
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王仁松</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/03/19/持续优化-加速hexo博客/" title="持续优化-加速hexo博客">http://yoursite.com/2019/03/19/持续优化-加速hexo博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -3624,6 +3700,16 @@ a {
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
 
           
           
@@ -3670,7 +3756,7 @@ a {
       <div class="footer-inner">
         <div class="copyright">© <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">王仁松</span>
 
@@ -3680,15 +3766,9 @@ a {
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
 
 
 
@@ -3750,11 +3830,7 @@ a {
 
   
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+
 
 
 
@@ -3862,10 +3938,45 @@ a {
 
   
 
+
+
   
 
   
 
 
 
-<script type="text/javascript" src="/bundle.js"></script></body></html>
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  };$('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })</script></body></html>

@@ -7,6 +7,13 @@
 
 
 
+  
+  
+    
+    
+  
+  
+
 
 
 
@@ -85,7 +92,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="小知识点总结">
 <meta property="og:url" content="http://yoursite.com/2019/04/08/小知识点总结/index.html">
-<meta property="og:site_name" content="Rensong Wang">
+<meta property="og:site_name" content="Rensong's blog">
 <meta property="og:description" content="小知识点">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-05-10T12:57:06.499Z">
@@ -109,7 +116,7 @@
   };
 </script>
 
-  <title>小知识点总结 | Rensong Wang</title>
+  <title>小知识点总结 | Rensong's blog</title>
   
 
 
@@ -1797,6 +1804,16 @@ pre .javascript .function {
 #qr p {
   text-align: center;
 }
+.post-copyright {
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid #ff1700;
+  background-color: #f9f9f9;
+  list-style: none;
+}
+.post-copyright i.fa {
+  font-size: 15px;
+}
 .rtl.post-body p,
 .rtl.post-body a,
 .rtl.post-body h1,
@@ -1933,7 +1950,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff3c1b;
+  background: #ffdf06;
 }
 .feed-link,
 .chat {
@@ -2120,10 +2137,13 @@ pre .javascript .function {
 .footer-inner {
   text-align: center;
 }
+#animate {
+  animation: iconAnimate 1.33s ease-in-out infinite;
+}
 .with-love {
   display: inline-block;
   margin: 0 5px;
-  color: #808080;
+  color: #0099FF;
 }
 .powered-by,
 .theme-info {
@@ -2290,6 +2310,38 @@ pre .javascript .function {
   top: 50%;
   transform: translate(-50%, -50%);
   color: #ccc;
+}
+.copy-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  user-select: none;
+  outline: 0;
+}
+.highlight-wrap .copy-btn {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding: 2px 6px;
+  position: absolute;
+  right: 4px;
+  top: 8px;
+}
+.highlight-wrap:hover .copy-btn,
+.highlight-wrap .copy-btn:focus {
+  opacity: 1;
+}
+.highlight-wrap {
+  position: relative;
 }
 .page-archive .archive-page-counter {
   position: relative;
@@ -3035,7 +3087,7 @@ a {
   </style>
 </noscript>
 
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -3055,7 +3107,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Rensong Wang</span>
+        <span class="site-title">Rensong's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3221,7 +3273,7 @@ a {
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rensong Wang">
+      <meta itemprop="name" content="Rensong's blog">
     </span>
 
     
@@ -3368,7 +3420,7 @@ a {
 </ol>
 <p>数据库特性也好：原子性，一致性，隔离性，持久性</p>
 <p>一个派生类继承了所有的基类方法，但下列情况除外：<br>基类的构造函数、析构函数和拷贝构造函数。<br>基类的重载运算符。<br>基类的友元函数。</p>
-<p>C++中，动态内存管理是通过一对运算符来实现：new和delete<br>智能指针呢（share_ptr，允许多个指针指向对象和unique_ptr，独占对象），是为了更好的管理动态对象，与常用指针的区别就在于，它负责自动地释放所指向的对象。<br>智能指针怎么动态申请内存呢，当然是配合一个标准库函数：make_shared<br>例子：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">share_ptr&lt;int&gt; p1 = make_shared&lt;int&gt;(42)   申请了一个动态int对象，值为42</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>C++中，动态内存管理是通过一对运算符来实现：new和delete<br>智能指针呢（share_ptr，允许多个指针指向对象和unique_ptr，独占对象），是为了更好的管理动态对象，与常用指针的区别就在于，它负责自动地释放所指向的对象。<br>智能指针怎么动态申请内存呢，当然是配合一个标准库函数：make_shared<br>例子：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">share_ptr&lt;<span class="keyword">int</span>&gt; p1 = make_shared&lt;<span class="keyword">int</span>&gt;(<span class="number">42</span>)   申请了一个动态<span class="keyword">int</span>对象，值为<span class="number">42</span></span><br></pre></td></tr></tbody></table></figure><p></p>
 <p>当且仅当对通过指针或引用调用虚函数时，才会在运行时解析该调用。<br>虚函数在底层是怎么实现的？<br>当一个类或其派生子类中有虚函数时，编译器就会为这个类生成一个虚函数表（类所有的对象共享），保存该类的所有的虚函数地址，另外每一个类对象<br>还有一个虚表指针（每个对象都有），指向该类的虚表，通过指针或引用调用虚函数时，就会根据具体的指向的对象的虚标指针找到该类对象的虚表，然后调用对应的虚函数</p>
 <p>Git：<br>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset –hard commit_id。<br>穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。<br>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。<br>每提交一个新版本，实际上Git就会把它们自动串成一条时间线。<br>工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD</p>
 <p>分支管理<br>前面说到版本库，除了暂存区很重要之外，还有分支，就像前面说的，每提交一个新版本，实际上Git就会把它们自动串成一条时间线。master就指向对应的提交点，HEAD指向master<br>如果这时候master分支上是多个人共同合作，那么问题就来了，这个时候你还没有完成你的工作，提交了不完整的版本库，别人就工作不了，等完成了再提交，团队工作效率低</p>
@@ -3430,6 +3482,30 @@ a {
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王仁松</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/04/08/小知识点总结/" title="小知识点总结">http://yoursite.com/2019/04/08/小知识点总结/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -3616,6 +3692,16 @@ a {
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
 
           
           
@@ -3645,7 +3731,7 @@ a {
       <div class="footer-inner">
         <div class="copyright">© <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">王仁松</span>
 
@@ -3655,15 +3741,9 @@ a {
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
 
 
 
@@ -3725,11 +3805,7 @@ a {
 
   
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+
 
 
 
@@ -3837,10 +3913,45 @@ a {
 
   
 
+
+
   
 
   
 
 
 
-<script type="text/javascript" src="/bundle.js"></script></body></html>
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  };$('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })</script></body></html>
