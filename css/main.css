@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ecb58e;
+  background: #ffc84e;
 }
 .feed-link,
 .chat {
@@ -2794,6 +2794,12 @@ hr {
     width: auto;
     text-align: center;
   }
+}
+.yongwuzhijing {
+  font-family: "楷体";
+  font-weight: bold;
+  font-size: 188px;
+  text-align: center;
 }
 .site-description {
   font-family: 'Comic Sans MS', sans-serif;
