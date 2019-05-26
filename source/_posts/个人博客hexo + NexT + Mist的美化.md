@@ -27,6 +27,69 @@ photo:
 我在这里说一下，其实以前看别人照猫画虎的，很多都是对其他文件做了改动，其实根本没有必要。next主题提供了custom.styl就是可以让不同的人自定义自己的博客风格，这点真的很棒。所以我更倾向于在custom.styl做改动。因为比较统一，只要分清楚模块，我觉得这是一个很好的方式。因此后面，我会分别给出我在主题文件或其他文件上做出的改动，以及我的custom.styl，区分开来。
 
 ## 3. 在主题文件或其他文件上做出的改动
+
+
+#### 代码块复制按钮
+在主题文件中，以下：
+```
+codeblock:
+  # Manual define the border radius in codeblock, leave it blank for the default value: 1
+  border_radius:
+  # Add copy button on codeblock
+  copy_button:
+    enable: true
+    # Show text copy result
+    show_result: true
+    # Style: only 'flat' is currently available, leave it blank if you prefer default theme
+    style:
+```
+#### 关闭博客底部hexo和next的相关显示，以下：
+```
+footer:
+  # Specify the date when the site was setup.
+  # If not defined, current year will be used.
+  since: 2019 #建站时间
+
+  # Icon between year and copyright info.
+  icon:
+    # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons/
+    # `heart` is recommended with animation in red (#ff0000).
+    name: heart  #作者图标（默认是author人像)
+    # If you want to animate the icon, set it to true.
+    animated: true #图标是否闪动
+    # Change the color of icon, using Hex Code.
+    color: "#808080" #图标颜色
+
+  # If not defined, `author` from Hexo main config will be used.
+  copyright: 黄飘 #别填bool型，最后显示的东西是copyright || author，即左边没有设置的话就显示作者
+  # -------------------------------------------------------------
+  powered:
+    # Hexo link (Powered by Hexo).
+    enable: false #是否显示 Powered by hexo
+    # Version info of Hexo after Hexo link (vX.X.X).
+    version: false #是否显示Hexo版本
+
+  theme:
+    # Theme & scheme info link (Theme - NexT.scheme).
+    enable: false #是否显示主题信息
+    # Version info of NexT after scheme info (vX.X.X).
+    version: false #是否显示主题版本
+  # -------------------------------------------------------------
+  # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
+  # http://www.miitbeian.gov.cn
+  beian:
+    enable: false #是否显示网站备案信息
+    icp:
+
+```
+#### 开启播客的版权功能，需要在主题文件中设置以下：
+
+```
+creative_commons:
+  license: by-nc-sa
+  sidebar: true
+  post: true
+```
 #### 实现在手机上也可以显示侧栏按钮（b2t返回顶部上面那个）
 在主题文件中搜索sidebar:
 ```
@@ -207,6 +270,15 @@ label: trues
 \# https://github.com/chriskempson/tomorrow-theme
 highlight_theme: night eighties
 ```
+站点文件：
+```
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace:
+```
+在\`\`\`后面加上你要高亮的语言，如C++
 
 #### 订阅微信公众号
 在主题文件中搜索Wechat Subscriber，设置如下：
