@@ -64,7 +64,7 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":false},
     back2top: true,
     back2top_sidebar: false,
     fancybox: false,
@@ -905,9 +905,8 @@ pre .javascript .function {
   position: relative;
   padding: 15px;
   margin-bottom: 20px;
-  border: initial;
-  border-left: 3px solid #eee;
-  background-color: #f9f9f9;
+  border: 1px solid transparent;
+  background-color: #f5f5f5;
   border-radius: 3px;
 }
 .post-body .note h2,
@@ -937,70 +936,94 @@ pre .javascript .function {
   margin-bottom: 0;
 }
 .post-body .note.default {
-  background-color: #f7f7f7;
-  border-left-color: #777;
+  background-color: #f3f3f3;
+  border-color: #e1e1e1;
+  color: #666;
 }
-.post-body .note.default h2,
-.post-body .note.default h3,
-.post-body .note.default h4,
-.post-body .note.default h5,
-.post-body .note.default h6 {
-  color: #777;
+.post-body .note.default a:not(.btn),
+.post-body .note.default span.exturl:not(.btn) {
+  color: #666;
+  border-bottom: 1px solid #666;
+}
+.post-body .note.default a:not(.btn):hover,
+.post-body .note.default span.exturl:not(.btn):hover {
+  color: #454545;
+  border-bottom: 1px solid #454545;
 }
 .post-body .note.primary {
-  background-color: #f5f0fa;
-  border-left-color: #6f42c1;
-}
-.post-body .note.primary h2,
-.post-body .note.primary h3,
-.post-body .note.primary h4,
-.post-body .note.primary h5,
-.post-body .note.primary h6 {
+  background-color: #f3daff;
+  border-color: #e1c2ff;
   color: #6f42c1;
 }
-.post-body .note.info {
-  background-color: #eef7fa;
-  border-left-color: #428bca;
+.post-body .note.primary a:not(.btn),
+.post-body .note.primary span.exturl:not(.btn) {
+  color: #6f42c1;
+  border-bottom: 1px solid #6f42c1;
 }
-.post-body .note.info h2,
-.post-body .note.info h3,
-.post-body .note.info h4,
-.post-body .note.info h5,
-.post-body .note.info h6 {
-  color: #428bca;
+.post-body .note.primary a:not(.btn):hover,
+.post-body .note.primary span.exturl:not(.btn):hover {
+  color: #453298;
+  border-bottom: 1px solid #453298;
+}
+.post-body .note.info {
+  background-color: #d9edf7;
+  border-color: #b3e5ef;
+  color: #31708f;
+}
+.post-body .note.info a:not(.btn),
+.post-body .note.info span.exturl:not(.btn) {
+  color: #31708f;
+  border-bottom: 1px solid #31708f;
+}
+.post-body .note.info a:not(.btn):hover,
+.post-body .note.info span.exturl:not(.btn):hover {
+  color: #215761;
+  border-bottom: 1px solid #215761;
 }
 .post-body .note.success {
-  background-color: #eff8f0;
-  border-left-color: #5cb85c;
+  background-color: #dff0d8;
+  border-color: #d0e6be;
+  color: #3c763d;
 }
-.post-body .note.success h2,
-.post-body .note.success h3,
-.post-body .note.success h4,
-.post-body .note.success h5,
-.post-body .note.success h6 {
-  color: #5cb85c;
+.post-body .note.success a:not(.btn),
+.post-body .note.success span.exturl:not(.btn) {
+  color: #3c763d;
+  border-bottom: 1px solid #3c763d;
+}
+.post-body .note.success a:not(.btn):hover,
+.post-body .note.success span.exturl:not(.btn):hover {
+  color: #32562c;
+  border-bottom: 1px solid #32562c;
 }
 .post-body .note.warning {
-  background-color: #fdf8ea;
-  border-left-color: #f0ad4e;
+  background-color: #fcf4e3;
+  border-color: #fae4cd;
+  color: #8a6d3b;
 }
-.post-body .note.warning h2,
-.post-body .note.warning h3,
-.post-body .note.warning h4,
-.post-body .note.warning h5,
-.post-body .note.warning h6 {
-  color: #f0ad4e;
+.post-body .note.warning a:not(.btn),
+.post-body .note.warning span.exturl:not(.btn) {
+  color: #8a6d3b;
+  border-bottom: 1px solid #8a6d3b;
+}
+.post-body .note.warning a:not(.btn):hover,
+.post-body .note.warning span.exturl:not(.btn):hover {
+  color: #714f30;
+  border-bottom: 1px solid #714f30;
 }
 .post-body .note.danger {
-  background-color: #fcf1f2;
-  border-left-color: #d9534f;
+  background-color: #f2dfdf;
+  border-color: #ebcdd2;
+  color: #a94442;
 }
-.post-body .note.danger h2,
-.post-body .note.danger h3,
-.post-body .note.danger h4,
-.post-body .note.danger h5,
-.post-body .note.danger h6 {
-  color: #d9534f;
+.post-body .note.danger a:not(.btn),
+.post-body .note.danger span.exturl:not(.btn) {
+  color: #a94442;
+  border-bottom: 1px solid #a94442;
+}
+.post-body .note.danger a:not(.btn):hover,
+.post-body .note.danger span.exturl:not(.btn):hover {
+  color: #84333f;
+  border-bottom: 1px solid #84333f;
 }
 .post-body .tabs {
   position: relative;
@@ -1949,7 +1972,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ef8;
+  background: #cbc6f0;
 }
 .feed-link,
 .chat {
@@ -2925,6 +2948,32 @@ hr {
     text-align: center;
   }
 }
+.use-motion .post-block,
+.use-motion .pagination,
+.use-motion .comments {
+  margin: 0px -66px;
+}
+.posts-expand .post-title-link {
+  color: #5e64b9;
+}
+.posts-expand .post-body {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.posts-expand .post-meta {
+  color: #5e64b9;
+}
+body {
+  font-size: 20px;
+}
+.menu {
+  width: inherit;
+  margin: 8px 0 0 0;
+}
+.site-nav {
+  display: block !important;
+  width: inherit;
+}
 .yongwuzhijing {
   font-family: "楷体";
   font-weight: bold;
@@ -2944,7 +2993,7 @@ hr {
 }
 .header {
   background: url("https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/rick-and-morty-wallpaper-1024x576.jpg");
-  padding: 20px 0px;
+  padding: 8px 0px;
 }
 .site-meta {
   float: none;
@@ -2957,7 +3006,7 @@ hr {
   display: none;
 }
 .menu .menu-item a {
-  font-size: 25px;
+  font-size: 20px;
   color: #fff;
   border-radius: 5px;
 }
@@ -2974,7 +3023,7 @@ hr {
   font-size: 30px;
   font-family: 'Comic Sans MS', sans-serif;
   color: #fff;
-  left: -68%;
+  left: 0%;
 }
 .footer {
   background: none;
@@ -3289,7 +3338,7 @@ a {
         
           
         
-        嗯..! 目前共计 14 篇日志。 继续努力。
+        嗯..! 目前共计 15 篇日志。 继续努力。
       </span>
       
 
@@ -3325,6 +3374,41 @@ a {
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated" datetime="2019-03-27T11:06:00+08:00" content="2019-03-27">
           03-27
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2019/03/20/next主题的一些问题以及改动/" itemprop="url">
+            
+              <span itemprop="name">next主题的一些问题以及改动</span>
+            
+          </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-03-20T13:53:56+08:00" content="2019-03-20">
+          03-20
         </time>
       </div>
 
@@ -3493,7 +3577,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
