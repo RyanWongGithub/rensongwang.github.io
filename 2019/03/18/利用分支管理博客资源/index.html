@@ -97,7 +97,7 @@
 <meta property="og:description" content="从搭建好个人博客，经过间断性的更新一些布局和少数博客之后，在这个过程中发现更好的管理个人博客的一种方式，也就是通过分支来管理，将生成的静态文件提交到GitHub个人仓库的master分支，源代码提交到同一个仓库的source分支。当然，master是主分支（但是因为master一开始用来提交静态文件，所以后面我将source设为默认分支）。我将记录在这个过程中一些步骤和需">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/925240/201604/925240-20160423181854210-135268393.png">
-<meta property="og:updated_time" content="2019-05-10T13:21:52.767Z">
+<meta property="og:updated_time" content="2019-07-01T02:48:03.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用分支管理博客资源">
 <meta name="twitter:description" content="从搭建好个人博客，经过间断性的更新一些布局和少数博客之后，在这个过程中发现更好的管理个人博客的一种方式，也就是通过分支来管理，将生成的静态文件提交到GitHub个人仓库的master分支，源代码提交到同一个仓库的source分支。当然，master是主分支（但是因为master一开始用来提交静态文件，所以后面我将source设为默认分支）。我将记录在这个过程中一些步骤和需">
@@ -1976,7 +1976,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #5bff83;
+  background: #b42422;
 }
 .feed-link,
 .chat {
@@ -3382,7 +3382,7 @@ a {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-10 21:21:52" itemprop="dateModified" datetime="2019-05-10T21:21:52+08:00">2019-05-10</time>
+                <time title="修改时间：2019-07-01 10:48:03" itemprop="dateModified" datetime="2019-07-01T10:48:03+08:00">2019-07-01</time>
               
             
           </span>
@@ -3445,11 +3445,12 @@ a {
             <p>从搭建好个人博客，经过间断性的更新一些布局和少数博客之后，在这个过程中发现更好的管理个人博客的一种方式，也就是通过分支来管理，将生成的静态文件提交到GitHub个人仓库的master分支，源代码提交到同一个仓库的source分支。当然，master是主分支（但是因为master一开始用来提交静态文件，所以后面我将source设为默认分支）。我将记录在这个过程中一些步骤和需要注意的地方。</p>
           </div>
 <a id="more"></a>
-<h3 id="1-初始化本地的版本库"><a href="#1-初始化本地的版本库" class="headerlink" title="1. 初始化本地的版本库"></a>1. 初始化本地的版本库</h3><p>用到git命令：git init<br>首先是要在你的博客根目录的路径下执行这个命令，成功之后会在产生一个.git文件夹，git\refs\heads\下是你的本地分支，master是初始化库的时候自动默认生成的，.git\refs\remotes下是你的远程仓库<br>这个时候输入命令：git remote<br>会输出与你本地库相关联的远程仓库，当然，如果第一次是没有的。</p>
-<h3 id="2-建立与远程仓库的连接"><a href="#2-建立与远程仓库的连接" class="headerlink" title="2. 建立与远程仓库的连接"></a>2. 建立与远程仓库的连接</h3><p>接下来就可以建立与远程仓库的连接，使用命令：git remote add origin 你的GitHub仓库地址<br>origin是定义远程仓库在本地的名字，当然也可以指定其他的名字，我的是blog。<br>成功之后，再执行：git remote<br>会看到已经建立关联的远程仓库，当然名字是你自己取的，在我这，查看.git\refs\remotes\下会看到blog\文件夹。</p>
-<h3 id="3-提交源文件"><a href="#3-提交源文件" class="headerlink" title="3. 提交源文件"></a>3. 提交源文件</h3><p>这个时候其实已经可以提交文件了，使用命令：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"1 push code"</span></span><br><span class="line">git push -u blog HEAD:<span class="built_in">source</span></span><br></pre></td></tr></tbody></table></figure><p></p>
-<p>这三个命令就是提交文件要用到的git命令，commit -m 后面是本次提交的注明信息，可以不写，但是好习惯还是要写上。<br>因为我们的目的就是用不同分支来充分管理我们的博客，所以最后一条命令对于第一次这么做的人是比较重要的。<br>HEAD是版本库的头指针的意思，-u 意思是让本地分支与远程分支建立连接，所以我们后面紧跟着你要在你远程仓库建立的新分支，在这里我是souorce，这条命令的意思就是将本地库的最新版本代码提交到远程仓库blog（这里blog是远程仓库在本地的名字）的source分支上去。<br>当然，这个时候远程仓库还没有source分支，命令执行，就在远程仓库建立一个名叫source的分支，并将它与本地<strong>当前</strong>分支建立关联。注意，<strong>这个时候我本地当前分支是master，所以现在与远程分支source建立连接的是我本地的master</strong>。</p>
-<h3 id="4-设置GitHub仓库的默认分支为新建的分支"><a href="#4-设置GitHub仓库的默认分支为新建的分支" class="headerlink" title="4. 设置GitHub仓库的默认分支为新建的分支"></a>4. 设置GitHub仓库的默认分支为新建的分支</h3><p>这个时候，其实已经将本地的源文件提交到远程仓库的source分支下了。具体去查看会发现你的仓库多了一个source分支，点击后，会出现你的博客源文件，说明已经成功了。这个时候还需要把你的这个仓库的默认分支设为新建的分支（我这是source），这样后续直接git push就OK了。</p>
+<h3 id="1-初始化本地的版本库"><a href="#1-初始化本地的版本库" class="headerlink" title="1. 初始化本地的版本库"></a>1. 初始化本地的版本库</h3><p>用到git命令：git init<br>首先是要在你的博客根目录的路径下执行这个命令，成功之后会在产生一个.git文件夹，git\refs\heads\下是你的本地分支(这里说的可能不对啊，有待考证)，master（主分支）是初始化库的时候自动默认生成的，.git\refs\remotes下是你的远程仓库<br>这个时候输入命令：git remote<br>会输出与你本地库相关联的远程仓库，当然，如果第一次是没有的。</p>
+<h3 id="2-建立与远程仓库的连接"><a href="#2-建立与远程仓库的连接" class="headerlink" title="2. 建立与远程仓库的连接"></a>2. 建立与远程仓库的连接</h3><p>接下来就可以建立与远程仓库的连接，使用命令：git remote add origin 你的GitHub仓库地址<br>origin是定义远程仓库在本地的名字，当然也可以指定其他的名字，我的是myblog。<br>成功之后，再执行：git remote<br>会看到已经建立关联的远程仓库，当然名字是你自己取的，在我这，查看.git\refs\remotes\下会看到myblog文件夹。(反斜杠是在windows环境下，Linux环境下是斜杠，我有时候用cmd，有时候用git工具，斜杠不用关注)<br>这个时候我们输入git remote看一下：<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10184@<span class="keyword">DESKTOP</span>-<span class="keyword">KPP8OQ8</span> MINGW64 ~/blog (master)</span><br><span class="line">$ git remote</span><br><span class="line">myblog</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>这个myblog是我们在本地<strong>称呼</strong>关联的那个远程仓库</p>
+<h3 id="3-提交源文件"><a href="#3-提交源文件" class="headerlink" title="3. 提交源文件"></a>3. 提交源文件</h3><p>这个时候其实已经可以提交文件了，常用使用命令：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"1 push code"</span></span><br><span class="line">git push -u blog HEAD:<span class="built_in">source</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>这三个命令就是提交文件要用到的git命令，commit -m 后面是本次提交的注明信息，可以不写，但是好习惯还是要写上。<br>因为我们的目的就是用不同分支来充分管理我们的博客，所以最后一条命令对于第一次这么做的人是比较重要的。<br>HEAD是版本库的头指针的意思，-u 意思是让本地分支与远程分支建立连接，所以我们后面紧跟着你要在你远程仓库建立的新分支，在这里我是souorce，这条命令的意思就是将本地库的最新版本代码提交到远程仓库myblog（这里myblog是远程仓库在本地的名字）的source分支上去。<br>当然，这个时候远程仓库还没有source分支，命令执行，就在远程仓库建立一个名叫source的分支，并将它与本地<strong>当前</strong>分支建立关联。注意，<strong>这个时候我本地当前分支是master，所以现在与远程分支source建立连接的是我本地的master</strong>。</p>
+<h3 id="4-设置GitHub仓库的默认分支为新建的分支"><a href="#4-设置GitHub仓库的默认分支为新建的分支" class="headerlink" title="4. 设置GitHub仓库的默认分支为新建的分支"></a>4. 设置GitHub仓库的默认分支为新建的分支</h3><p>这个时候，其实已经将本地的源文件提交到远程仓库的source分支下了。具体去查看会发现你的仓库多了一个source分支，点击后，会出现你的博客源文件，说明已经成功了。这个时候还需要把你的这个仓库的默认分支设为新建的分支（我这是source），这样后续直接git push就OK了。<br>20190701更新，最近我直接git push不行了。目前还不知道是什么原因。</p>
 <h3 id="本人犯的错误"><a href="#本人犯的错误" class="headerlink" title="本人犯的错误"></a>本人犯的错误</h3><p>其实这个时候已经完全OK了，但是由于我对git的不熟悉，导致我看到本地的Git Bash里命令符最后是（master）之后，我误以为这是远程分支master，也就是远程仓库的分支master。紧接着我以为这样子我提交文件是提交到远程分支master，真是把我学糊涂了，搞懵了。<br>这里的master就是本地分支master，是你初始化本地版本库的时候自动生成的，经过一系列操作之后，其实已经OK了，后续也可以<strong>继续通过本地master提交文件到远程分支source</strong>。<br>但是，我当时已经懵了，所以我一顿操作猛如虎，恍然大悟二百五。<strong>这也造成了我后面的深刻理解</strong>。<br>我当时想，我得把（master）变成（source）才对啊。<br>于是，我又去找各种相关的信息，终于新建立了一个<font color="red"><strong>本地分支</strong></font>source（滑稽）。<br>然后我觉得已经OK了，完美，然后，<br>出错，后面懂了，当前是本地分支master跟踪远程分支source，也就是说当前是本地master与远程source建立关联<br>而我新建的这个<strong>本地source</strong>是没有与远程source建立关联的。<br>所以我又一次：git push -u blog HEAD:source，提示：<br></p><div class="note default">
             <p>Branch source set up to track remote branch source from myblog</p>
           </div><br>意思是<strong>设置分支“source”来跟踪来自“myblog”的远程分支“source”</strong>。<p></p>
@@ -3462,8 +3463,8 @@ a {
 <p>切换回master(玩玩，哈哈)<br></p><div class="note default">
             <p>$ git checkout master //切换分支到master<br>Switched to branch ‘master’<br>M       themes/next<br>M       themes/next-reloaded<br>Your branch and ‘myblog/source’ have diverged,<br>and have 1 and 2 different commits each, respectively.<br>  (use “git pull” to merge the remote branch into yours)</p>
           </div><br>意思是：<br>切换到分支“master”<br>主题/下一个<br>主题/ next-reloaded<br>你的分支和“我的博客/资源”已经分道扬镳，<br>分别有1个和2个不同的提交。<br>(使用“git pull”将远程分支合并到您的分支中)<br>看到这的时候我基本上都懂了，也就是说基本的一些机制和原理我已经知道了，也明白了为什么出错，以及该如何去解决。<p></p>
-<hr>
-<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+<p>20190701更新（这个问题其实很早就解决了），上述其实讲的就是git这个版本控制管理工具的核心。但是我后面觉得我就搞个博客没有必要，然后想把本地分治source合并到master，然后删除本地分支source，但是合并出了问题。具体问题想不起来了，好像就是因为我的本地master分支上多了一些文件或是少了一些文件，与source上不一样（source删除或者增加了）。导致不能合并还是啥，反正就是合并要满足的一些东西。后面我好像是删了本地库，重新来了一遍。心累。这个东西用的不熟悉，还是谨慎为好。<br>后面再学习学习。</p>
+<h2 id="后期更新或另起博文。"><a href="#后期更新或另起博文。" class="headerlink" title="后期更新或另起博文。"></a>后期更新或另起博文。</h2><div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
     </div>
 
@@ -3645,7 +3646,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3785,7 +3786,7 @@ a {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初始化本地的版本库"><span class="nav-text">1. 初始化本地的版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-建立与远程仓库的连接"><span class="nav-text">2. 建立与远程仓库的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-提交源文件"><span class="nav-text">3. 提交源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置GitHub仓库的默认分支为新建的分支"><span class="nav-text">4. 设置GitHub仓库的默认分支为新建的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本人犯的错误"><span class="nav-text">本人犯的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题又来了"><span class="nav-text">问题又来了</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初始化本地的版本库"><span class="nav-text">1. 初始化本地的版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-建立与远程仓库的连接"><span class="nav-text">2. 建立与远程仓库的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-提交源文件"><span class="nav-text">3. 提交源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置GitHub仓库的默认分支为新建的分支"><span class="nav-text">4. 设置GitHub仓库的默认分支为新建的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本人犯的错误"><span class="nav-text">本人犯的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题又来了"><span class="nav-text">问题又来了</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#后期更新或另起博文。"><span class="nav-text">后期更新或另起博文。</span></a></li></div>
             
 
           </div>
@@ -4031,4 +4032,4 @@ a {
         $b.text('复制');
       }, 300);
     }).append(e);
-  })</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  })</script></body></html>
