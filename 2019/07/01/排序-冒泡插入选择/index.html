@@ -88,18 +88,18 @@
 
 
 
-  <meta name="description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
-<meta name="keywords" content="深入理解计算机系统">
+  <meta name="description" content="最常规的时间复杂度为O(n^2)的三种算法的C++编程实现，加上一点原理介绍和一些注意点总结。最为重要的我觉得还是个人的一些理解和总结，和亲自测试这些算法的运行效率。">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP：程序的机器级表示">
-<meta property="og:url" content="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/index.html">
+<meta property="og:title" content="排序-冒泡插入选择">
+<meta property="og:url" content="http://rensongwang.xyz/2019/07/01/排序-冒泡插入选择/index.html">
 <meta property="og:site_name" content="Rensong's blog">
-<meta property="og:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta property="og:description" content="最常规的时间复杂度为O(n^2)的三种算法的C++编程实现，加上一点原理介绍和一些注意点总结。最为重要的我觉得还是个人的一些理解和总结，和亲自测试这些算法的运行效率。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T13:35:05.119Z">
+<meta property="og:updated_time" content="2019-07-01T01:24:31.697Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSAPP：程序的机器级表示">
-<meta name="twitter:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta name="twitter:title" content="排序-冒泡插入选择">
+<meta name="twitter:description" content="最常规的时间复杂度为O(n^2)的三种算法的C++编程实现，加上一点原理介绍和一些注意点总结。最为重要的我觉得还是个人的一些理解和总结，和亲自测试这些算法的运行效率。">
 
 
 
@@ -107,7 +107,7 @@
 
   
   
-  <link rel="canonical" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+  <link rel="canonical" href="http://rensongwang.xyz/2019/07/01/排序-冒泡插入选择/">
 
 
 
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title>CSAPP：程序的机器级表示 | Rensong's blog</title>
+  <title>排序-冒泡插入选择 | Rensong's blog</title>
   
 
 
@@ -3320,7 +3320,7 @@ a {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/07/01/排序-冒泡插入选择/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
@@ -3337,7 +3337,7 @@ a {
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSAPP：程序的机器级表示
+          <h1 class="post-title" itemprop="name headline">排序-冒泡插入选择
 
               
             
@@ -3363,24 +3363,12 @@ a {
                 
               
 
-              <time title="创建时间：2019-04-03 09:18:35" itemprop="dateCreated datePublished" datetime="2019-04-03T09:18:35+08:00">2019-04-03</time>
+              <time title="创建时间：2019-07-01 09:12:33 / 修改时间：09:24:31" itemprop="dateCreated datePublished" datetime="2019-07-01T09:12:33+08:00">2019-07-01</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 21:35:05" itemprop="dateModified" datetime="2019-04-22T21:35:05+08:00">2019-04-22</time>
               
             
           </span>
@@ -3397,7 +3385,7 @@ a {
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CSAPP/" itemprop="url" rel="index"><span itemprop="name">CSAPP</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
 
                 
                 
@@ -3440,72 +3428,21 @@ a {
 
       
         <div class="note default">
-            <p>当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。</p>
+            <p>最常规的时间复杂度为O(n^2)的三种算法的C++编程实现，加上一点原理介绍和一些注意点总结。<br>最为重要的我觉得还是个人的一些理解和总结，和亲自测试这些算法的运行效率。</p>
           </div>
-<hr>
 <a id="more"></a>
-<p>首先，我们应该要清楚，计算机在底层实际上处理不了人类的高级语言，只能将我们的程序一步一步的变成二进制指令，也就是字节序列。</p>
-<h3 id="机器级代码"><a href="#机器级代码" class="headerlink" title="机器级代码"></a>机器级代码</h3><p>前面讲到过，计算机系统使用了多种不同形式的抽象，利用抽象模型来简化细节。对于机器级编程，两种抽象。</p>
+<h2 id="排序-冒泡插入选择"><a href="#排序-冒泡插入选择" class="headerlink" title="排序-冒泡插入选择"></a>排序-冒泡插入选择</h2><p>冒泡插入选择这三种排序算法是比较简单的。<br>分析时间复杂度就简化。这里只是做一些简单的总结。重点是实践编程。</p>
+<h2 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h2><p>冒泡的原理就是一趟排序中将数组中最大的元素找出来，放在最后面。<br>这就涉及到了比较和元素交换。<br>需要注意的地方就是冒泡排序的优化。<br>优化也就是在于，我们要排的数据基本上有序了，那么一趟冒泡下来，也就没有必要继续了。对应最好的情况：O(n)<br>所以在这里我们要设置一个跳出循环的炸弹。<br>具体代码：<br></p><figure class="highlight qml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> booSort(<span class="built_in">int</span> *arr, <span class="built_in">int</span> <span class="built_in">size</span>)</span><br><span class="line">{</span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span> - <span class="number">1</span>; i++)<span class="comment">//因为只比较n-1趟</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">bool</span> bre = <span class="literal">false</span>;<span class="comment">//设置炸弹开启</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; <span class="built_in">size</span> - i - <span class="number">1</span>; j++)<span class="comment">//每次比较的次数-1，并且j只走到最后一个元素的前面一个元素</span></span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">int</span> tmp = arr[j];</span><br><span class="line">			<span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>])<span class="comment">//每次都和后面的元素进行比较，大于后面的元素就和后面的元素进行交换</span></span><br><span class="line">			{</span><br><span class="line">				arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">				arr[j + <span class="number">1</span>] = tmp;</span><br><span class="line">				bre = <span class="literal">true</span>;<span class="comment">//关闭炸弹</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(!bre)<span class="comment">//只要一趟下来没有交换的操作，那么直接退出循环，完成排序</span></span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为34812ms左右，范围100000，时间为37157ms左右</p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入的原理就是，将无序区的元素插入到有序区，主要就是插入的方法与过程。<br>这里分析平均时间复杂度的时候，可以这么想，往数组里插入一个元素的时间复杂度是O(n)，我排序基本上要插n个数据。<br>于是平均时间复杂度为O(n^2)。<br>它最好情况也是O(n)，因为每次插的时候，跟有序区最后一个元素比较的时候，已经大于之，所以都不用插。<br>具体代码：<br></p><figure class="highlight arduino"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> insertSort(<span class="keyword">int</span> *arr, <span class="keyword">int</span> <span class="built_in">size</span>)</span><br><span class="line">{</span><br><span class="line">	<span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">size</span>; i++)<span class="comment">//无序区初始为n-1个元素， 有序区初始为第一个元素，所以从1开始。</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">int</span> tmp = arr[i];<span class="comment">//把无序区的要排序的元素存在tmp里面。</span></span><br><span class="line">		<span class="keyword">int</span> j = i - <span class="number">1</span>;<span class="comment">//j就是要排序的元素的前面一个元素。因为这里插入是从尾到头开始比较。</span></span><br><span class="line">		<span class="built_in">for</span> (; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">if</span> (tmp &lt; arr[j])</span><br><span class="line">			{</span><br><span class="line">				arr[j + <span class="number">1</span>] = arr[j];<span class="comment">//这里，只要前面的元素大于要排序的元素，我就后移元素。但是我先不管最前面那个元素的值，因为最后被tmp覆盖即可。</span></span><br><span class="line">			}</span><br><span class="line">			<span class="built_in">else</span></span><br><span class="line">			{</span><br><span class="line">				<span class="comment">//这里就相当于炸弹爆炸</span></span><br><span class="line">				<span class="built_in">break</span>;<span class="comment">//只要不小于前面的元素，我就不比较了，这时候的j就是我要插入的位置前面的一个元素。</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		arr[j + <span class="number">1</span>] = tmp;<span class="comment">//在终止之后，插在前面一个元素的后一个位置。</span></span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为12094ms左右，范围100000，时间为13750ms左右<br>插入没有特别需要注意的地方，但是优化的话–》希尔排序</p>
+<h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><p>选择没有特别的地方。<br>选择有点像冒泡和插入的组合，但是谁都不像，谁都不如。<br>但是有一点需要注意的就是，我最开始的版本是每次一出现比头小的就交换位置。正确的版本应该是<br>一出现更小的，记录值和位置。最后才交换。所以下面有两个版本<br></p><figure class="highlight arduino"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> checkSort(<span class="keyword">int</span> *arr, <span class="keyword">int</span> <span class="built_in">size</span>)</span><br><span class="line">{</span><br><span class="line">	<span class="comment">//头。每次我都要选出最小的放在最前面。最后就是最后一个元素前一个元素的位置</span></span><br><span class="line">	<span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span> - <span class="number">1</span>; i++)	</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">int</span> head = arr[i];<span class="comment">//把头位置的数据保存到head里面</span></span><br><span class="line">		<span class="built_in">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; <span class="built_in">size</span>; j++)<span class="comment">//直接从头后面一个元素开始</span></span><br><span class="line">		{</span><br><span class="line">			</span><br><span class="line">			<span class="built_in">if</span> (arr[j] &lt; head)<span class="comment">//只要我头后面的元素更小的话，我就跟头进行交换。</span></span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">int</span> tmp = arr[j];</span><br><span class="line">				arr[j] = head;</span><br><span class="line">				head = tmp;<span class="comment">//就不断更新头数据，保证头数据是无序区中最小的</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		arr[i] = head;<span class="comment">//完了之后头数据写入头位置</span></span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为9532ms左右，范围100000，时间为17718ms左右<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//选择2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">checkSort2</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> jj = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">	{</span><br><span class="line">		head = ivec[i];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">if</span> (ivec[j] &lt; head)</span><br><span class="line">			{</span><br><span class="line">				head = ivec[j];<span class="comment">//这里只记录值和位置</span></span><br><span class="line">				jj = j;</span><br><span class="line">			}</span><br><span class="line">				</span><br><span class="line"></span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> (head != ivec[i])<span class="comment">//这里应该是只要有比头小的才交换，没有就不交换</span></span><br><span class="line">		{</span><br><span class="line">			tmp = ivec[i];</span><br><span class="line">			ivec[i] = head;</span><br><span class="line">			ivec[jj] = tmp;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为9453ms左右，范围100000，时间为9328ms左右</p>
+<p>总结：</p>
 <ol>
-<li><strong>指令集体系架构（ISA）</strong>来定义机器级程序的格式和行为。</li>
-<li>机器级程序使用的内存地址是虚拟地址，提供的内存模型看上去是一个非常大的字节数组。后面会讲到，存储器系统的实际实现是将多个硬件存储器和操作系统软件组合起来。操作系统负责管理虚拟地址空间，将虚拟地址翻译成实际处理器内存中的物理地址。</li>
+<li>一般在冒泡和插入排序中，我们都选择插入排序。这是因为插入排序中，比较元素之后，并不直接进行元素的交换，只涉及到移动。只需要执行一条语句。而冒泡排序每次比较完之后满足条件必然要进行交换。交换就要执行三条语句。<br>在实际运行中，插入比冒泡要快。<br>但是，不知道为什么选择在上述测试条件中是最快的。而且两个版本的选择的效率相差并不大。</li>
 </ol>
-<h3 id="关于格式的注解"><a href="#关于格式的注解" class="headerlink" title="关于格式的注解"></a>关于格式的注解</h3><p>所有以‘.’开头的都是指导汇编器和链接器工作的指令</p>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>Intel用术语“字（word）”表示16位数据类型。32位称为“双字”。64位：四字。</p>
-<ul>
-<li>P121的操作数格式表很重要。根据描述，我们要搞清楚的是，如果是单纯的寄存器%rax作为操作数的话，要操作的是里面的值。而<strong>内存引用比如（%rax）则是根据寄存器的值（这个值是一个地址）访问某个内存位置</strong>因为将内存看成一个很大的字节数组，我们用Mb[Addr]表示<font color="red">对存储在内存中从Addr开始的b个字节值的引用。</font></li>
-<li>传送指令的两个操作数不能都是内存地址</li>
-<li>P123 MOVZ:零扩展数据传送，MOVS：符号扩展</li>
-<li>C语言中所谓的“指针”其实就是地址。间接引用指针就是将指针放到一个寄存器中，然后再内存引用这个寄存器。</li>
-<li>局部变量通常是保存在寄存器中，因为访问寄存器比访问内存要快得多。</li>
-<li><strong>当执行强制类型转换既涉及到大小变化又涉及到符号变化时，操作应该先改变大小</strong></li>
-</ul>
-<h4 id="压入和弹出程序栈"><a href="#压入和弹出程序栈" class="headerlink" title="压入和弹出程序栈"></a>压入和弹出程序栈</h4><p>程序栈是很重要的，在x86-64中，程序栈存放在内存中某个区域。<font color="red"><strong>栈是向下增长</strong></font>，也就是说栈顶元素的地址是所有栈中元素地址中最低的。<font color="red">栈指针%rsp保存着栈顶元素的地址</font><br>具体：P127</p>
-<ul>
-<li>加载有效地址指令leaq实际上是movq的变形，从内存读数据到寄存器，但实际上根本就没有引用内存。第一个操作数看上去是一个内存引用，但该指令并不是从指定的位置读入数据，而是将有效地址写入到目的操作数。P129</li>
-<li>移位操作P131</li>
-<li>x86-64指令集对128位数的操作提供有限的支持P133</li>
-</ul>
-<h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><h4 id="跳转指令是如何编码的"><a href="#跳转指令是如何编码的" class="headerlink" title="跳转指令是如何编码的"></a>跳转指令是如何编码的</h4><font color="red">跳转指令有不同的编码，最常用的是PC相对的，还有一种就是给出绝对地址。实际上，大多用的都是PC相对的，跳转指令后面跟的并不是要跳转的目的地址，也就是说不是绝对的地址，而是将目标指令的地址与紧跟在跳转指令后面的那条指令的地址之间的差作为编码</font>
-
-<ul>
-<li>用条件控制来实现条件分支P143</li>
-<li>用条件传送来实现条件分支P145</li>
-<li>循环P149</li>
-</ul>
-<h4 id="switch语句是怎么实现的"><a href="#switch语句是怎么实现的" class="headerlink" title="switch语句是怎么实现的"></a>switch语句是怎么实现的</h4><p><strong>通过跳转表来实现，跳转表是一个数组，表项i是一个代码段的地址，这个代码段实现当开关索引值等于i是程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标</strong>。P161</p>
-<h3 id="运行时栈"><a href="#运行时栈" class="headerlink" title="运行时栈"></a>运行时栈</h3><p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。<br>假设过程P调用过程Q，Q执行后返回到P。这些动作包括：</p>
-<ol>
-<li>传递参数</li>
-<li>传递数据</li>
-<li>分配和释放内存</li>
-</ol>
-<p>C语言过程调用机制的一个关键特性在于使用了栈数据结构提供的后进先出的内存管理原则。P164<br>很重要的一点就是通过栈可以保存<strong>运行信息</strong>，也就是说如果我要中途调用另一个过程，我先把我要运行的下一条指令（也就是执行跳转指令后的一条指令）给push到栈中。在返回时，再pop。这是很关键的处理调用的一个体现。</p>
-<ul>
-<li>当然除了压入返回地址，还有局部变量，被保存的寄存器和参数构造区。</li>
-<li>前面讲到过，x86-64的栈向低地址增长，所以将栈指针减小到一个适当的量可以为没有指定初始值的数据在栈上分配空间，增加栈指针释放空间</li>
-<li>当x86-64过程中需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间。这个部分叫<font color="red">栈帧</font>。P165</li>
-</ul>
-<h4 id="数据传送"><a href="#数据传送" class="headerlink" title="数据传送"></a>数据传送</h4><p>调用一个过程，还可能包括把数据作为参数传递，从过程返回还有可能包括返回一个值。</p>
-<ul>
-<li>x86-64中，大部分过程间的数据传送是通过寄存器实现的（6个寄存器，6个参数），超出6个的部分就要通过栈来传递。假设P调用Q，有n个参数，n&gt;6，那么P的栈帧必须容纳7到n号参数，1~6放到寄存器，7~n放到栈上。<strong>被调用过程Q就可以通过寄存器访问参数，必要的话也可以通过栈访问</strong>。</li>
-</ul>
-<p>有些时候，局部数据必须放在内存中，常见情况：</p>
-<ul>
-<li>寄存器不足以存放所有的本地数据</li>
-<li>对一个局部变量使用地址运算符‘&amp;’，因此必须能够为它产生一个地址</li>
-<li>某些局部变量是数组或结构，必须要通过数组或结构引用才能被访问到</li>
-</ul>
-<p>变长数组P181<br>数据对齐P189</p>
-<font color="red"><strong>内存越界引用和缓冲区溢出是造成重大BUG的一大因素</strong></font>
-
-<p>对抗缓冲区溢出攻击的三种方法：</p>
-<ol>
-<li>栈随机化：使栈的位置在程序每次运行时都有变化</li>
-<li>栈破坏检测：在栈帧中任何局部缓冲区和栈状态之间设置一个哨兵</li>
-<li>限制可执行代码区域</li>
-</ol>
-<p>可变长栈帧P201</p>
 <hr>
 <div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
@@ -3580,7 +3517,7 @@ a {
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/" title="CSAPP：程序的机器级表示">http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/</a>
+    <a href="http://rensongwang.xyz/2019/07/01/排序-冒泡插入选择/" title="排序-冒泡插入选择">http://rensongwang.xyz/2019/07/01/排序-冒泡插入选择/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -3593,7 +3530,7 @@ a {
       
         <div class="post-tags">
           
-            <a href="/tags/深入理解计算机系统/" rel="tag"><i class="fa fa-tag"></i> 深入理解计算机系统</a>
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
           
         </div>
       
@@ -3606,8 +3543,8 @@ a {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/28/csapp：信息的表示和处理/" rel="next" title="CSAPP：信息的表示和处理">
-                <i class="fa fa-chevron-left"></i> CSAPP：信息的表示和处理
+              <a href="/2019/05/26/数据库基础知识小总结/" rel="next" title="数据库基础知识小总结">
+                <i class="fa fa-chevron-left"></i> 数据库基础知识小总结
               </a>
             
           </div>
@@ -3616,8 +3553,8 @@ a {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/08/小知识点总结/" rel="prev" title="小知识点总结">
-                小知识点总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/01/排序-归并快排/" rel="prev" title="排序-归并快排">
+                排序-归并快排 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -3829,7 +3766,7 @@ a {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器级代码"><span class="nav-text">机器级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于格式的注解"><span class="nav-text">关于格式的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压入和弹出程序栈"><span class="nav-text">压入和弹出程序栈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制"><span class="nav-text">控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转指令是如何编码的"><span class="nav-text">跳转指令是如何编码的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch语句是怎么实现的"><span class="nav-text">switch语句是怎么实现的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时栈"><span class="nav-text">运行时栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传送"><span class="nav-text">数据传送</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序-冒泡插入选择"><span class="nav-text">排序-冒泡插入选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡"><span class="nav-text">冒泡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入"><span class="nav-text">插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择"><span class="nav-text">选择</span></a></li></ol></div>
             
 
           </div>

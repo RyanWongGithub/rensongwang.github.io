@@ -88,18 +88,18 @@
 
 
 
-  <meta name="description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
-<meta name="keywords" content="深入理解计算机系统">
+  <meta name="description" content="归并和快排在实际开发过程中用到很多，归并呢，在处理大数据量不能同时放入内存进行处理的情况下十分有效。而快排呢，虽然时间复杂度不稳定，算法本身也不是稳定的排序算法，但是却没有像归并那样有一个致命的弱点：非原地排序。下面给出我个人实现归并和快排的编程代码。包括我个人的对于原理的理解和总结；以及测试算法的效率。">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP：程序的机器级表示">
-<meta property="og:url" content="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/index.html">
+<meta property="og:title" content="排序-归并快排">
+<meta property="og:url" content="http://rensongwang.xyz/2019/07/01/排序-归并快排/index.html">
 <meta property="og:site_name" content="Rensong's blog">
-<meta property="og:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta property="og:description" content="归并和快排在实际开发过程中用到很多，归并呢，在处理大数据量不能同时放入内存进行处理的情况下十分有效。而快排呢，虽然时间复杂度不稳定，算法本身也不是稳定的排序算法，但是却没有像归并那样有一个致命的弱点：非原地排序。下面给出我个人实现归并和快排的编程代码。包括我个人的对于原理的理解和总结；以及测试算法的效率。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T13:35:05.119Z">
+<meta property="og:updated_time" content="2019-07-01T01:41:41.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSAPP：程序的机器级表示">
-<meta name="twitter:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta name="twitter:title" content="排序-归并快排">
+<meta name="twitter:description" content="归并和快排在实际开发过程中用到很多，归并呢，在处理大数据量不能同时放入内存进行处理的情况下十分有效。而快排呢，虽然时间复杂度不稳定，算法本身也不是稳定的排序算法，但是却没有像归并那样有一个致命的弱点：非原地排序。下面给出我个人实现归并和快排的编程代码。包括我个人的对于原理的理解和总结；以及测试算法的效率。">
 
 
 
@@ -107,7 +107,7 @@
 
   
   
-  <link rel="canonical" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+  <link rel="canonical" href="http://rensongwang.xyz/2019/07/01/排序-归并快排/">
 
 
 
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title>CSAPP：程序的机器级表示 | Rensong's blog</title>
+  <title>排序-归并快排 | Rensong's blog</title>
   
 
 
@@ -3320,7 +3320,7 @@ a {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/07/01/排序-归并快排/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
@@ -3337,7 +3337,7 @@ a {
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSAPP：程序的机器级表示
+          <h1 class="post-title" itemprop="name headline">排序-归并快排
 
               
             
@@ -3363,24 +3363,12 @@ a {
                 
               
 
-              <time title="创建时间：2019-04-03 09:18:35" itemprop="dateCreated datePublished" datetime="2019-04-03T09:18:35+08:00">2019-04-03</time>
+              <time title="创建时间：2019-07-01 09:19:01 / 修改时间：09:41:41" itemprop="dateCreated datePublished" datetime="2019-07-01T09:19:01+08:00">2019-07-01</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 21:35:05" itemprop="dateModified" datetime="2019-04-22T21:35:05+08:00">2019-04-22</time>
               
             
           </span>
@@ -3397,7 +3385,7 @@ a {
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CSAPP/" itemprop="url" rel="index"><span itemprop="name">CSAPP</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
 
                 
                 
@@ -3440,72 +3428,43 @@ a {
 
       
         <div class="note default">
-            <p>当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。</p>
+            <p>归并和快排在实际开发过程中用到很多，归并呢，在处理大数据量不能同时放入内存进行处理的情况下十分有效。<br>而快排呢，虽然时间复杂度不稳定，算法本身也不是稳定的排序算法，但是却没有像归并那样有一个致命的弱点：非原地排序。<br>下面给出我个人实现归并和快排的编程代码。<br>包括我个人的对于原理的理解和总结；以及测试算法的效率。</p>
           </div>
-<hr>
 <a id="more"></a>
-<p>首先，我们应该要清楚，计算机在底层实际上处理不了人类的高级语言，只能将我们的程序一步一步的变成二进制指令，也就是字节序列。</p>
-<h3 id="机器级代码"><a href="#机器级代码" class="headerlink" title="机器级代码"></a>机器级代码</h3><p>前面讲到过，计算机系统使用了多种不同形式的抽象，利用抽象模型来简化细节。对于机器级编程，两种抽象。</p>
+<h2 id="归并"><a href="#归并" class="headerlink" title="归并"></a>归并</h2><p>其实，归并和快排都涉及到分治思想。<br>在现实生活中我们也常常遇到这种类似问题。<br>就是把一个很难解决的大问题分解成小问题。通过把一个一个小问题解决。再返回结果。从而解决大问题。<br>类似，分治思想的核心就是不断拆分问题，直到不能拆分为止，通过解决小问题来解决最后的大问题。</p>
+<p>没错，递归就很适合这种类似问题，也符合人的思维。<br>但是，我们怎么通过递归去写这个归并算法呢？<br>首先，写递归代码有三步：</p>
 <ol>
-<li><strong>指令集体系架构（ISA）</strong>来定义机器级程序的格式和行为。</li>
-<li>机器级程序使用的内存地址是虚拟地址，提供的内存模型看上去是一个非常大的字节数组。后面会讲到，存储器系统的实际实现是将多个硬件存储器和操作系统软件组合起来。操作系统负责管理虚拟地址空间，将虚拟地址翻译成实际处理器内存中的物理地址。</li>
+<li>写出递推公式</li>
+<li>终止条件（不能一直递归下去）</li>
+<li>翻译成代码</li>
 </ol>
-<h3 id="关于格式的注解"><a href="#关于格式的注解" class="headerlink" title="关于格式的注解"></a>关于格式的注解</h3><p>所有以‘.’开头的都是指导汇编器和链接器工作的指令</p>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>Intel用术语“字（word）”表示16位数据类型。32位称为“双字”。64位：四字。</p>
-<ul>
-<li>P121的操作数格式表很重要。根据描述，我们要搞清楚的是，如果是单纯的寄存器%rax作为操作数的话，要操作的是里面的值。而<strong>内存引用比如（%rax）则是根据寄存器的值（这个值是一个地址）访问某个内存位置</strong>因为将内存看成一个很大的字节数组，我们用Mb[Addr]表示<font color="red">对存储在内存中从Addr开始的b个字节值的引用。</font></li>
-<li>传送指令的两个操作数不能都是内存地址</li>
-<li>P123 MOVZ:零扩展数据传送，MOVS：符号扩展</li>
-<li>C语言中所谓的“指针”其实就是地址。间接引用指针就是将指针放到一个寄存器中，然后再内存引用这个寄存器。</li>
-<li>局部变量通常是保存在寄存器中，因为访问寄存器比访问内存要快得多。</li>
-<li><strong>当执行强制类型转换既涉及到大小变化又涉及到符号变化时，操作应该先改变大小</strong></li>
-</ul>
-<h4 id="压入和弹出程序栈"><a href="#压入和弹出程序栈" class="headerlink" title="压入和弹出程序栈"></a>压入和弹出程序栈</h4><p>程序栈是很重要的，在x86-64中，程序栈存放在内存中某个区域。<font color="red"><strong>栈是向下增长</strong></font>，也就是说栈顶元素的地址是所有栈中元素地址中最低的。<font color="red">栈指针%rsp保存着栈顶元素的地址</font><br>具体：P127</p>
-<ul>
-<li>加载有效地址指令leaq实际上是movq的变形，从内存读数据到寄存器，但实际上根本就没有引用内存。第一个操作数看上去是一个内存引用，但该指令并不是从指定的位置读入数据，而是将有效地址写入到目的操作数。P129</li>
-<li>移位操作P131</li>
-<li>x86-64指令集对128位数的操作提供有限的支持P133</li>
-</ul>
-<h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><h4 id="跳转指令是如何编码的"><a href="#跳转指令是如何编码的" class="headerlink" title="跳转指令是如何编码的"></a>跳转指令是如何编码的</h4><font color="red">跳转指令有不同的编码，最常用的是PC相对的，还有一种就是给出绝对地址。实际上，大多用的都是PC相对的，跳转指令后面跟的并不是要跳转的目的地址，也就是说不是绝对的地址，而是将目标指令的地址与紧跟在跳转指令后面的那条指令的地址之间的差作为编码</font>
-
-<ul>
-<li>用条件控制来实现条件分支P143</li>
-<li>用条件传送来实现条件分支P145</li>
-<li>循环P149</li>
-</ul>
-<h4 id="switch语句是怎么实现的"><a href="#switch语句是怎么实现的" class="headerlink" title="switch语句是怎么实现的"></a>switch语句是怎么实现的</h4><p><strong>通过跳转表来实现，跳转表是一个数组，表项i是一个代码段的地址，这个代码段实现当开关索引值等于i是程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标</strong>。P161</p>
-<h3 id="运行时栈"><a href="#运行时栈" class="headerlink" title="运行时栈"></a>运行时栈</h3><p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。<br>假设过程P调用过程Q，Q执行后返回到P。这些动作包括：</p>
+<p>其次，归并排序的核心是，将一个待排序的数组分成两部分，两部分分成四部分，最终排序两个元素（最后也可能只剩一个元素），再将各个部分依次<strong>合并</strong>上去。</p>
+<p>接下来我们写递推公式：<br>merge_sort(p…r) = merge(merge_sort(p…q),merge_sort(q+1…r))<br>终止条件：<br>p&gt;=r//不用继续分解<br>翻译成代码（全部代码）：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//归并</span></span><br><span class="line"><span class="comment">//归并的插排</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_insertSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (p == q)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = p + <span class="number">1</span>; i &lt;= q; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">int</span> tmp = ivec[i];</span><br><span class="line">		<span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (; j &gt;= p; --j)</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">if</span> (tmp &lt; ivec[j])</span><br><span class="line">			{</span><br><span class="line">				ivec[j + <span class="number">1</span>] = ivec[j];</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		ivec[j + <span class="number">1</span>] = tmp;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="comment">//归并的合并函数，在合并函数中对分好的小组进行插排，这个时候对小部分排序已经是对常量级排序。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> p, <span class="keyword">int</span> q, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//先对传进来的两个数组分别插排</span></span><br><span class="line">	merge_insertSort(ivec, p, q);</span><br><span class="line">	merge_insertSort(ivec, q + <span class="number">1</span>, r);</span><br><span class="line">	<span class="comment">//再合并</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tmp;<span class="comment">//临时数组</span></span><br><span class="line">	<span class="keyword">int</span> i = p, j = q + <span class="number">1</span>, k = r;</span><br><span class="line">	<span class="keyword">while</span> (i &lt;= q &amp;&amp; j &lt;= r)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (ivec[i] &lt;= ivec[j])</span><br><span class="line">		{</span><br><span class="line">			tmp.push_back(ivec[i]);</span><br><span class="line">			++i;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		{</span><br><span class="line">			tmp.push_back(ivec[j]);</span><br><span class="line">			++j;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//把剩余的全放进tmp里面</span></span><br><span class="line">	<span class="keyword">if</span> (i &gt; q)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">for</span> (; j &lt;= r; ++j)</span><br><span class="line">		{</span><br><span class="line">			tmp.push_back(ivec[j]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">for</span> (; i &lt;= q; ++i)</span><br><span class="line">		{</span><br><span class="line">			tmp.push_back(ivec[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//把tmp拷贝到ivec里面</span></span><br><span class="line">	<span class="keyword">int</span> size = tmp.size();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">	{</span><br><span class="line">		ivec[p + i] = tmp[i];</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="comment">//归并的递归函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sort_c</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//终止条件</span></span><br><span class="line">	<span class="keyword">if</span> (p &gt;= r)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> q = (p + r) / <span class="number">2</span>;</span><br><span class="line">	<span class="comment">//其实下面这个判断可做可不做，做了就少陷入一次递归（函数调用）</span></span><br><span class="line">	<span class="keyword">if</span> (q == p)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	merge_sort_c(ivec, p, q);</span><br><span class="line">	merge_sort_c(ivec, q+<span class="number">1</span>, r);</span><br><span class="line">	<span class="comment">//合并</span></span><br><span class="line">	merge(ivec, p, q, r);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//调用递归函数</span></span><br><span class="line">	merge_sort_c(ivec, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>我在这里解释一我的做法。<br>merge_sort就是归并算法的入口。进去之后直接调用递归函数，这里需要注意的是我将代表size的n传给递归函数的时候，意义就变成了<strong>下标</strong>。<br>递归函数的作用并不是概念上的那么大，在代码中实际上只起到了分解下标的作用，也就是把一个数组的下标继续划分。<br>真正起作用的是，合并函数，在合并函数当中就做了核心的东西。</p>
+<p>归并的一个要点是，将<strong>已经有序</strong>的数组合并。<br>但是递归函数只是划分，并没有排序。所以这个还是要在合并函数中合并之前做排序。<br>这里我是自己根据这个算法的特点（传递的是下标）设计了一个插排（其实改动不大）。<br>这里可能你会想，归并里面用插排？那时间复杂度岂不是？···<br>时间复杂度还是O（n*logn)，这是因为<strong>分治</strong>，我们一直划分，到最后我们要用插排-排序的数组已经是常量级的了。</p>
+<p>这里还有一点就是，归并排序的稳定性取决于合并函数。怎么去思考。<br>在划分的时候，不管有没有序，数组中的元素的相对位置是确定的。<br>所以我们在合并的时候，先拿前面的数组与后面的数组进行比较，如果<strong>小于等于</strong>，注意这个条件，小于等于的话，那么我们划分之后相对在前面的数组里的元素与后面位置的数组的元素相等的情况下，我们还是将处于前面位置的元素放在前面。<br>可能有点绕，我们看代码：<br></p><figure class="highlight gcode"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="comment">(i &lt;= q &amp;&amp; j &lt;= r)</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> <span class="comment">(ivec[i] &lt;= ivec[j])</span><span class="comment">//这里优先前面的数组的元素，如果写成&lt;，那么就不稳定了</span></span><br><span class="line">		{</span><br><span class="line">			tmp.push_back<span class="comment">(ivec[i])</span>;</span><br><span class="line">			++i;</span><br><span class="line">		}</span><br><span class="line">		else</span><br><span class="line">		{</span><br><span class="line">			tmp.push_back<span class="comment">(ivec[j])</span>;</span><br><span class="line">			++j;</span><br><span class="line">		}</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为391ms左右，范围100000，时间为391ms左右<br>实践证明，归并排序的时间复杂度的稳定性很好，排序的效率与数据的排列无关。</p>
+<h2 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h2><p>快排也是分治的思想，但是，快排很巧妙的运用了分区的思想。<br>在一组无序的数组中选一个分区点，然后根据这个分区点，小于它的放左边，大于它的放右边。<br>然后把分区按照这个方法再分成两个子分区。最后区间为1终止。</p>
+<p>递推公式：<br>quick_sort(p…r) = quick_sort(p…q-1) + quick_sort(q+1…r)//q就是分区点。<br>终止条件：<br>p&gt;=r</p>
+<p>转换成代码：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//快排的分区函数（真正实现排序）。这里主要用原地分区方法（不多做交换的那种）</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//j是遍历工作游标，i是分区游标，i的左边是小于分区点的，i的右边是大于分区点的（包括i）</span></span><br><span class="line">	<span class="keyword">int</span> i = p, j = p;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> md = (p + r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> fin = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//三个取一个中间值作为分区点。还有一种方法就是随机取值。</span></span><br><span class="line">	<span class="keyword">if</span> ((ivec[p] &lt; ivec[r]) &amp;&amp; (ivec[p] &lt; ivec[md]))</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (ivec[md] &lt; ivec[r])</span><br><span class="line">		{</span><br><span class="line">			fin = md;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		{</span><br><span class="line">			fin = r;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> ((ivec[p] &gt; ivec[r]) &amp;&amp; (ivec[p] &gt; ivec[md]))</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (ivec[md] &gt; ivec[r])</span><br><span class="line">		{</span><br><span class="line">			fin = md;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		{</span><br><span class="line">			fin = r;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		fin = p;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//取好分区点之后，放到数组最后面。</span></span><br><span class="line">	<span class="keyword">int</span> tmp = ivec[r];</span><br><span class="line">	ivec[r] = ivec[fin];</span><br><span class="line">	ivec[fin] = tmp;</span><br><span class="line">	<span class="comment">//分区点放好之后开始原地分区</span></span><br><span class="line">	<span class="keyword">for</span> (; j &lt; r; j++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (ivec[j] &lt; ivec[r])</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">int</span> tmp = ivec[j];</span><br><span class="line">			ivec[j] = ivec[i];</span><br><span class="line">			ivec[i] = tmp;</span><br><span class="line">			++i;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//最后把分区点跟i分区游标交换</span></span><br><span class="line">	<span class="keyword">int</span> tmp2 = ivec[r];</span><br><span class="line">	ivec[r] = ivec[i];</span><br><span class="line">	ivec[i] = tmp;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="comment">//快排的递归</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort_c</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (p &gt;= r)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//获取分区点</span></span><br><span class="line">	<span class="keyword">int</span> q = partition(ivec, p, r);</span><br><span class="line">	quick_sort_c(ivec, p, q - <span class="number">1</span>);</span><br><span class="line">	quick_sort_c(ivec, q + <span class="number">1</span>, r);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ivec, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	quick_sort_c(ivec, <span class="number">0</span>, n - <span class="number">1</span>);<span class="comment">//直接给的是下标</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>在实际运行中，10000个在范围为10的随机数的排序时间为1953ms左右,范围100000，时间为125ms左右</p>
+<p>快排的核心是它的分区函数。<br>一般来想，最简单的就是两个临时数组去存储两个子分区。但是那样的话就不是原地排序了。<br>所以我们要做到原地分区。<br>原地分区很巧妙，也挺有意思的。（放到现实当中也易想象）<br>当然原地分区也有不同的版本，有好坏。在这里我只说优化比较好的一种。（分区点的选取优化为三个点选中间值）<br><strong>分区点放在数组最后面</strong><br>我的理解是这样的：</p>
 <ol>
-<li>传递参数</li>
-<li>传递数据</li>
-<li>分配和释放内存</li>
+<li>有两个游标，一个i，一个j。</li>
+<li>i是分区游标，意思就是，i左边的都是<strong>（小于分区点的元素）</strong>，i右边的包括i都是<strong>（大于分区点的元素）</strong>。</li>
+<li>j是工作游标，意思就是，j不断遍历，处理一个就加一。</li>
+<li>具体运行的时候，就是j不受影响，处理一个加j++，但是i就会根据j遍历到的元素的值是否小于分区点而变化；</li>
+<li>最开始，i，j都指向第一个元素。比较j指向的元素与分区点，小于分区点，i就加一，也就是向后移动一位（指向下一位元素），代表的就是i前面的元素小于分区点。这个时候，j指向下一个元素，进行比较，如果大于，i不动，j继续后移。<br>直到出现了比分区点小的元素，这个时候<strong>将j指向的元素与i指向的元素交换</strong>。i加一，j继续后移。<br><font color="red"><strong>核心就是分区游标i，这里总结，就是只要j指向的元素小于分区点，那么将j指向的元素与i指向的元素交换，i后移一位</strong></font>，具体见代码。</li>
+<li>最后，j移到了分区点，<strong>我们可以设置小于才交换</strong>，那么就遍历完了。i前面的都是小于分区点的。</li>
+<li>这个时候，把分区点所在的位置上的元素与i位置的元素进行交换，就完成了一次原地分区。</li>
 </ol>
-<p>C语言过程调用机制的一个关键特性在于使用了栈数据结构提供的后进先出的内存管理原则。P164<br>很重要的一点就是通过栈可以保存<strong>运行信息</strong>，也就是说如果我要中途调用另一个过程，我先把我要运行的下一条指令（也就是执行跳转指令后的一条指令）给push到栈中。在返回时，再pop。这是很关键的处理调用的一个体现。</p>
+<p>需要注意的就是，核心就是，<strong>j指向的元素比分区点小，我们就与i指向的元素交换，i游标加1</strong>。<br>具体见上面的代码。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然归并和快排都用到了分治的思想。<br>但是，其实看代码，我们就发现，它们的区别就在于：</p>
 <ul>
-<li>当然除了压入返回地址，还有局部变量，被保存的寄存器和参数构造区。</li>
-<li>前面讲到过，x86-64的栈向低地址增长，所以将栈指针减小到一个适当的量可以为没有指定初始值的数据在栈上分配空间，增加栈指针释放空间</li>
-<li>当x86-64过程中需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间。这个部分叫<font color="red">栈帧</font>。P165</li>
+<li>归并解决问题是自下向上的。</li>
+<li>快排解决问题是自上向下的。</li>
 </ul>
-<h4 id="数据传送"><a href="#数据传送" class="headerlink" title="数据传送"></a>数据传送</h4><p>调用一个过程，还可能包括把数据作为参数传递，从过程返回还有可能包括返回一个值。</p>
-<ul>
-<li>x86-64中，大部分过程间的数据传送是通过寄存器实现的（6个寄存器，6个参数），超出6个的部分就要通过栈来传递。假设P调用Q，有n个参数，n&gt;6，那么P的栈帧必须容纳7到n号参数，1~6放到寄存器，7~n放到栈上。<strong>被调用过程Q就可以通过寄存器访问参数，必要的话也可以通过栈访问</strong>。</li>
-</ul>
-<p>有些时候，局部数据必须放在内存中，常见情况：</p>
-<ul>
-<li>寄存器不足以存放所有的本地数据</li>
-<li>对一个局部变量使用地址运算符‘&amp;’，因此必须能够为它产生一个地址</li>
-<li>某些局部变量是数组或结构，必须要通过数组或结构引用才能被访问到</li>
-</ul>
-<p>变长数组P181<br>数据对齐P189</p>
-<font color="red"><strong>内存越界引用和缓冲区溢出是造成重大BUG的一大因素</strong></font>
-
-<p>对抗缓冲区溢出攻击的三种方法：</p>
-<ol>
-<li>栈随机化：使栈的位置在程序每次运行时都有变化</li>
-<li>栈破坏检测：在栈帧中任何局部缓冲区和栈状态之间设置一个哨兵</li>
-<li>限制可执行代码区域</li>
-</ol>
-<p>可变长栈帧P201</p>
+<p>其实很好理解，归并在排序的时候，先不断缩小要排序的区间，最后才对小区间排序，然后合并。<br>而快排呢，在不断分区之前，就已经在解决问题。因为你要确定分区点，那么你肯定先要分区，在分区的过程中其实已经在排序了。</p>
 <hr>
 <div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
@@ -3580,7 +3539,7 @@ a {
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/" title="CSAPP：程序的机器级表示">http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/</a>
+    <a href="http://rensongwang.xyz/2019/07/01/排序-归并快排/" title="排序-归并快排">http://rensongwang.xyz/2019/07/01/排序-归并快排/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -3593,7 +3552,7 @@ a {
       
         <div class="post-tags">
           
-            <a href="/tags/深入理解计算机系统/" rel="tag"><i class="fa fa-tag"></i> 深入理解计算机系统</a>
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
           
         </div>
       
@@ -3606,8 +3565,8 @@ a {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/28/csapp：信息的表示和处理/" rel="next" title="CSAPP：信息的表示和处理">
-                <i class="fa fa-chevron-left"></i> CSAPP：信息的表示和处理
+              <a href="/2019/07/01/排序-冒泡插入选择/" rel="next" title="排序-冒泡插入选择">
+                <i class="fa fa-chevron-left"></i> 排序-冒泡插入选择
               </a>
             
           </div>
@@ -3616,8 +3575,8 @@ a {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/08/小知识点总结/" rel="prev" title="小知识点总结">
-                小知识点总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/01/Linux-开始/" rel="prev" title="Linux-开始">
+                Linux-开始 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -3829,7 +3788,7 @@ a {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器级代码"><span class="nav-text">机器级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于格式的注解"><span class="nav-text">关于格式的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压入和弹出程序栈"><span class="nav-text">压入和弹出程序栈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制"><span class="nav-text">控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转指令是如何编码的"><span class="nav-text">跳转指令是如何编码的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch语句是怎么实现的"><span class="nav-text">switch语句是怎么实现的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时栈"><span class="nav-text">运行时栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传送"><span class="nav-text">数据传送</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#归并"><span class="nav-text">归并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快排"><span class="nav-text">快排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

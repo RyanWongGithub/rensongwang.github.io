@@ -88,18 +88,18 @@
 
 
 
-  <meta name="description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
-<meta name="keywords" content="深入理解计算机系统">
+  <meta name="description" content="Linux进程数据结构（中）- 进程树和进程权限">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP：程序的机器级表示">
-<meta property="og:url" content="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/index.html">
+<meta property="og:title" content="Linux-进程权限">
+<meta property="og:url" content="http://rensongwang.xyz/2019/07/01/Linux-进程权限/index.html">
 <meta property="og:site_name" content="Rensong's blog">
-<meta property="og:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta property="og:description" content="Linux进程数据结构（中）- 进程树和进程权限">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T13:35:05.119Z">
+<meta property="og:updated_time" content="2019-07-01T02:06:42.812Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSAPP：程序的机器级表示">
-<meta name="twitter:description" content="当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。">
+<meta name="twitter:title" content="Linux-进程权限">
+<meta name="twitter:description" content="Linux进程数据结构（中）- 进程树和进程权限">
 
 
 
@@ -107,7 +107,7 @@
 
   
   
-  <link rel="canonical" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+  <link rel="canonical" href="http://rensongwang.xyz/2019/07/01/Linux-进程权限/">
 
 
 
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title>CSAPP：程序的机器级表示 | Rensong's blog</title>
+  <title>Linux-进程权限 | Rensong's blog</title>
   
 
 
@@ -3320,7 +3320,7 @@ a {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/">
+    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/07/01/Linux-进程权限/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王仁松">
@@ -3337,7 +3337,7 @@ a {
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSAPP：程序的机器级表示
+          <h1 class="post-title" itemprop="name headline">Linux-进程权限
 
               
             
@@ -3363,24 +3363,12 @@ a {
                 
               
 
-              <time title="创建时间：2019-04-03 09:18:35" itemprop="dateCreated datePublished" datetime="2019-04-03T09:18:35+08:00">2019-04-03</time>
+              <time title="创建时间：2019-07-01 09:54:53 / 修改时间：10:06:42" itemprop="dateCreated datePublished" datetime="2019-07-01T09:54:53+08:00">2019-07-01</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 21:35:05" itemprop="dateModified" datetime="2019-04-22T21:35:05+08:00">2019-04-22</time>
               
             
           </span>
@@ -3397,7 +3385,7 @@ a {
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CSAPP/" itemprop="url" rel="index"><span itemprop="name">CSAPP</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/UNIX环境高级编程/" itemprop="url" rel="index"><span itemprop="name">UNIX环境高级编程</span></a></span>
 
                 
                 
@@ -3440,72 +3428,45 @@ a {
 
       
         <div class="note default">
-            <p>当我们用高级语言编程时，机器屏蔽了程序的细节，即机器级的实现。越到后面其实会发现，你的基础还是一点都不牢固，很多底层实现的原理根本就不了解，每当我去探索程序的机器级表示的时候，都会有一种豁然开朗的感觉。</p>
+            <p>Linux进程数据结构（中）- 进程树和进程权限</p>
           </div>
-<hr>
 <a id="more"></a>
-<p>首先，我们应该要清楚，计算机在底层实际上处理不了人类的高级语言，只能将我们的程序一步一步的变成二进制指令，也就是字节序列。</p>
-<h3 id="机器级代码"><a href="#机器级代码" class="headerlink" title="机器级代码"></a>机器级代码</h3><p>前面讲到过，计算机系统使用了多种不同形式的抽象，利用抽象模型来简化细节。对于机器级编程，两种抽象。</p>
-<ol>
-<li><strong>指令集体系架构（ISA）</strong>来定义机器级程序的格式和行为。</li>
-<li>机器级程序使用的内存地址是虚拟地址，提供的内存模型看上去是一个非常大的字节数组。后面会讲到，存储器系统的实际实现是将多个硬件存储器和操作系统软件组合起来。操作系统负责管理虚拟地址空间，将虚拟地址翻译成实际处理器内存中的物理地址。</li>
-</ol>
-<h3 id="关于格式的注解"><a href="#关于格式的注解" class="headerlink" title="关于格式的注解"></a>关于格式的注解</h3><p>所有以‘.’开头的都是指导汇编器和链接器工作的指令</p>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>Intel用术语“字（word）”表示16位数据类型。32位称为“双字”。64位：四字。</p>
+<h2 id="修改文件或目录权限"><a href="#修改文件或目录权限" class="headerlink" title="修改文件或目录权限"></a>修改文件或目录权限</h2><p>首先要了解的是，像以下这种<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">-rwxr-x--x</span> 1 <span class="selector-tag">song</span> <span class="selector-tag">song</span>  8816 6月		2 18<span class="selector-pseudo">:25</span> <span class="selector-tag">aa</span><span class="selector-class">.out</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<figure class="highlight llvm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">是通过ls -l aa.out命令打印出来的</span><br><span class="line">我们这里关注前面的-rwxr-<span class="keyword">x</span>--<span class="keyword">x</span>，第一个-代表的aa.out这个文件是一个普通文件，当然还有其他比如d（目录）什么的</span><br><span class="line">后面的<span class="number">9</span>位rwxr-<span class="keyword">x</span>--<span class="keyword">x</span>，分别代表的是文件所有者对这个文件的权限，所有者所在组对这个文件的权限，其他用户对这个文件的权限</span><br><span class="line">如果用二进制表示的话，那么有这个权限就置<span class="number">1</span>，三位二进制数就可以表示<span class="number">0</span>~<span class="number">7</span>。</span><br></pre></td></tr></tbody></table></figure>
+<p>因此，如果用chmod命令修改该文件的具体权限的话，比如<br></p><figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">000</span> aa.<span class="keyword">out</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>我们再看一下aa.out的权限信息<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">----------</span> 1 <span class="selector-tag">song</span> <span class="selector-tag">song</span>  8816 6月		2 18<span class="selector-pseudo">:25</span> <span class="selector-tag">aa</span><span class="selector-class">.out</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>相当于权限全部被置为0，任何人都没有权限了，这就是一般的文件的权限<br>当然，chmod命令来修改命令还有其他方式<br>注意逗号<br></p><figure class="highlight lasso"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod u=rwx，g=<span class="literal">rx</span>，o=<span class="literal">rx</span> abc <span class="comment">//同上u=用户权限，g=组权限，o=不同组其他用户权限</span></span><br><span class="line"></span><br><span class="line">chmod u<span class="params">-x</span>，g+w abc <span class="comment">//给abc去除用户执行的权限，增加组写的权限</span></span><br><span class="line"></span><br><span class="line">chmod a+r abc <span class="comment">//给所有用户添加读的权限</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p><strong>其他还有重要的权限位：</strong></p>
 <ul>
-<li>P121的操作数格式表很重要。根据描述，我们要搞清楚的是，如果是单纯的寄存器%rax作为操作数的话，要操作的是里面的值。而<strong>内存引用比如（%rax）则是根据寄存器的值（这个值是一个地址）访问某个内存位置</strong>因为将内存看成一个很大的字节数组，我们用Mb[Addr]表示<font color="red">对存储在内存中从Addr开始的b个字节值的引用。</font></li>
-<li>传送指令的两个操作数不能都是内存地址</li>
-<li>P123 MOVZ:零扩展数据传送，MOVS：符号扩展</li>
-<li>C语言中所谓的“指针”其实就是地址。间接引用指针就是将指针放到一个寄存器中，然后再内存引用这个寄存器。</li>
-<li>局部变量通常是保存在寄存器中，因为访问寄存器比访问内存要快得多。</li>
-<li><strong>当执行强制类型转换既涉及到大小变化又涉及到符号变化时，操作应该先改变大小</strong></li>
+<li>setuid位：SUID位。这个是有效用户位。下面会讲</li>
+<li>stick  bit(粘滞位)<br><strong>有效用户位：</strong>对一个属主为root的可执行文件，如果设置了SUID位，则其他所有普通用户都将可以以root身份运行该文件，获取相应的系统资源。<br>setuid，setuid的作用是让执行该命令的用户以该命令拥有者的权限去执行，比如普通用户执行passwd时会拥有root的权限，这样就可以修改/etc/passwd这个文件了。它的标志为：s，会出现在x的地方，例：-rwsr-xr-x  。而setgid的意思和它是一样的，即让执行文件的用户以该文件所属组的权限去执行。</li>
 </ul>
-<h4 id="压入和弹出程序栈"><a href="#压入和弹出程序栈" class="headerlink" title="压入和弹出程序栈"></a>压入和弹出程序栈</h4><p>程序栈是很重要的，在x86-64中，程序栈存放在内存中某个区域。<font color="red"><strong>栈是向下增长</strong></font>，也就是说栈顶元素的地址是所有栈中元素地址中最低的。<font color="red">栈指针%rsp保存着栈顶元素的地址</font><br>具体：P127</p>
-<ul>
-<li>加载有效地址指令leaq实际上是movq的变形，从内存读数据到寄存器，但实际上根本就没有引用内存。第一个操作数看上去是一个内存引用，但该指令并不是从指定的位置读入数据，而是将有效地址写入到目的操作数。P129</li>
-<li>移位操作P131</li>
-<li>x86-64指令集对128位数的操作提供有限的支持P133</li>
-</ul>
-<h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><h4 id="跳转指令是如何编码的"><a href="#跳转指令是如何编码的" class="headerlink" title="跳转指令是如何编码的"></a>跳转指令是如何编码的</h4><font color="red">跳转指令有不同的编码，最常用的是PC相对的，还有一种就是给出绝对地址。实际上，大多用的都是PC相对的，跳转指令后面跟的并不是要跳转的目的地址，也就是说不是绝对的地址，而是将目标指令的地址与紧跟在跳转指令后面的那条指令的地址之间的差作为编码</font>
-
-<ul>
-<li>用条件控制来实现条件分支P143</li>
-<li>用条件传送来实现条件分支P145</li>
-<li>循环P149</li>
-</ul>
-<h4 id="switch语句是怎么实现的"><a href="#switch语句是怎么实现的" class="headerlink" title="switch语句是怎么实现的"></a>switch语句是怎么实现的</h4><p><strong>通过跳转表来实现，跳转表是一个数组，表项i是一个代码段的地址，这个代码段实现当开关索引值等于i是程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标</strong>。P161</p>
-<h3 id="运行时栈"><a href="#运行时栈" class="headerlink" title="运行时栈"></a>运行时栈</h3><p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。<br>假设过程P调用过程Q，Q执行后返回到P。这些动作包括：</p>
-<ol>
-<li>传递参数</li>
-<li>传递数据</li>
-<li>分配和释放内存</li>
-</ol>
-<p>C语言过程调用机制的一个关键特性在于使用了栈数据结构提供的后进先出的内存管理原则。P164<br>很重要的一点就是通过栈可以保存<strong>运行信息</strong>，也就是说如果我要中途调用另一个过程，我先把我要运行的下一条指令（也就是执行跳转指令后的一条指令）给push到栈中。在返回时，再pop。这是很关键的处理调用的一个体现。</p>
-<ul>
-<li>当然除了压入返回地址，还有局部变量，被保存的寄存器和参数构造区。</li>
-<li>前面讲到过，x86-64的栈向低地址增长，所以将栈指针减小到一个适当的量可以为没有指定初始值的数据在栈上分配空间，增加栈指针释放空间</li>
-<li>当x86-64过程中需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间。这个部分叫<font color="red">栈帧</font>。P165</li>
-</ul>
-<h4 id="数据传送"><a href="#数据传送" class="headerlink" title="数据传送"></a>数据传送</h4><p>调用一个过程，还可能包括把数据作为参数传递，从过程返回还有可能包括返回一个值。</p>
-<ul>
-<li>x86-64中，大部分过程间的数据传送是通过寄存器实现的（6个寄存器，6个参数），超出6个的部分就要通过栈来传递。假设P调用Q，有n个参数，n&gt;6，那么P的栈帧必须容纳7到n号参数，1~6放到寄存器，7~n放到栈上。<strong>被调用过程Q就可以通过寄存器访问参数，必要的话也可以通过栈访问</strong>。</li>
-</ul>
-<p>有些时候，局部数据必须放在内存中，常见情况：</p>
-<ul>
-<li>寄存器不足以存放所有的本地数据</li>
-<li>对一个局部变量使用地址运算符‘&amp;’，因此必须能够为它产生一个地址</li>
-<li>某些局部变量是数组或结构，必须要通过数组或结构引用才能被访问到</li>
-</ul>
-<p>变长数组P181<br>数据对齐P189</p>
-<font color="red"><strong>内存越界引用和缓冲区溢出是造成重大BUG的一大因素</strong></font>
-
-<p>对抗缓冲区溢出攻击的三种方法：</p>
-<ol>
-<li>栈随机化：使栈的位置在程序每次运行时都有变化</li>
-<li>栈破坏检测：在栈帧中任何局部缓冲区和栈状态之间设置一个哨兵</li>
-<li>限制可执行代码区域</li>
-</ol>
-<p>可变长栈帧P201</p>
+<p><strong>stick  bit(粘滞位)：</strong><br>我们知道/tmp是系统的临时文件目录，所有的用户在该目录下拥有所有的权限，也就是说在该目录下可以任意创建、修改、删除文件，那如果用户A在该目录下创建了一个文件，用户B将该文件删除了，这种情况我们是不能允许的。为了达到该目的，就出现了stick  bit(粘滞位)的概念。它是针对目录来说的，如果该目录设置了stick  bit(粘滞位)，则该目录下的文件除了该文件的创建者和root用户可以删除和修改/tmp目录下的stuff，别的用户均不能动别人的，这就是粘滞位的作用。标志为t</p>
+<h2 id="进程的运行统计信息"><a href="#进程的运行统计信息" class="headerlink" title="进程的运行统计信息"></a>进程的运行统计信息</h2><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">u64				utime;<span class="comment">//⽤⼾态消耗的CPU时间</span></span><br><span class="line">u64				stime;<span class="comment">//内核态消耗的CPU时间</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span>	nvcsw;<span class="comment">//⾃愿(voluntary)上下⽂切换计数</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span>	nivcsw;<span class="comment">//⾮⾃愿(involuntary)上下⽂切换计数</span></span><br><span class="line">u64				start_time;<span class="comment">//进程启动时间，不包含睡眠时间</span></span><br><span class="line">u64				real_start_time;<span class="comment">//进程启动时间，包含睡眠时间</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="进程亲缘关系"><a href="#进程亲缘关系" class="headerlink" title="进程亲缘关系"></a>进程亲缘关系</h2><p>进程维护一个进程树<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">task_struct_rcu</span>	*<span class="title">real_parent</span>;</span>	<span class="comment">/*	real	parent	process	*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">task_struct_rcu</span>	*<span class="title">parent</span>;</span>		<span class="comment">/*	recipient	of	SIGCHLD,	wait4()	reports	*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">list_head</span>	<span class="title">children</span>;</span>				<span class="comment">/*	list	of	my	children	*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">list_head</span>	<span class="title">sibling</span>;</span>				<span class="comment">/*	linkage	in	my	parent's	children	list	*/</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>parent：指当前进程的父进程，该进程终止时，要向其父进程发送信号<br>children：指当前进程的子进程，指向链表的头部，链表中所有元素都是它的子进程<br>sibling：用于把当前进程插入到兄弟链表中</p>
+<h2 id="进程权限"><a href="#进程权限" class="headerlink" title="进程权限"></a>进程权限</h2><p>Linux中，对进程权限的定义：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Objective and real subjective task credentials (COW): */</span></span><br><span class="line"><span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred_rcu</span> *<span class="title">real_cred</span>;</span></span><br><span class="line"><span class="comment">/* Effective (overridable) subjective task credentials (COW): */</span></span><br><span class="line"><span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred_rcu</span> *<span class="title">cred</span>;</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>关于权限，无非是两种情况，一种是“谁能操作我”，另一种就是“我能操作谁”。<br>Objective的中文意思就是“目标，目的”，subjective的中文意思是“主观的”。<br>这里有点绕，不好理解，我个人这么理解。<br>从subjective上来说，我作为个体，我主观的去想要操作某些对象。<br>那么<strong>这个subjective（cred）指的就是我能操作的哪些对象</strong><br>而Objective呢，是我自身作为一个其他对象的目标，那么也就是<strong>谁能操作我</strong><br><strong>real_cred</strong>指的就是哪些对象能够操作我。</p>
+<p>“操作”就是一个对象对另外一个对象进行某些动作，那么在动作实施的时候，就应该审核权限。<br>这里<strong>有意思的地方就是</strong>，上面讲过进程权限是两个部分，一个是“谁能操作我”，一个是“我能操作谁”。<br>那么审核权限的时候，就应该审核两边的权限一不一致(有待进一步理解)。</p>
+<p>下面给出cred的定义：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">cred</span>	{</span></span><br><span class="line">......</span><br><span class="line">		<span class="keyword">kuid_t</span>			uid;				<span class="comment">/*	real	UID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kgid_t</span>			gid;				<span class="comment">/*	real	GID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kuid_t</span>			suid;				<span class="comment">/*	saved	UID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kgid_t</span>			sgid;				<span class="comment">/*	saved	GID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kuid_t</span>			euid;				<span class="comment">/*	effective	UID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kgid_t</span>			egid;				<span class="comment">/*	effective	GID	of	the	task	*/</span></span><br><span class="line">		<span class="keyword">kuid_t</span>			fsuid;				<span class="comment">/*	UID	for	VFS	ops	*/</span></span><br><span class="line">		<span class="keyword">kgid_t</span>			fsgid;				<span class="comment">/*	GID	for	VFS	ops	*/</span></span><br><span class="line">......</span><br><span class="line">		<span class="keyword">kernel_cap_t</span>	cap_inheritable;	<span class="comment">/*	caps	our	children	can	inherit	*/</span></span><br><span class="line">		<span class="keyword">kernel_cap_t</span>	cap_permitted;		<span class="comment">/*	caps	we're	permitted	*/</span></span><br><span class="line">		<span class="keyword">kernel_cap_t</span>	cap_effective;		<span class="comment">/*	caps	we	can	actually	use	*/</span></span><br><span class="line">		<span class="keyword">kernel_cap_t</span>	cap_bset;			<span class="comment">/*	capability	bounding	set	*/</span></span><br><span class="line">		<span class="keyword">kernel_cap_t</span>	cap_ambient;		<span class="comment">/*	Ambient	capability	set	*/</span></span><br><span class="line">......</span><br><span class="line">}	__randomize_layout;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>uid/gid就是实际的用户（组）id。<br>euid/egid，注释是effective    user/group    id，就是<strong>有效的</strong>用户（组）id，这里有效的，是指起作用的，一般就看这个权限。<br>fsuid和fsgid，也就是filesystem    user/group    id。这个是对文件操作会审核的权限。</p>
+<p>前面讲过文件权限，这里我们要讲的是进程权限。<br>什么意思呢？前面我们还说过，进程权限就是两种情况：谁能操作我，我能操作谁。<br>这么去理解，不管怎么样，还是得看我本身的权限够不够。<br>那产生了一个进程，对应的也有了这个进程的权限。<br>我们不妨把这个进程看作是一个对象A，因为正在运行的进程也可能去操作其他对象B。<br>那我们怎么知道这个进程A有没有操作B的权限呢。<br>所以啊，进程权限里面的uid/gid、euid/egid、fsuid和fsgid就起了作用了。<br>你会发现，这些uid指的就是用户id，哪个用户启动了这个进程，那么这个进程的权限（这些uid）就是这个用户id。<br>那我进程A要操作B，是不是就要看具体哪个用户有没有这个权限呢？<br>用户有没有权限访问文件，你想到了什么？对！<br>就是文件权限。（当然也有进程权限，只是目前我没有探索清楚）<br>追根究底，我们又回到了文件权限，所以啊：<br>那9位，真的挺强大的。</p>
+<p>继续讲，这里我们主要看euid/egid，就是有效用户ID，相信你也知道了，如果这个有效用户ID对应的用户没有操作对象B的相应权限。<br>那么对应的，进程A是不是就没有操作对象B的权限？</p>
+<p>这个时候，我们怎么才能让A有这个权限呢？<br>当然，设置以下B的文件权限位，让A的有效用户ID能够访问就行了。</p>
+<p>但是，一般情况是：<br></p><div class="note defalut">
+            <p>创建进程A，前提是执行一个可执行文件file，这个可执行文件的所有者是R<br>当用户T去执行该可执行文件file时（会检查T有没有执行权限），创建进程，这个时候如果file没有设置SUID位的话<br>那么进程A的uid、euid、fsuid等都会是T的id，这个时候如果进程A要去操作同样属于R的另一个对象B（没有设置T能够操作的权限）的时候，就无法成功。<br>因为这个时候进程A的有效用户ID是T，T没有对B的操作相应权限。</p>
+          </div><br>这个时候怎么办呢？解决方法如下：<br>这个时候我们就可以设置可执行文件file的setuid位（SUID位）来让创建的进程A的euid、fsuid是用户R的ID，这个时候进程A就可以操作同样属于R的对象B了，也就是说，别的用户创建的进程A也能操作对象B。这是因为：上面讲过<br><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setuid的作用是让执行该命令的用户以该命令拥有者的权限去执行</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>另外还可以通过setuid或seteuid函数（系统调用）的方式来设置uid，具体见下(出自饶超勋<br>stevenrao.blog.chinaunix.net)：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">{</span><br><span class="line">    <span class="keyword">if</span>( setuid(503) &lt; 0) perror (<span class="string">"setuid error"</span>);</span><br><span class="line">    <span class="keyword">while</span>(1)<span class="keyword">sleep</span>(1);</span><br><span class="line">}</span><br><span class="line">   $&gt;ll</span><br><span class="line">   -rwxr-xr-x. 1 test1 <span class="keyword">test</span> 6780 Sep 16 15:32 a.<span class="keyword">out</span> </span><br><span class="line">   使用root用户执行</span><br><span class="line">   $&gt;./a.<span class="keyword">out</span></span><br><span class="line">   查看状态，所有uid都变成test2用户。</span><br><span class="line">   503   503   503   503  3592 a.<span class="keyword">out</span></span><br><span class="line"></span><br><span class="line">   把代码中setuid改成seteuid函数，会把euid和fuid改成test2用户</span><br><span class="line">   0   503     0   503  3614 a.<span class="keyword">out</span></span><br><span class="line">   </span><br><span class="line">   把代码中setuid改成setfsuid函数，会把fuid改成test2用户</span><br><span class="line">   0     0     0   503  3636 a.<span class="keyword">out</span></span><br><span class="line"></span><br><span class="line">   当把代码改成下面样子</span><br><span class="line"><span class="keyword">if</span>( seteuid(503) &lt; 0) perror (<span class="string">"seteuid error"</span>);</span><br><span class="line"><span class="keyword">if</span>( setfsuid(504) &lt; 0) perror (<span class="string">"setfsuid error"</span>);</span><br><span class="line"><span class="keyword">while</span>(1)<span class="keyword">sleep</span>(1);</span><br><span class="line">   或者</span><br><span class="line"><span class="keyword">if</span>( setfsuid(504) &lt; 0) perror (<span class="string">"setfsuid error"</span>);</span><br><span class="line"><span class="keyword">if</span>( setfeuid(503) &lt; 0) perror (<span class="string">"seteuid error"</span>);</span><br><span class="line"><span class="keyword">while</span>(1)<span class="keyword">sleep</span>(1);</span><br><span class="line">   用root用户执行，得到都是一样的结果</span><br><span class="line">   0   503     0   503  3614 a.<span class="keyword">out</span>  </span><br><span class="line">   </span><br><span class="line">   到了这里我来总结一下：1、setuid和seteuid是有区别的，setuid是永久的放弃root用户权限，转让给非root用户后，无法再<span class="keyword">restore</span>到root用户，seteuid是临时放弃root用户权限，可以通过seteuid(0),<span class="keyword">restore</span>到root权限。这点应该是总所周知的特点，本文就不举例子演示。2、seteuid 会同时改变euid和fuid都为设置的euid值。3、root用户可以通过调用setxxuid 来改变权限用户。非root用户是无法改变和转让权限用户。</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>当然还有函数setfsuid什么的，慢慢摸索</p>
+<p>最后讲一下权限的继承，：<br>当使用fork子进程的时候，子进程全部继承父进程四个uid，和父进程uid相同。<br>当使用exec系列函数时候，会把suid置为euid。<br></p><div class="note warning">
+            <p>个人总结一下：个人理解，进程权限其实理解成用户权限的化身更好一些，就像是用户的化身一样去执行各种操作，而在操作对象时，要检查这个化身有没有相应的权限。</p>
+          </div><p></p>
+<p>Linux还有另一个机制就是capabilities。后期补充。</p>
+<p>//进程数据结构（下）用户态函数栈和<strong>内核栈</strong></p>
+<h2 id="进程执行过程中，发生系统调用怎么办"><a href="#进程执行过程中，发生系统调用怎么办" class="headerlink" title="进程执行过程中，发生系统调用怎么办"></a>进程执行过程中，发生系统调用怎么办</h2><p>在程序执行过程中，一旦调用到系统调用，就需要进入内核继续执<br>行。那如何将用户态的执行和内核态的执行串起来呢？</p>
+<p>就需要以下两个重要的成员变量：<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>	<span class="title">thread_info</span>		<span class="title">thread_info</span>;</span></span><br><span class="line"><span class="keyword">void</span>		*<span class="built_in">stack</span>;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>用户态函数栈较好理解，在CSAPP就有涉及，里面讲的是64位的。<br>内核栈较为复杂。后期补充。</p>
+<p>调度<br>后续更新或另起博文。</p>
 <hr>
 <div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
       
@@ -3580,7 +3541,7 @@ a {
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/" title="CSAPP：程序的机器级表示">http://rensongwang.xyz/2019/04/03/csapp：程序的机器级表示/</a>
+    <a href="http://rensongwang.xyz/2019/07/01/Linux-进程权限/" title="Linux-进程权限">http://rensongwang.xyz/2019/07/01/Linux-进程权限/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -3593,7 +3554,7 @@ a {
       
         <div class="post-tags">
           
-            <a href="/tags/深入理解计算机系统/" rel="tag"><i class="fa fa-tag"></i> 深入理解计算机系统</a>
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           
         </div>
       
@@ -3606,8 +3567,8 @@ a {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/28/csapp：信息的表示和处理/" rel="next" title="CSAPP：信息的表示和处理">
-                <i class="fa fa-chevron-left"></i> CSAPP：信息的表示和处理
+              <a href="/2019/07/01/Linux-开始/" rel="next" title="Linux-开始">
+                <i class="fa fa-chevron-left"></i> Linux-开始
               </a>
             
           </div>
@@ -3615,10 +3576,6 @@ a {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/08/小知识点总结/" rel="prev" title="小知识点总结">
-                小知识点总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -3829,7 +3786,7 @@ a {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器级代码"><span class="nav-text">机器级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于格式的注解"><span class="nav-text">关于格式的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压入和弹出程序栈"><span class="nav-text">压入和弹出程序栈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制"><span class="nav-text">控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转指令是如何编码的"><span class="nav-text">跳转指令是如何编码的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch语句是怎么实现的"><span class="nav-text">switch语句是怎么实现的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时栈"><span class="nav-text">运行时栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传送"><span class="nav-text">数据传送</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件或目录权限"><span class="nav-text">修改文件或目录权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的运行统计信息"><span class="nav-text">进程的运行统计信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程亲缘关系"><span class="nav-text">进程亲缘关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程权限"><span class="nav-text">进程权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程执行过程中，发生系统调用怎么办"><span class="nav-text">进程执行过程中，发生系统调用怎么办</span></a></li></ol></div>
             
 
           </div>
