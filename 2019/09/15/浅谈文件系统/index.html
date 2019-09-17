@@ -1,0 +1,1094 @@
+<!DOCTYPE html><html class="theme-next mist use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="文件系统真的研究起来，大而复杂，这里做一个简单的认识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈文件系统">
+<meta property="og:url" content="http://rensongwang.xyz/2019/09/15/浅谈文件系统/index.html">
+<meta property="og:site_name" content="rensong's blog">
+<meta property="og:description" content="文件系统真的研究起来，大而复杂，这里做一个简单的认识。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-15T15:08:54.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈文件系统">
+<meta name="twitter:description" content="文件系统真的研究起来，大而复杂，这里做一个简单的认识。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://rensongwang.xyz/2019/09/15/浅谈文件系统/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>浅谈文件系统 | rensong's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">rensong's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/09/15/浅谈文件系统/">
+
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王仁松">
+      <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
+      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+    </span>
+
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="rensong's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈文件系统
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-15 22:09:47 / 修改时间：23:08:54" itemprop="dateCreated datePublished" datetime="2019-09-15T22:09:47+08:00">2019-09-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/操作系统个人理解系列/" itemprop="url" rel="index"><span itemprop="name">操作系统个人理解系列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note default">
+            <p>文件系统真的研究起来，大而复杂，这里做一个简单的认识。</p>
+          </div>
+<a id="more"></a>
+<h2 id="为什么要有文件系统？"><a href="#为什么要有文件系统？" class="headerlink" title="为什么要有文件系统？"></a>为什么要有文件系统？</h2><p>一个计算机从开机到关机，不管运行什么样的进程，在内存中读写多少数据，最终都会呈现在磁盘上（或者一个固定的存储器上），不管数据多少，都需要管理保持一种秩序的存在。方便系统的正常运行。</p>
+<h2 id="文件系统需要满足什么要求？"><a href="#文件系统需要满足什么要求？" class="headerlink" title="文件系统需要满足什么要求？"></a>文件系统需要满足什么要求？</h2><ol>
+<li>整齐划一的组织方式</li>
+<li>需要索引到方便查找</li>
+<li>需要文件夹的形式来方便管理和查询</li>
+<li>需要缓存层来方便热点文件的访问</li>
+<li>内核也需要一定的数据结构来存储打开文件的信息状态</li>
+</ol>
+<h2 id="磁盘文件系统如何实现？"><a href="#磁盘文件系统如何实现？" class="headerlink" title="磁盘文件系统如何实现？"></a>磁盘文件系统如何实现？</h2><p>实际上，在文件系统的设计上，进行了很多探索，比如顺序存储、链表存储等。<br>最终常用的还是<strong>inode + 数据块的形式。</strong></p>
+<p><strong>数据块</strong>是什么呢？前面我们提到整齐划一的组织方式，磁盘也是一个一个扇区组成，每个扇区储存512字节（相当于0.5KB）。系统在读取磁盘的时候不能一个一个扇区的进行啊，这样子的效率实在是太低了，所以我们找到一个合适的大小，把磁盘直接划分成一个一个块的大小，来进行读取。</p>
+<p>有了块还不够，我们得知道怎么快速找到每个块的具体位置在哪。<br>而一个文件在磁盘上又能被划分成许多的块，因此我们要找一个文件在磁盘上的具体位置，我们需要一个索引。<br>于是，每一个文件都有一个inode结构，i就是指的index，也就是索引的意思，可以看作是一个文件索引节点。<br>这个inode结构中就存放了这个文件的所有元数据（不包括文件名）。<br></p><figure class="highlight sqf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">struct ext4_inode {</span><br><span class="line">	<span class="variable">__le16</span>	i_mode;		<span class="comment">/* File mode */</span></span><br><span class="line">	<span class="variable">__le16</span>	i_uid;		<span class="comment">/* Low 16 bits of Owner Uid */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_size_lo;	<span class="comment">/* Size in bytes */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_atime;	<span class="comment">/* Access time */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_ctime;	<span class="comment">/* Inode Change time */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_mtime;	<span class="comment">/* Modification time */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_dtime;	<span class="comment">/* Deletion Time */</span></span><br><span class="line">	<span class="variable">__le16</span>	i_gid;		<span class="comment">/* Low 16 bits of Group Id */</span></span><br><span class="line">	<span class="variable">__le16</span>	i_links_count;	<span class="comment">/* Links count */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_blocks_lo;	<span class="comment">/* Blocks count */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_flags;	<span class="comment">/* File flags */</span></span><br><span class="line">......</span><br><span class="line">	<span class="variable">__le32</span>	i_block[EXT4_N_BLOCKS];<span class="comment">/* Pointers to blocks */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_generation;	<span class="comment">/* File version (for NFS) */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_file_acl_lo;	<span class="comment">/* File ACL */</span></span><br><span class="line">	<span class="variable">__le32</span>	i_size_high;</span><br><span class="line">......</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>大体上就是：</p>
+<ul>
+<li>文件的字节数</li>
+<li>文件拥有者的User ID</li>
+<li>文件的Group ID</li>
+<li>文件的读、写、执行权限</li>
+<li>文件的时间戳，共有三个：ctime指inode上一次变动的时间，mtime指文件内容上一次变动的时间，atime指文件上一次打开的时间。</li>
+<li>链接数，即有多少文件名指向这个inode</li>
+<li>文件数据block的位置</li>
+</ul>
+<p>查看某个文件的inode信息<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stat</span> example.txt</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h2><p>对于一个文件系统来说，一般分为两个部分：<br>一个是数据区，存放文件数据，一个是inode区（inode table），存放文件的元数据。<br>一般来说，<strong>inode是一个文件系统的有限资源</strong>，也就是说，在文件系统（对一个分区格式化的时候）在初始化的时候，是定好了的。总数是确定的，而大小也是确定的。以为inode也需要空间来存储，如果太多的了，反而有点不合理了（我是要存数据滴）。</p>
+<p>查看一个分区的inode总数和已使用情况。<br></p><figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">df -i</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>查看每个inode节点的大小，可以用如下命令：<br></p><figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dumpe2fs -h <span class="regexp">/dev/</span>hda | <span class="keyword">grep</span> <span class="string">"Inode size"</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。<strong>这也是无法生成一个文件的一个原因（创建一个文件出错）</strong>。</p>
+<h2 id="inode的组织方式"><a href="#inode的组织方式" class="headerlink" title="inode的组织方式"></a>inode的组织方式</h2><p>inode也是一堆数据，我找某个文件虽然可以通过inode找到，但是inode太多的化，我岂不是还是要一个一个inode的找。<br>针对这种情况，所有的inode也可以有一个数据结构来实现快速查找：<strong>位图</strong>。<br>也就是说，inode也是有编号的，123456这样子，那我都在一个位图中就可以通过1还是0就可以快速知道一个inode是不是被占用还是空闲的。<br>使用ls -i命令，可以看到文件名对应的inode号码：<br></p><figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -<span class="selector-tag">i</span> example.txt</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>实际上，<strong>数据块的位图 + 一系列数据块</strong> 和<strong>inode的位图 + 一系列inode</strong>基本上就可以实现一个文件系统了，但是还是有问题。真正的文件系统是通过<strong>块组</strong>的形式组织起来的，后期更新。</p>
+<h2 id="目录也是文件"><a href="#目录也是文件" class="headerlink" title="目录也是文件"></a>目录也是文件</h2><p>在linux中，一切皆文件，目录也不例外，只不过目录当中存的是一系列的目录项。<br>目录项：<strong>文件名 + 文件对应的inode</strong>。<br>ls -i命令列出整个目录文件，即文件名和inode号码：<br></p><figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -i <span class="string">/etc</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>如果要查看文件的详细信息，就必须根据inode号码，访问inode节点，读取信息。ls -l命令列出文件的详细信息。<br></p><figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>由于目录文件内只有文件名和inode号码，所以如果只有读权限，只能获取文件名，无法获取其他信息，因为其他信息都储存在inode节点中，而读取inode节点内的信息需要目录文件的执行权限（x）。</p>
+<h2 id="硬链接和软链接"><a href="#硬链接和软链接" class="headerlink" title="硬链接和软链接"></a>硬链接和软链接</h2><p><strong>硬链接</strong>是指一个文件的别名。上面说inode的结构里面提到了一个inode的链接数，而硬链接指的就是多个文件的inode是同一个，也就是说，inode的链接数有很多个。<br>也就是说，删除了一个文件名，只是减少这个inode的链接数，当链接数为0的时候，才会真正删除这个文件，回收inode和数据块。<br>硬链接的一个缺点就是<strong>不能跨文件系统</strong>。</p>
+<p><strong>软链接</strong>本身是另外一个文件，有自己的inode，只不过这个inode指向的数据块中存放的是另一个文件的路径。<br>读取文件A时，系统会自动将访问者导向文件B。因此，无论打开哪一个文件，最终读取的都是文件B。这时，文件A就称为文件B的”软链接”（soft link）或者”符号链接（symbolic link）。<br><strong>软链接指向的是文件名，而不是一个文件的inode，不会让其链接数加1。</strong><br>这意味着，软链接依赖于其指向文件，当指向文件删除之后，再打开这个软链接就会报错。<br>硬链接的一个优点就是<strong>可以跨文件系统</strong>。</p>
+<hr>
+<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
+  <div>学习交流</div>
+</div>
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王仁松</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://rensongwang.xyz/2019/09/15/浅谈文件系统/" title="浅谈文件系统">http://rensongwang.xyz/2019/09/15/浅谈文件系统/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/15/浅谈操作系统的上下文切换/" rel="next" title="浅谈操作系统的上下文切换">
+                <i class="fa fa-chevron-left"></i> 浅谈操作系统的上下文切换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+            
+              <p class="site-author-name" itemprop="name">王仁松</p>
+              <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/rensongwang" title="GitHub → https://github.com/rensongwang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:wrs18182370582@163.com" title="E-Mail → mailto:wrs18182370582@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有文件系统？"><span class="nav-text">为什么要有文件系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统需要满足什么要求？"><span class="nav-text">文件系统需要满足什么要求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘文件系统如何实现？"><span class="nav-text">磁盘文件系统如何实现？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inode"><span class="nav-text">inode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inode的组织方式"><span class="nav-text">inode的组织方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录也是文件"><span class="nav-text">目录也是文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬链接和软链接"><span class="nav-text">硬链接和软链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王仁松</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+  
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  };$('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })</script></body></html>

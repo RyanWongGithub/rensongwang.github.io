@@ -1,0 +1,1086 @@
+<!DOCTYPE html><html class="theme-next mist use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="以前对于什么用户态和内核态之间的切换、进程与进程之间的切换总有些模糊，在这里好好梳理一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈操作系统的上下文切换">
+<meta property="og:url" content="http://rensongwang.xyz/2019/09/15/浅谈操作系统的上下文切换/index.html">
+<meta property="og:site_name" content="rensong's blog">
+<meta property="og:description" content="以前对于什么用户态和内核态之间的切换、进程与进程之间的切换总有些模糊，在这里好好梳理一下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/CPU%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2.JPG">
+<meta property="og:updated_time" content="2019-09-15T13:51:48.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈操作系统的上下文切换">
+<meta name="twitter:description" content="以前对于什么用户态和内核态之间的切换、进程与进程之间的切换总有些模糊，在这里好好梳理一下。">
+<meta name="twitter:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/CPU%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2.JPG">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://rensongwang.xyz/2019/09/15/浅谈操作系统的上下文切换/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>浅谈操作系统的上下文切换 | rensong's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"></noscript></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">rensong's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/09/15/浅谈操作系统的上下文切换/">
+
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王仁松">
+      <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
+      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+    </span>
+
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="rensong's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈操作系统的上下文切换
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-15 10:26:17 / 修改时间：21:51:48" itemprop="dateCreated datePublished" datetime="2019-09-15T10:26:17+08:00">2019-09-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/操作系统个人理解系列/" itemprop="url" rel="index"><span itemprop="name">操作系统个人理解系列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note default">
+            <p>以前对于什么用户态和内核态之间的切换、进程与进程之间的切换总有些模糊，在这里好好梳理一下。</p>
+          </div>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在此先说明，在操作系统底层对于各种各样的上下文切换有着很复杂的实现细节，这里抛去大部分的细节，讲个大概。</p>
+<h2 id="内核态和用户态"><a href="#内核态和用户态" class="headerlink" title="内核态和用户态"></a>内核态和用户态</h2><p>一开始系统运行时，要先初始化内核。先是0号进程，再是1号，2号（所有内核线程的祖先）。<br>而1号进程是所有用户进程的祖先进程。<br>而1号进程是用户进程，这就涉及到最开始内核态和用户态的切换（一般来说，都是先有用户态，再陷入内核态再回到用户态，怎么一开始就从内核态到用户态呢？下面会讲）。</p>
+<p>为什么会有内核态和用户态？<br>我们应该知道实模式对于操作系统来说只是来启动系统时用的，想要办大事还是要在保护模式下。<br>而保护模式除了能够运行更大的程序之外，最重要的一个作用就是“保护”。<br>保护是指，用户进程和内核进程有一个明显的权限划分。<br>x86提供了分层的权限机制。<br>把区域分成了4个权限。越往里，权限越高。分别是Ring 0、1、2、3。<br>一般来说，内核是运行在Ring 0下，而用户进程运行在Ring 3下。<br>0是最高权限，也就是说能访问计算机的所有资源。<br>所以，<strong>能访问关键资源的代码放在Ring 0，我们称为内核态，而普通的程序代码放在Ring 3，称为用户态。</strong></p>
+<p>那么用户态怎么去访问计算机的那些资源呢？<br><strong>只能通过内核态去访问，也就是我们常说的陷入内核（系统调用）。</strong><br>那系统调用是什么呢？个人理解，通俗的讲，就是提供给用户进程访问操作计算机资源的一系列接口。</p>
+<h2 id="CPU上下文切换"><a href="#CPU上下文切换" class="headerlink" title="CPU上下文切换"></a>CPU上下文切换</h2><p>接着讲，陷入内核就意味着，在用户态代码执行的好好的，一下子要转到内核态代码去执行，我这摊子都摆好了，你让我换地方。<br>为了从内核回来还能继续正常执行，<strong>很重要的一点就是保存当前的运行状态。也就是将在用户态运行的状态全部保存起来</strong>。然后CPU的控制单元中的段寄存器指向内核态中代码中的代码段、数据段、栈段等；各种寄存器指针指向内核态代码。<br>这就是<strong>CPU上下文切换</strong>。</p>
+<p>这个过程就是这样的：用户态 - 系统调用 - 保存寄存器 - 内核态执行系统调用 - 恢复寄存器 - 返回用户态，然后接着运行。</p>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>当然系统调用实际上真正的过程十分复杂。这里只是讲个大概。<br>32位系统和64位系统的系统调用过程是不一样的。这里大概讲一下32位系统的系统调用。</p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><p>在讲系统调用之前，得先说明一下，<strong>中断的概念</strong>。<br>中断分为同步中断和异步中断。异步中断就是我们常说的<strong>中断</strong>。实际上，最终的本质是，系统运行中的<strong>异常控制流</strong>。<br>通俗的讲，就是我的指令一条一条执行的好好的，现在突然让我转到另外一个地方去执行另外一条指令。</p>
+<p>同步中断：陷阱、故障、终止。<br>异步中断：中断。</p>
+<p>陷阱就是我们常说的类似于系统调用之类的。故障举个例子就是缺页中断之类的。而中断是指设备发送的信号。</p>
+<p><strong>内核在初始化时，trap_init()里卖弄设置了很多的中断门，用于处理各种中断。其中有一个 set_system_intr_gate(IA32_SYSCALL_VECTOR, entry_INT80_32)，这是系统调用的中断门。</strong></p>
+<h2 id="系统调用的过程"><a href="#系统调用的过程" class="headerlink" title="系统调用的过程"></a>系统调用的过程</h2><p>在系统调用之前，我们将请求参数放在寄存器里面，<strong>根据系统调用的名称，得到系统调用号</strong>，放在寄存器<strong>eax</strong>    里面，然后执行<strong>ENTER_KERNEL</strong>。<br>这个ENTER_KERNEL是个啥呢？<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#	<span class="meta-keyword">define</span>	ENTER_KERNEL	int	$0x80</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>int    就是    interrupt，也就是“中断”的意思。int    $0x80（告诉CPU）就是触发一个软中断，通过它就可以陷入（trap）内核。<br>上面说的trap_init()，系统调用的陷入门：<br></p><figure class="highlight lisp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set_system_intr_gate(<span class="name">IA32_SYSCALL_VECTOR</span>,	entry_INT80_32)<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>这是一个软中断的陷入门。当接收到一个系统调用的时候，entry_INT80_32就被调用了。<br></p><figure class="highlight mel"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ENTRY(entry_INT80_32)</span><br><span class="line">ASM_CLAC</span><br><span class="line">pushl		%eax	       <span class="comment">/*	pt_regs-&gt;orig_ax	*/</span></span><br><span class="line">SAVE_ALL	pt_regs_ax=$-ENOSYS				<span class="comment">/*	save	rest	*/</span></span><br><span class="line">movl				%esp,	%eax</span><br><span class="line">call				do_syscall_32_irqs_on</span><br><span class="line">.Lsyscall_32_done:</span><br><span class="line">......</span><br><span class="line">.Lirq_return:</span><br><span class="line">INTERRUPT_RETURN</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>通过    push和SAVE_ALL将当前用户态的寄存器，保存在<strong>pt_regs结构</strong>里面。<br>进入内核之前，保存所有的寄存器，然后调用do_syscall_32_irqs_on。这里我就不继续贴代码了，后面工作了细细研究。<br>主要的实现就是，从eax里面取出系统调用号，通过这个号在系统调用表中找到对应的系统调用函数，并讲寄存器中保存的参数取出来。</p>
+<p>那么怎么回去呢？<br>当系统调用结束之后，在 entry_INT80_32 之后，紧接着调用的是 INTERRUPT_RETURN，我们能够找到它的定义，也就是 iret。<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTERRUPT_RETURN iret</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>iret 指令将原来用户态保存的现场恢复回来，包含代码段、指令指针寄存器等。这时候用户态进程恢复执行。<br>这里配一张图，特别清晰：<br><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/CPU%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2.JPG"></p>
+<h2 id="回到开篇"><a href="#回到开篇" class="headerlink" title="回到开篇"></a>回到开篇</h2><p>什么是上下文切换呢，其实上下文切换指的是多种上下文切换，平时我们经常说的就是进程上下文切换，线程上下文切换。<br>其实说到最细还是，CPU上下文切换，其实CPU上下文切换发生在各种地方，一个进程陷入内核会发生CPU上下文切换，进程/线程切换会发生上下文切换。<br>一般来说，上下文切换指的是进程/线程切换。而内核态用户态之间的切换虽然也涉及到CPU上下文切换，但是只在一个进程内；一般叫做<strong>模式切换。</strong></p>
+<p>上下文切换实际上涉及到很多东西。不管是进程切换还是线程切换，到了内核，统一都是任务切换，进程和线程都是任务，统一由一个task_struct的数据结构管理，另外每一个进程都有一个进程控制块，记录着进程运行的所有状态信息，所以在进行进程切换的时候，往往在CPU上下文切换过程中，就会涉及到进程上下文的保存和恢复；以及任务调度。</p>
+<hr>
+<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
+  <div>学习交流</div>
+</div>
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王仁松</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://rensongwang.xyz/2019/09/15/浅谈操作系统的上下文切换/" title="浅谈操作系统的上下文切换">http://rensongwang.xyz/2019/09/15/浅谈操作系统的上下文切换/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/25/进程与线程：感觉操作系统中没个东西跑就不像个操作系统/" rel="next" title="进程与线程：感觉操作系统中没个东西跑就不像个操作系统">
+                <i class="fa fa-chevron-left"></i> 进程与线程：感觉操作系统中没个东西跑就不像个操作系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/15/浅谈文件系统/" rel="prev" title="浅谈文件系统">
+                浅谈文件系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+            
+              <p class="site-author-name" itemprop="name">王仁松</p>
+              <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/rensongwang" title="GitHub → https://github.com/rensongwang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:wrs18182370582@163.com" title="E-Mail → mailto:wrs18182370582@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核态和用户态"><span class="nav-text">内核态和用户态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU上下文切换"><span class="nav-text">CPU上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统调用"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断"><span class="nav-text">中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统调用的过程"><span class="nav-text">系统调用的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到开篇"><span class="nav-text">回到开篇</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王仁松</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+  
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+<script type="text/javascript" src="/bundle.js"></script><script type="text/javascript">if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  };$('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })</script></body></html>
