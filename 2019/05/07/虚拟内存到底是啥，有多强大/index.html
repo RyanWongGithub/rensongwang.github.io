@@ -93,17 +93,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟内存到底是啥，有多强大">
 <meta property="og:url" content="http://rensongwang.xyz/2019/05/07/虚拟内存到底是啥，有多强大/index.html">
-<meta property="og:site_name" content="rensong's blog">
+<meta property="og:site_name" content="Ryan's blog">
 <meta property="og:description" content="在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案。有一些甚至是让我非常疑惑，例如：加载可执行文件进内存的时候，并不全部加载进内存，要用的加载进去，暂时不用的剩下的放在磁盘上，当需要时加载">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E4%B8%80%E4%B8%AALinux%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
-<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E8%BF%9B%E7%A8%8B%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png">
-<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/Linux%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84.png">
-<meta property="og:updated_time" content="2019-09-15T02:21:26.187Z">
+<meta property="og:image" content="http://rensongwang.gitee.io/my_drawing_bed/一个Linux进程的虚拟内存.png">
+<meta property="og:image" content="http://rensongwang.gitee.io/my_drawing_bed/进程地址空间.png">
+<meta property="og:image" content="http://rensongwang.gitee.io/my_drawing_bed/Linux是如何组织虚拟内存的.png">
+<meta property="og:updated_time" content="2019-11-25T09:08:45.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟内存到底是啥，有多强大">
 <meta name="twitter:description" content="在学习了与计算机系统中虚拟内存相关的知识后，总感觉对于这一部分知识还是悬在空中，没有脚踏实地的感觉，于是查阅了一些资料，也有去看别人的博客和帖子，发现根本不能解决我的疑惑，基本上都是我自己看过且理解的东西，始终都找不到我想要的那部分答案。有一些甚至是让我非常疑惑，例如：加载可执行文件进内存的时候，并不全部加载进内存，要用的加载进去，暂时不用的剩下的放在磁盘上，当需要时加载">
-<meta name="twitter:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E4%B8%80%E4%B8%AALinux%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
+<meta name="twitter:image" content="http://rensongwang.gitee.io/my_drawing_bed/一个Linux进程的虚拟内存.png">
 
 
 
@@ -121,7 +121,7 @@
   };
 </script>
 
-  <title>虚拟内存到底是啥，有多强大 | rensong's blog</title>
+  <title>虚拟内存到底是啥，有多强大 | Ryan's blog</title>
   
 
 
@@ -1789,49 +1789,6 @@ pre .javascript .function {
 .fancybox-close:hover {
   border: none;
 }
-#reward-container {
-  padding: 10px 0;
-  margin: 20px auto;
-  width: 90%;
-  text-align: center;
-}
-#reward-button {
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  display: inline-block;
-  vertical-align: text-top;
-  margin: 0;
-  padding: 0 15px;
-  border-radius: 5px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 16px;
-  color: #fff;
-  background: #f44336;
-  letter-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-}
-#reward-button span:hover {
-  background: #f7877f;
-}
-#qr {
-  padding-top: 20px;
-}
-#qr a {
-  border: 0;
-}
-#qr img {
-  width: 180px;
-  max-width: 100%;
-  display: inline-block;
-  margin: 0.8em 2em 0 2em;
-}
-#qr p {
-  text-align: center;
-}
 .post-copyright {
   margin: 2em 0 0;
   padding: 0.5em 1em;
@@ -1978,7 +1935,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b6b1ff;
+  background: #a6ff45;
 }
 .feed-link,
 .chat {
@@ -2989,7 +2946,7 @@ body {
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
 }
 .header {
-  background: url("https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/rick-and-morty-wallpaper-1024x576.jpg");
+  background: url("http://rensongwang.gitee.io/my_drawing_bed/bkground1920x1080.jpg");
   padding: 8px 0px;
 }
 .site-meta {
@@ -3158,7 +3115,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">rensong's blog</span>
+        <span class="site-title">Ryan's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3318,13 +3275,13 @@ a {
     <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/05/07/虚拟内存到底是啥，有多强大/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
+      <meta itemprop="name" content="Ryan">
       <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
-      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+      <meta itemprop="image" content="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg">
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="rensong's blog">
+      <meta itemprop="name" content="Ryan's blog">
     </span>
 
     
@@ -3375,7 +3332,7 @@ a {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-15 10:21:26" itemprop="dateModified" datetime="2019-09-15T10:21:26+08:00">2019-09-15</time>
+                <time title="修改时间：2019-11-25 17:08:45" itemprop="dateModified" datetime="2019-11-25T17:08:45+08:00">2019-11-25</time>
               
             
           </span>
@@ -3450,14 +3407,14 @@ a {
 <p>现在我想解决问题，怎么办呢，我想所有的进程都是一样的一个地址空间，而且要让他感觉只有他一个人在用一整块物理内存。<br>那么，我就告诉每个进程：你的地址空间是0到N字节序列，这就是物理内存，只有你一个人在用哦。<br>是不是觉得有点骗人的感觉，没错，操作系统就是骗了每个进程。<br>但是解决了很多问题：<br></p><div class="note success">
             <ol><li>每个进程的虚拟地址空间都是一样的，就相当于每一个进程用的都是虚拟的一整块内存。每个进程存的格式就可以规定下来。也就是说模板的问题解决了</li><li>由于我给你的是虚拟内存，你要访问物理内存还要从虚拟内存映射到物理内存，那么你的虚拟内存没有分配的地方你访问不了，你只能访问你的虚拟内存已经映射的物理内存，这块物理内存是你的，没得你没法访问，也就没办法修改，这就保证了每一个进程的地址空间都是独立的，不会被其他的进程所更改。</li></ol>
           </div><p></p>
-<h2 id="Linux虚拟内存系统"><a href="#Linux虚拟内存系统" class="headerlink" title="Linux虚拟内存系统"></a>Linux虚拟内存系统</h2><p>通过上面的描述，我们应该有了一个较为清晰的认识，虚拟内存的强大就在于，它方便管理而且为每个进程都提供了一个独立的地址空间，当然还有很多好处。<br>它自动工作，而不需要我们过多的去担心。<br>在Linux中，一个进程的虚拟内存是这样的：<br><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E4%B8%80%E4%B8%AALinux%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png"><br><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E8%BF%9B%E7%A8%8B%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png"><br>每个进程都是这样的，这就是我之前提到过的模板。<br>在这里，我们关心的是，Linux将虚拟内存组织成一个一个的区域（也叫段），一个区域就是已经存在着的（已分配）虚拟内存的连续片（chunk）。<br>已分配是指，在磁盘上已经分配了虚拟页，就是已经有数据和它们关联。<br>已分配分为两种情况：</p>
+<h2 id="Linux虚拟内存系统"><a href="#Linux虚拟内存系统" class="headerlink" title="Linux虚拟内存系统"></a>Linux虚拟内存系统</h2><p>通过上面的描述，我们应该有了一个较为清晰的认识，虚拟内存的强大就在于，它方便管理而且为每个进程都提供了一个独立的地址空间，当然还有很多好处。<br>它自动工作，而不需要我们过多的去担心。<br>在Linux中，一个进程的虚拟内存是这样的：<br><img src="http://rensongwang.gitee.io/my_drawing_bed/一个Linux进程的虚拟内存.png"><br><img src="http://rensongwang.gitee.io/my_drawing_bed/进程地址空间.png"><br>每个进程都是这样的，这就是我之前提到过的模板。<br>在这里，我们关心的是，Linux将虚拟内存组织成一个一个的区域（也叫段），一个区域就是已经存在着的（已分配）虚拟内存的连续片（chunk）。<br>已分配是指，在磁盘上已经分配了虚拟页，就是已经有数据和它们关联。<br>已分配分为两种情况：</p>
 <ul>
 <li>缓存的：当前已缓存在物理内存中的已分配页</li>
 <li>为缓存的：已分配，但是未缓存在物理内存中</li>
 </ul>
 <p>未分配也就是没有创建的页，没有任何数据和它们关联，也就不占用任何磁盘空间。</p>
 <h3 id="为什么要弄成区域呢？"><a href="#为什么要弄成区域呢？" class="headerlink" title="为什么要弄成区域呢？"></a>为什么要弄成区域呢？</h3><p>因为这样，虚拟地址空间就是有空隙的，那些不属于某个区域的虚拟页是不存在的，就不能被进程引用。<br>同时内核也不用记录不存在的虚拟页，也就不占用内存、磁盘或者内核本身中的任何资源。</p>
-<h3 id="那具体的区域在进程中又是如何组织的呢？"><a href="#那具体的区域在进程中又是如何组织的呢？" class="headerlink" title="那具体的区域在进程中又是如何组织的呢？"></a>那具体的区域在进程中又是如何组织的呢？</h3><p><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/Linux%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84.png"></p>
+<h3 id="那具体的区域在进程中又是如何组织的呢？"><a href="#那具体的区域在进程中又是如何组织的呢？" class="headerlink" title="那具体的区域在进程中又是如何组织的呢？"></a>那具体的区域在进程中又是如何组织的呢？</h3><p><img src="http://rensongwang.gitee.io/my_drawing_bed/Linux是如何组织虚拟内存的.png"></p>
 <ol>
 <li>内核为系统中的每个进程都维护一个单独的任务结构（源代码中的task_struct）。任务结构中的元素包含或指向内核运行该进程所需要的所有信息。</li>
 <li>task_struct的mm指针，指向了mm_struct，该结构描述虚拟内存的运行状态。</li>
@@ -3502,7 +3459,7 @@ a {
           </div><p></p>
 <p>讲到这里，一些困扰我很久的问题算是有点解决明白了<br>当然还有一些很有意思的东西没讲，比如共享区域、私有对象<strong>写时复制</strong>，后期更新吧</p>
 <hr>
-<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+
       
     </div>
 
@@ -3513,49 +3470,10 @@ a {
     
 
     
-      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
-  <div>学习交流</div>
-</div>
-
-    
 
     
       
     
-    
-      <div>
-        <div id="reward-container">
-  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -3571,7 +3489,7 @@ a {
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>王仁松</li>
+    <strong>本文作者： </strong>Ryan</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
@@ -3671,9 +3589,9 @@ a {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+              <img class="site-author-image" itemprop="image" src="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg" alt="Ryan">
             
-              <p class="site-author-name" itemprop="name">王仁松</p>
+              <p class="site-author-name" itemprop="name">Ryan</p>
               <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
           </div>
 
@@ -3684,7 +3602,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3731,7 +3649,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3806,7 +3726,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3905,7 +3827,7 @@ a {
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">王仁松</span>
+  <span class="author" itemprop="copyrightHolder">Ryan</span>
 
   
 

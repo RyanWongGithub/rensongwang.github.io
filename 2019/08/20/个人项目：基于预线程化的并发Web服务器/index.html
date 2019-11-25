@@ -93,10 +93,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="个人项目：基于预线程化的并发Web服务器">
 <meta property="og:url" content="http://rensongwang.xyz/2019/08/20/个人项目：基于预线程化的并发Web服务器/index.html">
-<meta property="og:site_name" content="rensong's blog">
+<meta property="og:site_name" content="Ryan's blog">
 <meta property="og:description" content="之前根据学习的HTTP事务学着写了一个Web服务器，在这个基础上，想要实现服务器同时服务多个客户端我知道的，可以用多进程实现，之前写的回射服务器就是，IO多路复用也行，后期打算深入理解一下IO多路复用，多线程并发也许很好？但是后面看了C10K的问题，最后根据自己的参考资料确定就用预线程化的并发。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-20T11:59:38.293Z">
+<meta property="og:updated_time" content="2019-11-25T09:05:36.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="个人项目：基于预线程化的并发Web服务器">
 <meta name="twitter:description" content="之前根据学习的HTTP事务学着写了一个Web服务器，在这个基础上，想要实现服务器同时服务多个客户端我知道的，可以用多进程实现，之前写的回射服务器就是，IO多路复用也行，后期打算深入理解一下IO多路复用，多线程并发也许很好？但是后面看了C10K的问题，最后根据自己的参考资料确定就用预线程化的并发。">
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title>个人项目：基于预线程化的并发Web服务器 | rensong's blog</title>
+  <title>个人项目：基于预线程化的并发Web服务器 | Ryan's blog</title>
   
 
 
@@ -1785,49 +1785,6 @@ pre .javascript .function {
 .fancybox-close:hover {
   border: none;
 }
-#reward-container {
-  padding: 10px 0;
-  margin: 20px auto;
-  width: 90%;
-  text-align: center;
-}
-#reward-button {
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  display: inline-block;
-  vertical-align: text-top;
-  margin: 0;
-  padding: 0 15px;
-  border-radius: 5px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 16px;
-  color: #fff;
-  background: #f44336;
-  letter-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-}
-#reward-button span:hover {
-  background: #f7877f;
-}
-#qr {
-  padding-top: 20px;
-}
-#qr a {
-  border: 0;
-}
-#qr img {
-  width: 180px;
-  max-width: 100%;
-  display: inline-block;
-  margin: 0.8em 2em 0 2em;
-}
-#qr p {
-  text-align: center;
-}
 .post-copyright {
   margin: 2em 0 0;
   padding: 0.5em 1em;
@@ -1974,7 +1931,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b6b1ff;
+  background: #a6ff45;
 }
 .feed-link,
 .chat {
@@ -2985,7 +2942,7 @@ body {
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
 }
 .header {
-  background: url("https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/rick-and-morty-wallpaper-1024x576.jpg");
+  background: url("http://rensongwang.gitee.io/my_drawing_bed/bkground1920x1080.jpg");
   padding: 8px 0px;
 }
 .site-meta {
@@ -3154,7 +3111,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">rensong's blog</span>
+        <span class="site-title">Ryan's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3314,13 +3271,13 @@ a {
     <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/08/20/个人项目：基于预线程化的并发Web服务器/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
+      <meta itemprop="name" content="Ryan">
       <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
-      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+      <meta itemprop="image" content="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg">
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="rensong's blog">
+      <meta itemprop="name" content="Ryan's blog">
     </span>
 
     
@@ -3354,12 +3311,24 @@ a {
                 
               
 
-              <time title="创建时间：2019-08-20 15:47:14 / 修改时间：19:59:38" itemprop="dateCreated datePublished" datetime="2019-08-20T15:47:14+08:00">2019-08-20</time>
+              <time title="创建时间：2019-08-20 15:47:14" itemprop="dateCreated datePublished" datetime="2019-08-20T15:47:14+08:00">2019-08-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-25 17:05:36" itemprop="dateModified" datetime="2019-11-25T17:05:36+08:00">2019-11-25</time>
               
             
           </span>
@@ -3439,7 +3408,7 @@ a {
 <p>SBUF包<br></p><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __SBUF_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __SBUF_H__</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"csapp.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* $begin sbuft */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> {</span></span><br><span class="line">    <span class="keyword">int</span> *buf;          <span class="comment">/* Buffer array */</span>         </span><br><span class="line">    <span class="keyword">int</span> n;             <span class="comment">/* Maximum number of slots */</span></span><br><span class="line">    <span class="keyword">int</span> front;         <span class="comment">/* buf[(front+1)%n] is first item */</span></span><br><span class="line">    <span class="keyword">int</span> rear;          <span class="comment">/* buf[rear%n] is last item */</span></span><br><span class="line">    <span class="keyword">sem_t</span> mutex;       <span class="comment">/* Protects accesses to buf */</span></span><br><span class="line">    <span class="keyword">sem_t</span> slots;       <span class="comment">/* Counts available slots */</span></span><br><span class="line">    <span class="keyword">sem_t</span> items;       <span class="comment">/* Counts available items */</span></span><br><span class="line">} <span class="keyword">sbuf_t</span>;</span><br><span class="line"><span class="comment">/* $end sbuft */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_init</span><span class="params">(<span class="keyword">sbuf_t</span> *sp, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_deinit</span><span class="params">(<span class="keyword">sbuf_t</span> *sp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_insert</span><span class="params">(<span class="keyword">sbuf_t</span> *sp, <span class="keyword">int</span> item)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sbuf_remove</span><span class="params">(<span class="keyword">sbuf_t</span> *sp)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* __SBUF_H__ */</span></span></span><br></pre></td></tr></tbody></table></figure><p></p>
 <figure class="highlight xl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* $begin sbufc */</span></span><br><span class="line">#include <span class="string">"csapp.h"</span></span><br><span class="line">#include <span class="string">"sbuf.h"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Create an empty, bounded, shared FIFO buffer with n slots */</span></span><br><span class="line"><span class="comment">/* $begin sbuf_init */</span></span><br><span class="line">void sbuf_init(sbuf_t *sp, int n)</span><br><span class="line">{</span><br><span class="line">    <span class="function"><span class="title">sp</span>-&gt;</span>buf = Calloc(n, sizeof(int)); </span><br><span class="line">    <span class="function"><span class="title">sp</span>-&gt;</span>n = n;                       <span class="comment">/* Buffer holds max of n items */</span></span><br><span class="line">    <span class="function"><span class="title">sp</span>-&gt;</span><span class="function"><span class="title">front</span> = sp-&gt;</span>rear = <span class="number">0</span>;        <span class="comment">/* Empty buffer iff front == rear */</span></span><br><span class="line">    S<span class="function"><span class="title">em_init</span>(&amp;sp-&gt;</span>mutex, <span class="number">0</span>, <span class="number">1</span>);      <span class="comment">/* Binary semaphore for locking */</span></span><br><span class="line">    S<span class="function"><span class="title">em_init</span>(&amp;sp-&gt;</span>slots, <span class="number">0</span>, n);      <span class="comment">/* Initially, buf has n empty slots */</span></span><br><span class="line">    S<span class="function"><span class="title">em_init</span>(&amp;sp-&gt;</span>items, <span class="number">0</span>, <span class="number">0</span>);      <span class="comment">/* Initially, buf has zero data items */</span></span><br><span class="line">}</span><br><span class="line"><span class="comment">/* $end sbuf_init */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Clean up buffer sp */</span></span><br><span class="line"><span class="comment">/* $begin sbuf_deinit */</span></span><br><span class="line">void sbuf_deinit(sbuf_t *sp)</span><br><span class="line">{</span><br><span class="line">    F<span class="function"><span class="title">ree</span>(sp-&gt;</span>buf);</span><br><span class="line">}</span><br><span class="line"><span class="comment">/* $end sbuf_deinit */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Insert item onto the rear of shared buffer sp */</span></span><br><span class="line"><span class="comment">/* $begin sbuf_insert */</span></span><br><span class="line">void sbuf_insert(sbuf_t *sp, int item)</span><br><span class="line">{</span><br><span class="line">    P(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>slots);                          <span class="comment">/* Wait for available slot */</span></span><br><span class="line">    P(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>mutex);                          <span class="comment">/* Lock the buffer */</span></span><br><span class="line">    <span class="function"><span class="title">sp</span>-&gt;</span><span class="function"><span class="title">buf</span>[(++sp-&gt;</span><span class="function"><span class="title">rear</span>)%(sp-&gt;</span>n)] = item;   <span class="comment">/* Insert the item */</span></span><br><span class="line">    V(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>mutex);                          <span class="comment">/* Unlock the buffer */</span></span><br><span class="line">    V(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>items);                          <span class="comment">/* Announce available item */</span></span><br><span class="line">}</span><br><span class="line"><span class="comment">/* $end sbuf_insert */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Remove and return the first item from buffer sp */</span></span><br><span class="line"><span class="comment">/* $begin sbuf_remove */</span></span><br><span class="line">int sbuf_remove(sbuf_t *sp)</span><br><span class="line">{</span><br><span class="line">    int item;</span><br><span class="line">    P(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>items);                          <span class="comment">/* Wait for available item */</span></span><br><span class="line">    P(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>mutex);                          <span class="comment">/* Lock the buffer */</span></span><br><span class="line">    <span class="function"><span class="title">item</span> = sp-&gt;</span><span class="function"><span class="title">buf</span>[(++sp-&gt;</span><span class="function"><span class="title">front</span>)%(sp-&gt;</span>n)];  <span class="comment">/* Remove the item */</span></span><br><span class="line">    V(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>mutex);                          <span class="comment">/* Unlock the buffer */</span></span><br><span class="line">    V(&amp;<span class="function"><span class="title">sp</span>-&gt;</span>slots);                          <span class="comment">/* Announce available slot */</span></span><br><span class="line">    return item;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/* $end sbuf_remove */</span></span><br><span class="line"><span class="comment">/* $end sbufc */</span></span><br></pre></td></tr></tbody></table></figure>
 <hr>
-<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+
       
     </div>
 
@@ -3450,49 +3419,10 @@ a {
     
 
     
-      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
-  <div>学习交流</div>
-</div>
-
-    
 
     
       
     
-    
-      <div>
-        <div id="reward-container">
-  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -3508,7 +3438,7 @@ a {
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>王仁松</li>
+    <strong>本文作者： </strong>Ryan</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
@@ -3608,9 +3538,9 @@ a {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+              <img class="site-author-image" itemprop="image" src="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg" alt="Ryan">
             
-              <p class="site-author-name" itemprop="name">王仁松</p>
+              <p class="site-author-name" itemprop="name">Ryan</p>
               <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
           </div>
 
@@ -3621,7 +3551,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3668,7 +3598,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3743,7 +3675,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3842,7 +3776,7 @@ a {
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">王仁松</span>
+  <span class="author" itemprop="copyrightHolder">Ryan</span>
 
   
 

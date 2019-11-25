@@ -93,10 +93,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序-打造一个高性能通用的排序方法">
 <meta property="og:url" content="http://rensongwang.xyz/2019/07/02/排序-打造一个高性能通用的排序方法/index.html">
-<meta property="og:site_name" content="rensong's blog">
+<meta property="og:site_name" content="Ryan's blog">
 <meta property="og:description" content="之前做了关于插入冒泡选择、归并快排、桶排计数排基数排的总结与代码实现。这篇是关于个人对于上述排序算法的一个总的记录与理解。然后说一说自己对于打造一个高性能通用的排序算法的理解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-08T13:20:58.091Z">
+<meta property="og:updated_time" content="2019-11-25T09:07:48.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序-打造一个高性能通用的排序方法">
 <meta name="twitter:description" content="之前做了关于插入冒泡选择、归并快排、桶排计数排基数排的总结与代码实现。这篇是关于个人对于上述排序算法的一个总的记录与理解。然后说一说自己对于打造一个高性能通用的排序算法的理解。">
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title>排序-打造一个高性能通用的排序方法 | rensong's blog</title>
+  <title>排序-打造一个高性能通用的排序方法 | Ryan's blog</title>
   
 
 
@@ -1785,49 +1785,6 @@ pre .javascript .function {
 .fancybox-close:hover {
   border: none;
 }
-#reward-container {
-  padding: 10px 0;
-  margin: 20px auto;
-  width: 90%;
-  text-align: center;
-}
-#reward-button {
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  display: inline-block;
-  vertical-align: text-top;
-  margin: 0;
-  padding: 0 15px;
-  border-radius: 5px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 16px;
-  color: #fff;
-  background: #f44336;
-  letter-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-}
-#reward-button span:hover {
-  background: #f7877f;
-}
-#qr {
-  padding-top: 20px;
-}
-#qr a {
-  border: 0;
-}
-#qr img {
-  width: 180px;
-  max-width: 100%;
-  display: inline-block;
-  margin: 0.8em 2em 0 2em;
-}
-#qr p {
-  text-align: center;
-}
 .post-copyright {
   margin: 2em 0 0;
   padding: 0.5em 1em;
@@ -1974,7 +1931,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b6b1ff;
+  background: #a6ff45;
 }
 .feed-link,
 .chat {
@@ -2985,7 +2942,7 @@ body {
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
 }
 .header {
-  background: url("https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/rick-and-morty-wallpaper-1024x576.jpg");
+  background: url("http://rensongwang.gitee.io/my_drawing_bed/bkground1920x1080.jpg");
   padding: 8px 0px;
 }
 .site-meta {
@@ -3154,7 +3111,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">rensong's blog</span>
+        <span class="site-title">Ryan's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3314,13 +3271,13 @@ a {
     <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/07/02/排序-打造一个高性能通用的排序方法/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
+      <meta itemprop="name" content="Ryan">
       <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
-      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+      <meta itemprop="image" content="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg">
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="rensong's blog">
+      <meta itemprop="name" content="Ryan's blog">
     </span>
 
     
@@ -3371,7 +3328,7 @@ a {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-08 21:20:58" itemprop="dateModified" datetime="2019-07-08T21:20:58+08:00">2019-07-08</time>
+                <time title="修改时间：2019-11-25 17:07:48" itemprop="dateModified" datetime="2019-11-25T17:07:48+08:00">2019-11-25</time>
               
             
           </span>
@@ -3452,7 +3409,7 @@ a {
 </ol>
 <h2 id="how"><a href="#how" class="headerlink" title="how"></a>how</h2><p>在Glibc中的qsort()事实上用了多种排序算法，源码中，qsort()会优化使用归并排序（各方面很稳定）来处理小数据量（比如1kb、2kb）的排序，虽然会多耗费内存空间，但是在数据量较小的情况下问题不大。当数据量变大（比如100mb）的时候，就会采用快排来处理排序。qsort在快排中选取分区点的方法是<strong>三数取中法</strong>。处理堆栈溢出的问题是采用<strong>堆上手动模拟栈</strong>。事实上，qsort不仅仅用到了归并和快排，还用到了快排，在快排中，当要排序的区间的元素个数小于等于4的时候，会采用插入排序。因为在处理小规模数据时，O(n^2)的时间复杂度不一定比O(n*logn)高。</p>
 <hr>
-<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+
       
     </div>
 
@@ -3463,49 +3420,10 @@ a {
     
 
     
-      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
-  <div>学习交流</div>
-</div>
-
-    
 
     
       
     
-    
-      <div>
-        <div id="reward-container">
-  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -3521,7 +3439,7 @@ a {
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>王仁松</li>
+    <strong>本文作者： </strong>Ryan</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
@@ -3621,9 +3539,9 @@ a {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+              <img class="site-author-image" itemprop="image" src="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg" alt="Ryan">
             
-              <p class="site-author-name" itemprop="name">王仁松</p>
+              <p class="site-author-name" itemprop="name">Ryan</p>
               <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
           </div>
 
@@ -3634,7 +3552,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3681,7 +3599,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3756,7 +3676,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3855,7 +3777,7 @@ a {
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">王仁松</span>
+  <span class="author" itemprop="copyrightHolder">Ryan</span>
 
   
 

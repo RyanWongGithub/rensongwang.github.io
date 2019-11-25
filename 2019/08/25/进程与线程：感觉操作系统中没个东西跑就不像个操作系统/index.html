@@ -93,16 +93,16 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="进程与线程：感觉操作系统中没个东西跑就不像个操作系统">
 <meta property="og:url" content="http://rensongwang.xyz/2019/08/25/进程与线程：感觉操作系统中没个东西跑就不像个操作系统/index.html">
-<meta property="og:site_name" content="rensong's blog">
+<meta property="og:site_name" content="Ryan's blog">
 <meta property="og:description" content="学到后面，发现有点围绕进程转的意思？之前困扰我很久甚至至今还有一些疑惑的虚拟内存也是为其服务的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/Linux%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84.png">
-<meta property="og:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E8%BF%9B%E7%A8%8B%E7%BB%93%E6%9E%84.JPG">
-<meta property="og:updated_time" content="2019-08-26T02:16:36.601Z">
+<meta property="og:image" content="http://rensongwang.gitee.io/my_drawing_bed/Linux是如何组织虚拟内存的.png">
+<meta property="og:image" content="http://rensongwang.gitee.io/my_drawing_bed/进程结构.JPG">
+<meta property="og:updated_time" content="2019-11-25T09:08:57.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程与线程：感觉操作系统中没个东西跑就不像个操作系统">
 <meta name="twitter:description" content="学到后面，发现有点围绕进程转的意思？之前困扰我很久甚至至今还有一些疑惑的虚拟内存也是为其服务的。">
-<meta name="twitter:image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/Linux%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84.png">
+<meta name="twitter:image" content="http://rensongwang.gitee.io/my_drawing_bed/Linux是如何组织虚拟内存的.png">
 
 
 
@@ -120,7 +120,7 @@
   };
 </script>
 
-  <title>进程与线程：感觉操作系统中没个东西跑就不像个操作系统 | rensong's blog</title>
+  <title>进程与线程：感觉操作系统中没个东西跑就不像个操作系统 | Ryan's blog</title>
   
 
 
@@ -1788,49 +1788,6 @@ pre .javascript .function {
 .fancybox-close:hover {
   border: none;
 }
-#reward-container {
-  padding: 10px 0;
-  margin: 20px auto;
-  width: 90%;
-  text-align: center;
-}
-#reward-button {
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  display: inline-block;
-  vertical-align: text-top;
-  margin: 0;
-  padding: 0 15px;
-  border-radius: 5px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 16px;
-  color: #fff;
-  background: #f44336;
-  letter-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-}
-#reward-button span:hover {
-  background: #f7877f;
-}
-#qr {
-  padding-top: 20px;
-}
-#qr a {
-  border: 0;
-}
-#qr img {
-  width: 180px;
-  max-width: 100%;
-  display: inline-block;
-  margin: 0.8em 2em 0 2em;
-}
-#qr p {
-  text-align: center;
-}
 .post-copyright {
   margin: 2em 0 0;
   padding: 0.5em 1em;
@@ -1977,7 +1934,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b6b1ff;
+  background: #a6ff45;
 }
 .feed-link,
 .chat {
@@ -2988,7 +2945,7 @@ body {
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
 }
 .header {
-  background: url("https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/rick-and-morty-wallpaper-1024x576.jpg");
+  background: url("http://rensongwang.gitee.io/my_drawing_bed/bkground1920x1080.jpg");
   padding: 8px 0px;
 }
 .site-meta {
@@ -3157,7 +3114,7 @@ a {
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">rensong's blog</span>
+        <span class="site-title">Ryan's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -3317,13 +3274,13 @@ a {
     <link itemprop="mainEntityOfPage" href="http://rensongwang.xyz/2019/08/25/进程与线程：感觉操作系统中没个东西跑就不像个操作系统/">
 
     <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王仁松">
+      <meta itemprop="name" content="Ryan">
       <meta itemprop="description" content="<br>亦凡<br> 不凡<br>">
-      <meta itemprop="image" content="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg">
+      <meta itemprop="image" content="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg">
     </span>
 
     <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="rensong's blog">
+      <meta itemprop="name" content="Ryan's blog">
     </span>
 
     
@@ -3374,7 +3331,7 @@ a {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-26 10:16:36" itemprop="dateModified" datetime="2019-08-26T10:16:36+08:00">2019-08-26</time>
+                <time title="修改时间：2019-11-25 17:08:57" itemprop="dateModified" datetime="2019-11-25T17:08:57+08:00">2019-11-25</time>
               
             
           </span>
@@ -3460,7 +3417,7 @@ a {
 <p>EXIT_DEAD是进程的最终状态。<br>与进程运行、调度相关的还有<strong>标志、进程调度的字段</strong>，这里就不详细说了，并没有深入了解，重点是了解一下进程在底层的一个大概情况。</p>
 <p>当然，还有<strong>运行统计信息、亲缘关系、进程权限等</strong>，进程权限我专门有一篇博文就是将进程权限的。</p>
 <p>下面重点。</p>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>每个进程都有自己独立的虚拟内存空间，这需要有一个数据结构来表示，就是mm_struct。<br>这个在虚拟内存的博文中有介绍，主要就是进程将虚拟内存空间划分成了一个一个的区域：<br><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/Linux%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84.png"><br>mm_struct的pgd指针指向进程的一级页表的基地址。mmap指针，指向vm_area_struct链表。<br>vm_area_struct描述area的结构，也就是一个具体区域。包含下面的字段：</p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>每个进程都有自己独立的虚拟内存空间，这需要有一个数据结构来表示，就是mm_struct。<br>这个在虚拟内存的博文中有介绍，主要就是进程将虚拟内存空间划分成了一个一个的区域：<br><img src="http://rensongwang.gitee.io/my_drawing_bed/Linux是如何组织虚拟内存的.png"><br>mm_struct的pgd指针指向进程的一级页表的基地址。mmap指针，指向vm_area_struct链表。<br>vm_area_struct描述area的结构，也就是一个具体区域。包含下面的字段：</p>
 <ul>
 <li>vm_start：表示area的开始位置</li>
 <li>vm_end：表示area的结束位置</li>
@@ -3470,9 +3427,9 @@ a {
 </ul>
 <h3 id="文件和文件系统"><a href="#文件和文件系统" class="headerlink" title="文件和文件系统"></a>文件和文件系统</h3><p>这里主要说一说进程的打开文件表结构，首先是一个<strong>打开文件描述符表</strong>，记录着这个进程打开的所有文件描述符，对应的每一个文件描述符又指向一个<strong>打开文件表项</strong>，是一些关于目前打开文件的一些信息，比如说当前偏移量，这个打开文件表项有一个内容又是指向一个<strong>v-node表</strong>，记录着这个文件的全局信息，比如说是文件长度。<br>也就是说多个进程可以打开同一个文件，它们的文件描述符不同，各自也都有一个<strong>打开文件表项</strong>，但是同一个文件所有的<br><strong>打开文件表项</strong>都只有一个v-node表，把打开文件表项设计成多个进程有个的目的在于<strong>不同的进程打开同一个文件有不同的偏移量。</strong><br><strong>另外，如果n个进程共享一个描述符，那么对应的文件描述符指向的打开文件表项中的引用计数会是n，而相应的打开文件只有在引用计数为0时才会关闭相应的资源。</strong></p>
 <p>具体的图我后面再放吧。</p>
-<h2 id="总结图"><a href="#总结图" class="headerlink" title="总结图"></a>总结图</h2><p>这里放一张总结图。<br><img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/%E8%BF%9B%E7%A8%8B%E7%BB%93%E6%9E%84.JPG"></p>
+<h2 id="总结图"><a href="#总结图" class="headerlink" title="总结图"></a>总结图</h2><p>这里放一张总结图。<br><img src="http://rensongwang.gitee.io/my_drawing_bed/进程结构.JPG"></p>
 <hr>
-<div align="center"><br>    <strong>本文作者</strong>：王仁松<br>    仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！<br></div>
+
       
     </div>
 
@@ -3483,49 +3440,10 @@ a {
     
 
     
-      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-qcode.jpg" alt="王仁松 wechat" style="width: 200px; max-width: 100%;">
-  <div>学习交流</div>
-</div>
-
-    
 
     
       
     
-    
-      <div>
-        <div id="reward-container">
-  <div>如果解决了你的问题或是你非常喜欢，可以支持一下哦！</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/wechat-reward.png" alt="王仁松 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-      
-      
-        
-      
-      <div style="display: inline-block">
-        <img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/alipay-reward.jpg" alt="王仁松 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -3541,7 +3459,7 @@ a {
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>王仁松</li>
+    <strong>本文作者： </strong>Ryan</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
@@ -3641,9 +3559,9 @@ a {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/autosong2.jpg" alt="王仁松">
+              <img class="site-author-image" itemprop="image" src="http://rensongwang.gitee.io/my_drawing_bed/autosong2.jpg" alt="Ryan">
             
-              <p class="site-author-name" itemprop="name">王仁松</p>
+              <p class="site-author-name" itemprop="name">Ryan</p>
               <div class="site-description motion-element" itemprop="description"><br>亦凡<br> 不凡<br></div>
           </div>
 
@@ -3654,7 +3572,7 @@ a {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3701,7 +3619,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3776,7 +3696,9 @@ a {
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3875,7 +3797,7 @@ a {
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">王仁松</span>
+  <span class="author" itemprop="copyrightHolder">Ryan</span>
 
   
 
