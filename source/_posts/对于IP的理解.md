@@ -21,8 +21,8 @@ IP是网络层的东西，实际上涉及到的内容很多，有很多知识点
 
 ip地址32位，4个8位。
 最初划分成5类。
-<img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/IP%E5%9C%B0%E5%9D%80%E5%88%86%E7%B1%BB.JPG">
-<img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/ABC%E7%B1%BBIP%E5%9C%B0%E5%9D%80%E8%8C%83%E5%9B%B4.JPG">
+<img src="http://rensongwang.gitee.io/my_drawing_bed/IP地址分类.JPG">
+<img src="http://rensongwang.gitee.io/my_drawing_bed/ABC类IP地址范围.JPG">
 
 大体上不变的是网络号+主机号，可以看到B类地址的主机号范围可以达到65534，而C类可用的就只有254，又太少了。
 
@@ -74,7 +74,3 @@ ip地址32位，4个8位。
 
 --- 
 
-<div align="center">
-	**本文作者**：王仁松
-	仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！
-</div>

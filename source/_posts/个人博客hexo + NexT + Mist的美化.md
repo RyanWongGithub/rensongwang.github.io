@@ -231,7 +231,7 @@ scrollpercent: true
 在主题文件中搜索busuanzi_count，设置：
 enable: true
 
-#### 打赏功能
+#### 打赏功能(目前已关闭)
 在主题文件中搜索reward_settings，设置：
 enable: true
 再把你的收款二维码放到images/，然后设置：
@@ -256,7 +256,7 @@ note:
 
 #### Label 标签
 在主题配置文件中搜索# Label tag，设置
-label: trues
+label: true
 
 #### 文章的模板文件
 文章的模板文件在scaffolds/post.md里改，每次new了之后会生成模板
@@ -280,7 +280,7 @@ highlight:
 ```
 在\`\`\`后面加上你要高亮的语言，如C++
 
-#### 订阅微信公众号
+#### 订阅微信公众号(目前已关闭)
 在主题文件中搜索Wechat Subscriber，设置如下：
 ```bash
 wechat_subscriber:
@@ -461,7 +461,3 @@ css样式后期改动会更新。
 ---
 ---
 
-<div align="center">
-	**本文作者**：王仁松
-	仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！
-</div>

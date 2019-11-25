@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: rensong's blog
+title: Ryan's blog
 subtitle: 
-description: <br>The World Without End<br>
-         And that's just the beginning<br>
+description: <br>亦凡<br>
+         不凡<br>
 keywords:
-author: 王仁松
+author: Ryan
 language: zh-CN
 timezone:
 
@@ -82,7 +82,7 @@ deploy:
   type: git
   repo: 
     github: https://github.com/rensongwang/rensongwang.github.io.git
-    coding: https://git.dev.tencent.com/rensongwang/rensongwang.conding.me.git
+    #coding: https://git.dev.tencent.com/rensongwang/rensongwang.conding.me.git
 
   brench: master
 

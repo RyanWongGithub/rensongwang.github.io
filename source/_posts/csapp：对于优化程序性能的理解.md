@@ -51,7 +51,7 @@ for(i = 0; i < limit; i += 2)
 于是，
 r = r \* ((x \* y) \* z)：
 
-<img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/xyz.PNG" align="left">
+<img src="http://rensongwang.gitee.io/my_drawing_bed/xyz.PNG" align="left">
 <br><br><br><br><br><br><br><br><br><br><br>	
 
 
@@ -70,7 +70,3 @@ r = r \* ((x \* y) \* z)：
 
 ---
 
-<div align="center">
-	**本文作者**：王仁松
-	仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！
-</div>

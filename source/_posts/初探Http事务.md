@@ -35,7 +35,7 @@ Web服务器以两种方式来向客户端提供内容：
 ## HTTP事务
 HTTP是基于网络连接上传送的文本行的。在此我们用Linux的telnet程序来和因特网上的任何Web服务器进行Http事务。
 如图：
-<img src="https://myblog-1259049552.cos.ap-shanghai.myqcloud.com/HTTP%E4%BA%8B%E5%8A%A1.png">
+<img src="http://rensongwang.gitee.io/my_drawing_bed/HTTP事务.png">
 
 在进行HTTP事务之前，肯定是要先与服务器建立连接的，所以要注意：
 **在浏览器地址栏输入URL之后，通过DNS解析出IP地址之后不是马上就发送HTTP请求，得先建立连接才行**。
@@ -87,7 +87,3 @@ GET /cgi-bin/adder?15000&213 HTTP/1.1
 
 --- 
 
-<div align="center">
-	**本文作者**：王仁松
-	仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！
-</div>

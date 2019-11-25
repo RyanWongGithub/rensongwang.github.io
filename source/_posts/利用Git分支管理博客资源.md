@@ -124,7 +124,3 @@ and have 1 and 2 different commits each, respectively.
 后期更新或另起博文。
 --- 
 
-<div align="center">
-	**本文作者**：王仁松
-	仅供本人记录学习过程与学习交流之用，未经同意，禁止转载！
-</div>
